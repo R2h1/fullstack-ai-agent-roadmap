@@ -1,8 +1,22 @@
 ---
-chapter: 03
-week: 02
-duration: 7天
+title: W02  CSS 基础与 Flex/Grid
+type: weekly-tutorial
+chapter: "03"
+chapter_title: HTML / CSS 现代 Web
+order: 3
+week: 2
+duration: 7 天
+prerequisites:
+  - W01
+goals:
+  - 能不查文档写出居中、两栏、三栏、卡片网格等任意布局。
+outputs:
+  - 仿 GitHub 主页
 tags: [CSS, 选择器, 盒模型, Flexbox, Grid, 响应式]
+prev: "[[W01-HTML5与可访问性]]"
+next: "[[W03-CSS进阶与动画]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W02 · CSS 基础与 Flex/Grid

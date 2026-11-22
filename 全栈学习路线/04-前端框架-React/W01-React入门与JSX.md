@@ -1,8 +1,20 @@
 ---
-chapter: 04
+title: W01 React 入门与 JSX
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 2
 week: 1
-duration: 7d
+duration: 7 天
+difficulty: ⭐⭐
+prerequisites: []
+outputs:
+  - 计算器 + Todo
 tags: [react, jsx, vite, typescript, components, props]
+prev: "[[04-React总纲]]"
+next: "[[W02-Hooks全集]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
  
 # W01 React 入门与 JSX

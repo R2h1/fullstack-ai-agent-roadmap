@@ -1,13 +1,21 @@
 ---
-chapter: 06
-week: 01
 title: SQL 与 PostgreSQL
 type: weekly-tutorial
-prerequisites: [05-W06]
+chapter: "06"
+chapter_title: 数据库与工程化
+order: 2
+week: 1
 estimated_hours: 22
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - "[[全栈学习路线/05-后端开发-FastAPI-Node/W06-限流缓存日志]]"
+outputs:
+  - 50 道 SQL 题
 tags: [database, sql, postgresql, psql, joins, jsonb, window-function]
+prev: "[[06-数据库工程化总纲]]"
+next: "[[W02-索引事务锁]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 06 章 · 第 01 周 · SQL 与 PostgreSQL

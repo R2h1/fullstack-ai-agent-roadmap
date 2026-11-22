@@ -1,3 +1,17 @@
+---
+title: MRO 与 C3 线性化
+type: method-guide
+chapter: "01"
+chapter_title: Python 从零到源码
+order: 12
+prerequisites:
+  - W04
+tags: [Python, MRO, C3 线性化, 源码阅读]
+prev: "[[W10-CPython源码导读]]"
+next: "[[11-GitHub项目精选-Python]]"
+created: 2026-11-22
+updated: 2026-11-22
+---
 
 ## 一、MRO 是什么
 

@@ -1,8 +1,15 @@
 ---
 title: GitHub 项目精选 - 入门导航
-chapter: 00-学习方法论
-section: 05
+type: github-curation
+chapter: "00"
+chapter_title: 学习方法论
+order: 6
+difficulty: 🌱→🌲
 tags: [GitHub项目, 资源]
+prev: "[[04-VSCode与AI辅助编程]]"
+next: "[[06-费曼学习法与笔记系统]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # GitHub 项目精选 · 入门导航

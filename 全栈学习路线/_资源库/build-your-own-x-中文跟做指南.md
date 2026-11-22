@@ -1,9 +1,12 @@
 ---
 title: build-your-own-x 中文跟做指南
-type: 资源库 / 跟做手册
+type: resource-pack
+difficulty: ⭐⭐⭐⭐
 tags: [build-your-own-x, 造轮子, 源码级学习, codecrafters]
-难度: 进阶
-更新时间: 2026-06-19
+prev: "[[awesome-索引导航大全]]"
+next: "[[真实开源SaaS拆解]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # build-your-own-x 中文跟做指南

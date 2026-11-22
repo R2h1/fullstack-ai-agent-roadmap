@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W01
 title: Agent 全景与 5 大模式
-date: 2026-06-19
-tags: [agent, anthropic, building-effective-agents, 全景]
-prereq: [07-LLM基础完成]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 2
+week: 1
 estimated_hours: 14
-difficulty: ★★★☆☆
+difficulty: ⭐⭐⭐
+prerequisites:
+  - "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
+outputs:
+  - 5 个 demo
+tags: [agent, anthropic, building-effective-agents, 全景]
+prev: "[[08-Agent总纲]]"
+next: "[[W02-手写Agent不用框架]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W01 · Agent 全景与 5 大模式

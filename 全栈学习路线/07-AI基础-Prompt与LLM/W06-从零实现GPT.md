@@ -1,11 +1,23 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W06
 title: 从零实现 GPT
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 7
+week: 6
 duration: 10-14 天
-prereq: W01-W05、Python、基础线性代数
-goal: 在 M1/M2 Mac 上从零写出能模仿莎士比亚的小 GPT，建立 LLM 终极心智模型
+prerequisites:
+  - W01-W05
+  - Python 基础
+  - 基础线性代数
+goals:
+  - 在 M1/M2 Mac 上从零写出能模仿莎士比亚的小 GPT，建立 LLM 终极心智模型
+outputs:
+  - mini-GPT
 tags: [transformer, attention, pytorch, nanogpt, from-scratch]
+prev: "[[W05-评测与LLM-as-Judge]]"
+next: "[[07-GitHub项目精选-LLM学习]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

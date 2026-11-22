@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W04
 title: LangGraph 进阶
-date: 2026-06-19
-tags: [langgraph, subgraph, checkpointer, human-in-the-loop, streaming, studio]
-prereq: [W03-LangGraph入门]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 5
+week: 4
 estimated_hours: 18
-difficulty: ★★★★★
+difficulty: ⭐⭐⭐⭐⭐
+prerequisites:
+  - W03
+outputs:
+  - 客服 Agent
+tags: [langgraph, subgraph, checkpointer, human-in-the-loop, streaming, studio]
+prev: "[[W03-LangGraph入门]]"
+next: "[[W05-MCP协议详解]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W04 · LangGraph 进阶

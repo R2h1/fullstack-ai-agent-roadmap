@@ -1,9 +1,14 @@
 ---
 title: GitHub 项目精选 · React 生态
-chapter: 04
-type: resource-pack
-tags: [github, react, nextjs, zustand, tanstack, react-hook-form, 项目精选]
+type: github-curation
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 12
 difficulty: 🌱→🌲
+tags: [github, react, nextjs, zustand, tanstack, react-hook-form, 项目精选]
+prev: "[[W10-手写mini-react-v2]]"
+next: "[[全栈学习路线/05-后端开发-FastAPI-Node/05-后端总纲]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

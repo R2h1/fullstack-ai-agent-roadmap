@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W02
 title: 手写 Agent，不用框架
-date: 2026-06-19
-tags: [agent, from-scratch, anthropic-sdk, tool-use, mini-agent]
-prereq: [W01-Agent全景与5模式]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 3
+week: 2
 estimated_hours: 18
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W01
+outputs:
+  - mini-agent
+tags: [agent, from-scratch, anthropic-sdk, tool-use, mini-agent]
+prev: "[[W01-Agent全景与5模式]]"
+next: "[[W03-LangGraph入门]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W02 · 手写 Agent，不用框架

@@ -1,11 +1,21 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W02
 title: Prompt 工程进阶
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 3
+week: 2
 duration: 7 天
-prereq: W01 LLM 全景与 API
-goal: 从"能让模型回答"升级到"能精确控制模型输出"，建立 20+ 高质量 prompt 模板库
+prerequisites:
+  - W01
+goals:
+  - 从"能让模型回答"升级到"能精确控制模型输出"，建立 20+ 高质量 prompt 模板库
+outputs:
+  - 复杂任务 prompt
 tags: [prompt, cot, few-shot, structured-output, jailbreak]
+prev: "[[W01-LLM全景与API]]"
+next: "[[W03-Function-Calling与Tool-Use]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

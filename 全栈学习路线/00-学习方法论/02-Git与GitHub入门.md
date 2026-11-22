@@ -1,9 +1,15 @@
 ---
 title: Git 与 GitHub 入门
-chapter: 00
-section: 02
+type: method-guide
+chapter: "00"
+chapter_title: 学习方法论
+order: 3
 duration: 4-6 小时
 tags: [Git, GitHub, 版本控制, SSH, PR, 协作]
+prev: "[[01-环境配置完全指南]]"
+next: "[[03-命令行终端基础]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # Git 与 GitHub 入门

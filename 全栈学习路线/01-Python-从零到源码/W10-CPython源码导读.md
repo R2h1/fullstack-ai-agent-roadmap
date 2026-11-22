@@ -1,10 +1,26 @@
 ---
 title: W10 - CPython 源码导读
-chapter: 01
+type: weekly-tutorial
+chapter: "01"
+chapter_title: Python 从零到源码
+order: 11
 week: 10
-duration: 7 天 / 每天 2 小时
-prerequisite: 完成 W01-W09，对 list/dict/字节码有基本了解，会一点 C
+duration: 7 天
+daily_hours: "2"
+difficulty: ⭐⭐⭐⭐⭐
+prerequisites:
+  - W01-W09
+  - 对 list / dict / 字节码有基本了解
+  - 会一点 C
+goals:
+  - 打开 CPython 的"引擎盖"。理解 list 为什么扩容是 1.125 倍、dict 怎么保持插入顺序、GIL 的代码长什么样、引用计数 + 分代 GC 怎么协作。最终写一篇 2000 字博客，解释 list 扩容策略。
+outputs:
+  - 源码笔记
 tags: [python, cpython, 源码, 字节码, 内存管理, gil]
+prev: "[[W09-工程化与发布]]"
+next: "[[MRO 与 C3 线性化]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W10 · CPython 源码导读 🔬

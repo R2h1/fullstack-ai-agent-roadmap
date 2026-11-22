@@ -1,19 +1,22 @@
 ---
 title: MVP 开发流程
-chapter: 09-综合实战-毕业项目
-week: 3-8
-stage: 毕业项目
+type: stage-doc
+chapter: "09"
+chapter_title: 综合实战 · 毕业项目
+order: 4
+stage: 3
 duration: 4-6 周
 prerequisites:
-  - 完成 [[02-架构设计与技术选型]]，已有 RFC
+  - "[[全栈学习路线/09-综合实战-毕业项目/02-架构设计与技术选型]]"
+  - 已有 RFC
 outputs:
   - 可上线的 MVP（功能完整、有部署、有监控）
   - 6 周日报 / 周报
   - GitHub 仓库（commits + PR + Issues）
-tags:
-  - MVP
-  - 项目管理
-  - 工程实践
+tags: [MVP, 项目管理, 工程实践]
+prev: "[[02-架构设计与技术选型]]"
+next: "[[04-发布与冷启动]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

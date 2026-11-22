@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W03
 title: LangGraph 入门
-date: 2026-06-19
-tags: [langgraph, langchain, state-machine, agent-framework]
-prereq: [W02-手写Agent不用框架]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 4
+week: 3
 estimated_hours: 16
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W02
+outputs:
+  - LangGraph 基础
+tags: [langgraph, langchain, state-machine, agent-framework]
+prev: "[[W02-手写Agent不用框架]]"
+next: "[[W04-LangGraph进阶]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W03 · LangGraph 入门

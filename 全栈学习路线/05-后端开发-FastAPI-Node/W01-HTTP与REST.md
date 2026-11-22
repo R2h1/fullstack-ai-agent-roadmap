@@ -1,15 +1,25 @@
 ---
-week: 1
-chapter: 05-后端开发
 title: HTTP 与 REST
+type: weekly-tutorial
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 2
+week: 1
 duration: 1 周
-prerequisites: [Python, JS 基础]
+prerequisites:
+  - Python
+  - JS 基础
 goals:
   - 彻底理解 HTTP 请求/响应模型
   - 掌握 9 大方法、常见状态码、关键 Headers
   - 看懂并能写 OpenAPI 3.1 规范
   - 用 curl/HTTPie 调试任意 REST API
+outputs:
+  - 第一个 API
+prev: "[[05-后端总纲]]"
+next: "[[W02-FastAPI入门]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W01 · HTTP 与 REST：所有后端的"母语"

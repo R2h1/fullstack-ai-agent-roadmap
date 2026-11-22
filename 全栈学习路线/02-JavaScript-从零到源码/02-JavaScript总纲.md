@@ -1,9 +1,17 @@
 ---
 title: 第 02 章 - JavaScript 从零到源码
-chapter: 02
+type: chapter-outline
+chapter: "02"
+chapter_title: JavaScript 从零到源码
+order: 1
 duration: 10 周
-prerequisite: [[01-Python-从零到源码/01-Python总纲]]
+prerequisites:
+  - "[[全栈学习路线/01-Python-从零到源码/01-Python总纲]]"
 tags: [JavaScript, 前端, 源码级]
+prev: "[[全栈学习路线/01-Python-从零到源码/11-GitHub项目精选-Python]]"
+next: "[[W01-语法与类型]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 02 章 · JavaScript 从零到源码（10 周）

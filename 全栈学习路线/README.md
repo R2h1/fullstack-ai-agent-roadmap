@@ -1,10 +1,14 @@
 ---
 title: 全栈 + AI Agent 学习路线总览
-created: 2026-06-19
-status: in-progress
+type: overview
 target: 零基础 → 源码级精通
-预计周期: 12-18 个月（每天 3-4 小时）
+duration: 12-18 个月
+daily_hours: 3-4
 tags: [学习路线, 全栈, AI-Agent, 总览]
+next: "[[INDEX]]"
+status: in-progress
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # 🚀 全栈 + AI Agent 源码级学习路线

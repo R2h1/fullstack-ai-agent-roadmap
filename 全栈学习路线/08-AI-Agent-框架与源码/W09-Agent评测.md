@@ -1,11 +1,19 @@
 ---
 title: W09 Agent 评测
-chapter: 08-AI-Agent-框架与源码
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 10
 week: 9
-date: 2026-06-19
+prerequisites:
+  - W08
+outputs:
+  - 评测系统
 tags: [agent, evaluation, benchmark, swe-bench, gaia, langsmith]
 prev: "[[W08-浏览器与Computer-Use]]"
 next: "[[W10-可观测性]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W09 Agent 评测

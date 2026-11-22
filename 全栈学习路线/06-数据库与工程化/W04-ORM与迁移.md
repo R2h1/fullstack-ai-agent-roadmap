@@ -1,13 +1,21 @@
 ---
-chapter: 06
-week: 04
 title: ORM 与迁移
 type: weekly-tutorial
-prerequisites: [06-W03]
+chapter: "06"
+chapter_title: 数据库与工程化
+order: 5
+week: 4
 estimated_hours: 20
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W03
+outputs:
+  - 重构 05 章项目
 tags: [orm, sqlalchemy, alembic, migration, n+1, drizzle, prisma]
+prev: "[[W03-Redis全集]]"
+next: "[[W05-向量数据库与全文搜索]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 06 章 · 第 04 周 · ORM 与迁移

@@ -1,12 +1,21 @@
 ---
 title: W09 - TypeScript 完全指南
-chapter: 02-JavaScript
+type: weekly-tutorial
+chapter: "02"
+chapter_title: JavaScript 从零到源码
+order: 10
 week: 9
-difficulty: ⭐⭐⭐⭐⭐
 estimated_hours: 18
+difficulty: ⭐⭐⭐⭐⭐
+prerequisites:
+  - W08
+outputs:
+  - 类型体操 30 题
 tags: [TypeScript, 类型系统, 泛型, 类型体操]
-prerequisites: [W08-模块系统与工程化]
+prev: "[[W08-模块系统与工程化]]"
+next: "[[W10-V8引擎与性能优化]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W09 - TypeScript 完全指南 🛡️

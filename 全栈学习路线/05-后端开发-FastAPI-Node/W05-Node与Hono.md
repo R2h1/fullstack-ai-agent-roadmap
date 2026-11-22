@@ -1,14 +1,24 @@
 ---
-week: 5
-chapter: 05-后端开发
 title: Node 与 Hono
+type: weekly-tutorial
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 6
+week: 5
 duration: 1 周
-prerequisites: [JS / TS 基础, W02]
+prerequisites:
+  - JS / TS 基础
+  - W02
 goals:
   - 理解 Node 事件循环与 libuv
   - 熟悉 Express / Fastify / Hono / Elysia 现代生态
   - 用 Hono + Drizzle 实现一份与 FastAPI 等价的 API
+outputs:
+  - 同款 API
+prev: "[[W04-WebSocket与SSE]]"
+next: "[[W06-限流缓存日志]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W05 · Node 与 Hono：另一种"母语"，同一种工艺

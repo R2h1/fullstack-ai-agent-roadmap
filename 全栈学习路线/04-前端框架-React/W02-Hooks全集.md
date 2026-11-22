@@ -1,8 +1,21 @@
 ---
-chapter: 04
+title: W02 Hooks 全集
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 3
 week: 2
-duration: 7d
+duration: 7 天
+difficulty: ⭐⭐⭐
+prerequisites:
+  - W01
+outputs:
+  - 数据看板
 tags: [react, hooks, useState, useEffect, useMemo, useRef, useReducer, useContext]
+prev: "[[W01-React入门与JSX]]"
+next: "[[W03-自定义Hook与Context]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W02 Hooks 全集

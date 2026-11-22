@@ -1,10 +1,24 @@
 ---
 title: W08 - 类型系统与 Pydantic
-chapter: 01
+type: weekly-tutorial
+chapter: "01"
+chapter_title: Python 从零到源码
+order: 9
 week: 8
-duration: 7 天 / 每天 1.5 小时
-prerequisite: 完成 W03（函数）+ W04（OOP / dataclass）
+duration: 7 天
+daily_hours: 1.5
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W03-W04
+goals:
+  - 让你的代码"自带说明书"。读 100 行别人的代码，从看 5 分钟变看 30 秒；从"运行时炸了"变"写代码时 IDE 就标红"；学会用 **Pydantic** 优雅地校验输入数据。
+outputs:
+  - 类型化重构
 tags: [python, 类型注解, typing, mypy, pydantic, 工程化]
+prev: "[[W07-并发与异步]]"
+next: "[[W09-工程化与发布]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W08 · 类型系统与 Pydantic 📐

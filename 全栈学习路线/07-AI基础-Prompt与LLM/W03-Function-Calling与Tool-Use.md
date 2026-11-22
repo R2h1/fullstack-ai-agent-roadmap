@@ -1,11 +1,21 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W03
 title: Function Calling 与 Tool Use
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 4
+week: 3
 duration: 7 天
-prereq: W01 API、W02 Prompt 工程
-goal: 让 LLM 不仅会说话，还会调用真实工具——查天气、算账、发邮件，并稳健处理失败、并行与依赖
+prerequisites:
+  - W01-W02
+goals:
+  - 让 LLM 不仅会说话，还会调用真实工具——查天气、算账、发邮件，并稳健处理失败、并行与依赖
+outputs:
+  - 工具调用 demo
 tags: [tool-use, function-calling, anthropic, react]
+prev: "[[W02-Prompt工程进阶]]"
+next: "[[W04-RAG完整实现]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

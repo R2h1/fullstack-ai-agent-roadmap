@@ -1,8 +1,22 @@
 ---
-chapter: 03
-week: 04
-duration: 7天
+title: W04  Tailwind 与渲染原理
+type: weekly-tutorial
+chapter: "03"
+chapter_title: HTML / CSS 现代 Web
+order: 5
+week: 4
+duration: 7 天
+prerequisites:
+  - W03
+goals:
+  - 用 Tailwind 一天写完一周的页面 + 看懂浏览器是怎么把 HTML 变成像素的。
+outputs:
+  - 仿 Linear / Stripe 落地页
 tags: [Tailwind, shadcn, 浏览器渲染, 性能优化, Lighthouse]
+prev: "[[W03-CSS进阶与动画]]"
+next: "[[05-GitHub项目精选-CSS与设计]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W04 · Tailwind 与渲染原理

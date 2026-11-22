@@ -1,10 +1,25 @@
 ---
 title: W02 函数与 this
-chapter: 02
+type: weekly-tutorial
+chapter: "02"
+chapter_title: JavaScript 从零到源码
+order: 3
 week: 2
-duration: 7 天 / 每天 2-3 小时
-prerequisite: W01 已掌握；能在 Node 跑代码
+duration: 7 天
+daily_hours: 2-3
+difficulty: ⭐⭐⭐
+prerequisites:
+  - W01
+  - 能在 Node 跑代码
+goals:
+  - 把 JS 函数玩明白。重点是 `this` 的 5 种绑定（这是 JS 区别于 Python 的最大坑），以及箭头函数为何不绑 this。结束时你应该能手写 `myCall / myApply / myBind`。
+outputs:
+  - 手写 bind
 tags: [JavaScript, 函数, this, 箭头函数, 高阶函数]
+prev: "[[W01-语法与类型]]"
+next: "[[W03-闭包与作用域]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W02 - 函数与 this

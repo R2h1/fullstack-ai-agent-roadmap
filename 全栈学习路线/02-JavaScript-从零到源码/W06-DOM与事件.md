@@ -1,12 +1,21 @@
 ---
 title: W06 - DOM 与事件
-chapter: 02-JavaScript
+type: weekly-tutorial
+chapter: "02"
+chapter_title: JavaScript 从零到源码
+order: 7
 week: 6
-difficulty: ⭐⭐⭐
 estimated_hours: 14
+difficulty: ⭐⭐⭐
+prerequisites:
+  - W05
+outputs:
+  - 手写事件委托/拖拽
 tags: [JavaScript, DOM, BOM, 事件, 防抖, 节流, 事件委托]
-prerequisites: [W05-异步与Promise]
+prev: "[[W05-异步与事件循环]]"
+next: "[[W07-ES6进阶特性]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W06 - DOM 与事件 🌳

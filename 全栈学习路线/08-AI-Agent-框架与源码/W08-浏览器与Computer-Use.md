@@ -1,11 +1,19 @@
 ---
 title: W08 浏览器与 Computer Use
-chapter: 08-AI-Agent-框架与源码
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 9
 week: 8
-date: 2026-06-19
+prerequisites:
+  - W07
+outputs:
+  - 自动化助手
 tags: [agent, browser-use, computer-use, playwright, anthropic]
 prev: "[[W07-多Agent协作]]"
 next: "[[W09-Agent评测]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W08 浏览器与 Computer Use

@@ -1,8 +1,21 @@
 ---
-chapter: 04
+title: W03 自定义 Hook 与 Context
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 4
 week: 3
-duration: 7d
+duration: 7 天
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W02
+outputs:
+  - 主题/i18n/Auth Hook
 tags: [react, custom-hook, context, theme, i18n, auth, dark-mode]
+prev: "[[W02-Hooks全集]]"
+next: "[[W04-状态管理与数据获取]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W03 自定义 Hook 与 Context

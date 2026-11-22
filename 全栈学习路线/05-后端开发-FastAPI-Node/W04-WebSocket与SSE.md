@@ -1,14 +1,23 @@
 ---
-week: 4
-chapter: 05-后端开发
 title: WebSocket 与 SSE
+type: weekly-tutorial
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 5
+week: 4
 duration: 1 周
-prerequisites: [W02, W03]
+prerequisites:
+  - W02-W03
 goals:
   - 理解长连接选型与实现
   - 用 FastAPI 写 WebSocket 聊天 + Redis 跨进程
   - 写 SSE 流式 AI 回复接口
+outputs:
+  - 实时通知
+prev: "[[W03-认证授权]]"
+next: "[[W05-Node与Hono]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W04 · WebSocket 与 SSE：让服务端"主动说话"

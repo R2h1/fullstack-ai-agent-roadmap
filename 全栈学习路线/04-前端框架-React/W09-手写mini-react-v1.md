@@ -1,8 +1,21 @@
 ---
-chapter: 04
-week: 09
-duration: 7天
+title: W09  手写 mini-react v1（Fiber 核心）
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 10
+week: 9
+duration: 7 天
+difficulty: ⭐⭐⭐⭐⭐
+prerequisites:
+  - W08
+outputs:
+  - mini-react
 tags: [react, fiber, mini-react, jsx, reconciler, scheduler, requestIdleCallback]
+prev: "[[W08-性能优化]]"
+next: "[[W10-手写mini-react-v2]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W09 · 手写 mini-react v1（Fiber 核心）

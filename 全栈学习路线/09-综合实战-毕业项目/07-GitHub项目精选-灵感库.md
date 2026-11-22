@@ -1,18 +1,17 @@
 ---
 title: GitHub 项目精选 - 灵感库
-chapter: "09-综合实战-毕业项目"
-order: 7
-tags:
-  - GitHub
-  - 模板仓库
-  - 开源
-  - 毕业项目
-  - 灵感
-created: 2026-06-19
-updated: 2026-06-19
+type: github-curation
+chapter: "09"
+chapter_title: 综合实战 · 毕业项目
+order: 8
+reading_minutes: 40
+difficulty: ⭐⭐⭐
+tags: [GitHub, 模板仓库, 开源, 毕业项目, 灵感]
+prev: "[[06-真实毕业项目案例库]]"
+next: "[[全栈学习路线/_资源库/资源总览]]"
 status: active
-难度: ⭐⭐⭐
-预计阅读: 40min
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # GitHub 项目精选 - 灵感库

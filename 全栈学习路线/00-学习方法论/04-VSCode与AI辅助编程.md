@@ -1,9 +1,15 @@
 ---
 title: VSCode 与 AI 辅助编程
-chapter: 00
-section: 04
+type: method-guide
+chapter: "00"
+chapter_title: 学习方法论
+order: 5
 duration: 3-5 小时
 tags: [VSCode, IDE, Cursor, Claude, AI, 提示词, 调试]
+prev: "[[03-命令行终端基础]]"
+next: "[[05-GitHub项目精选-入门导航]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # VSCode 与 AI 辅助编程

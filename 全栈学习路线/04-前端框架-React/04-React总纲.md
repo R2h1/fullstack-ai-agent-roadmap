@@ -1,9 +1,17 @@
 ---
 title: 第 04 章 - React 从使用到源码
-chapter: 04
+type: chapter-outline
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 1
 duration: 10 周
-prerequisite: [[03-HTML-CSS-现代Web/03-HTML-CSS总纲]]
+prerequisites:
+  - "[[全栈学习路线/03-HTML-CSS-现代Web/03-HTML-CSS总纲]]"
 tags: [React, 前端, 源码级]
+prev: "[[全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]]"
+next: "[[W01-React入门与JSX]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 04 章 · React 从使用到源码（10 周）

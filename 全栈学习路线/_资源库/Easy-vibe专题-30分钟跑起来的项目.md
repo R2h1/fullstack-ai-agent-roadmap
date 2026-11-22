@@ -1,9 +1,12 @@
 ---
 title: Easy-vibe 专题 - 30 分钟跑起来的项目
-type: 资源库 / 专题清单
+type: resource-pack
+difficulty: 🌱→🌲
 tags: [easy-vibe, 小项目, 顿悟, 源码学习, 练手]
-难度: 入门到进阶
-更新时间: 2026-06-19
+prev: "[[资源总览]]"
+next: "[[awesome-索引导航大全]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # Easy-vibe 专题：30 分钟跑起来的项目

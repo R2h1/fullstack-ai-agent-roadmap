@@ -1,8 +1,21 @@
 ---
-chapter: 03
-week: 01
-duration: 7天
+title: W01  HTML5 与可访问性
+type: weekly-tutorial
+chapter: "03"
+chapter_title: HTML / CSS 现代 Web
+order: 2
+week: 1
+duration: 7 天
+prerequisites: []
+goals:
+  - 能从零写出**结构清晰、对搜索引擎和盲人用户都友好**的网页。
+outputs:
+  - 个人简历页
 tags: [HTML5, 语义化, 表单, 可访问性, SEO]
+prev: "[[03-HTML-CSS总纲]]"
+next: "[[W02-CSS基础与Flex-Grid]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W01 · HTML5 与可访问性

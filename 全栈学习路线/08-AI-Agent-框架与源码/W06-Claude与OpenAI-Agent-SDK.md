@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W06
 title: Claude 与 OpenAI Agent SDK
-date: 2026-06-19
-tags: [claude-agent-sdk, openai-agents-sdk, handoff, guardrail, hook, agent-sdk对比]
-prereq: [W05-MCP协议详解]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 7
+week: 6
 estimated_hours: 14
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W05
+outputs:
+  - 双框架 demo
+tags: [claude-agent-sdk, openai-agents-sdk, handoff, guardrail, hook, agent-sdk对比]
+prev: "[[W05-MCP协议详解]]"
+next: "[[W07-多Agent协作]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W06 · Claude Agent SDK 与 OpenAI Agents SDK

@@ -1,9 +1,17 @@
 ---
 title: 第 01 章 - Python 从零到源码
-chapter: 01
+type: chapter-outline
+chapter: "01"
+chapter_title: Python 从零到源码
+order: 1
 duration: 10 周
-prerequisite: [[00-学习方法论/00-如何高效学习编程]]
+prerequisites:
+  - "[[全栈学习路线/00-学习方法论/00-如何高效学习编程]]"
 tags: [Python, 后端, 源码级]
+prev: "[[全栈学习路线/00-学习方法论/07-反向工程别人的代码]]"
+next: "[[W01-语法基础]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 01 章 · Python 从零到源码（10 周）

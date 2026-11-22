@@ -1,14 +1,23 @@
 ---
-week: 8
-chapter: 05-后端开发
 title: Docker 与部署
+type: weekly-tutorial
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 9
+week: 8
 duration: 1 周
-prerequisites: [W02-W07]
+prerequisites:
+  - W02-W07
 goals:
   - 写出生产级 Dockerfile（多阶段 + 缓存友好）
   - docker-compose 一键起整套服务
   - 把项目部署到 Fly.io，配域名 + HTTPS
+outputs:
+  - 生产部署
+prev: "[[W07-测试]]"
+next: "[[09-GitHub项目精选-后端实战]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W08 · Docker 与部署：让世界访问到你写的服务

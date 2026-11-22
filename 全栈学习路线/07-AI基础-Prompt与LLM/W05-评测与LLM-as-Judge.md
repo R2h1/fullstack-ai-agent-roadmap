@@ -1,11 +1,21 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W05
 title: 评测与 LLM-as-Judge
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 6
+week: 5
 duration: 7 天
-prereq: W01-W04
-goal: 给自己的 LLM 应用建一套 50 题评测集 + 自动跑 + 模型对比报告
+prerequisites:
+  - W01-W04
+goals:
+  - 给自己的 LLM 应用建一套 50 题评测集 + 自动跑 + 模型对比报告
+outputs:
+  - 评测套件
 tags: [eval, llm-judge, promptfoo, ragas, ab-test]
+prev: "[[W04-RAG完整实现]]"
+next: "[[W06-从零实现GPT]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

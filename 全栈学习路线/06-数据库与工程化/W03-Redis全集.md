@@ -1,13 +1,21 @@
 ---
-chapter: 06
-week: 03
 title: Redis 全集
 type: weekly-tutorial
-prerequisites: [06-W02]
+chapter: "06"
+chapter_title: 数据库与工程化
+order: 4
+week: 3
 estimated_hours: 20
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W02
+outputs:
+  - Redis 实战项目
 tags: [redis, cache, distributed-lock, rate-limit, leaderboard, queue]
+prev: "[[W02-索引事务锁]]"
+next: "[[W04-ORM与迁移]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 06 章 · 第 03 周 · Redis 全集

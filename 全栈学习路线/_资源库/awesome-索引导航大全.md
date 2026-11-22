@@ -1,9 +1,12 @@
 ---
 title: awesome 索引导航大全
-type: 资源库 / 索引地图
+type: resource-pack
+difficulty: 🌱→🌲
 tags: [awesome, 资源导航, 学习索引, github]
-难度: 全阶段
-更新时间: 2026-06-19
+prev: "[[Easy-vibe专题-30分钟跑起来的项目]]"
+next: "[[build-your-own-x-中文跟做指南]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # awesome 索引导航大全

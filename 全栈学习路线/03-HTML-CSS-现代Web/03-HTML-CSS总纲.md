@@ -1,9 +1,18 @@
 ---
 title: 第 03 章 - HTML / CSS 现代 Web
-chapter: 03
+type: chapter-outline
+chapter: "03"
+chapter_title: HTML / CSS 现代 Web
+order: 1
 duration: 4 周
-prerequisite: "[[00-学习方法论/00-如何高效学习编程]]（可与 [[02-JavaScript-从零到源码/02-JavaScript总纲]] 并行）"
+prerequisites:
+  - "[[全栈学习路线/00-学习方法论/00-如何高效学习编程]]"
+  - "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]（可并行）"
 tags: [HTML, CSS, 前端]
+prev: "[[全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript]]"
+next: "[[W01-HTML5与可访问性]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 03 章 · HTML / CSS 现代 Web（4 周）

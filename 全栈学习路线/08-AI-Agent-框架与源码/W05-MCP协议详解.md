@@ -1,12 +1,21 @@
 ---
-chapter: 08
-week: W05
 title: MCP 协议详解
-date: 2026-06-19
-tags: [mcp, model-context-protocol, anthropic, tool-protocol, claude-desktop]
-prereq: [W02-手写Agent不用框架]
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 6
+week: 5
 estimated_hours: 16
-difficulty: ★★★★☆
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W02
+outputs:
+  - 自定义 MCP server
+tags: [mcp, model-context-protocol, anthropic, tool-protocol, claude-desktop]
+prev: "[[W04-LangGraph进阶]]"
+next: "[[W06-Claude与OpenAI-Agent-SDK]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W05 · MCP 协议详解

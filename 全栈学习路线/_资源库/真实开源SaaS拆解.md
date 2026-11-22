@@ -1,9 +1,12 @@
 ---
 title: 真实开源 SaaS 拆解
-type: 资源库 / 源码精读
+type: resource-pack
+difficulty: ⭐⭐⭐⭐
 tags: [saas, 开源, 商业级架构, 源码精读, 毕业项目]
-难度: 高级
-更新时间: 2026-06-19
+prev: "[[build-your-own-x-中文跟做指南]]"
+next: "[[全栈学习路线/_我的进度追踪/学习契约]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 真实开源 SaaS 拆解

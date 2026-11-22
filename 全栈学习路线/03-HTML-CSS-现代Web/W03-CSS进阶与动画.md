@@ -1,8 +1,22 @@
 ---
-chapter: 03
-week: 03
-duration: 7天
+title: W03  CSS 进阶与动画
+type: weekly-tutorial
+chapter: "03"
+chapter_title: HTML / CSS 现代 Web
+order: 4
+week: 3
+duration: 7 天
+prerequisites:
+  - W02
+goals:
+  - 让网页"会动"。掌握主题切换、过渡、关键帧动画、滚动驱动动画。
+outputs:
+  - 仿 Apple 产品页
 tags: [CSS变量, 暗黑模式, 动画, transform, transition, 容器查询]
+prev: "[[W02-CSS基础与Flex-Grid]]"
+next: "[[W04-Tailwind与渲染原理]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W03 · CSS 进阶与动画

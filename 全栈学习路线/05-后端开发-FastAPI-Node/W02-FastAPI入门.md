@@ -1,14 +1,24 @@
 ---
-week: 2
-chapter: 05-后端开发
 title: FastAPI 入门
+type: weekly-tutorial
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 3
+week: 2
 duration: 1 周
-prerequisites: [W01, Python 类型注解]
+prerequisites:
+  - W01
+  - Python 类型注解
 goals:
   - 能独立搭起一个生产可用的 FastAPI 项目
   - 掌握路由、Pydantic、依赖注入、中间件
   - 写完整 CRUD 并通过自动文档调试
+outputs:
+  - 完整路由模块
+prev: "[[W01-HTTP与REST]]"
+next: "[[W03-认证授权]]"
 created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W02 · FastAPI 入门：用类型把 API 写"自动"

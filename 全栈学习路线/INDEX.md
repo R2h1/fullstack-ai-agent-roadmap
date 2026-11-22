@@ -1,14 +1,14 @@
 ---
 title: 全栈学习路线 - 总索引
 type: index
+duration: 12-18 个月
+tags: [索引, 学习路线, 入口]
+prev: "[[README]]"
+next: "[[学习路线全景图]]"
 total_files: 114
 chapters: 10
-duration: 12-18 个月
+created: 2026-06-19
 updated: 2026-11-22
-tags:
-  - 索引
-  - 学习路线
-  - 入口
 ---
 
 # 全栈学习路线 · 总索引

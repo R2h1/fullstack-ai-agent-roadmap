@@ -1,8 +1,15 @@
 ---
 title: GitHub 项目精选 - JavaScript
-chapter: 02-JavaScript-从零到源码
-section: 11
+type: github-curation
+chapter: "02"
+chapter_title: JavaScript 从零到源码
+order: 12
+difficulty: 🌱→🌲
 tags: [GitHub项目, 资源]
+prev: "[[W10-V8引擎与性能优化]]"
+next: "[[全栈学习路线/03-HTML-CSS-现代Web/03-HTML-CSS总纲]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # GitHub 项目精选 · JavaScript

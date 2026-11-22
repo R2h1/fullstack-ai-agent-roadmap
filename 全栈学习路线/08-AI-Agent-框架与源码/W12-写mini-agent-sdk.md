@@ -1,11 +1,19 @@
 ---
 title: W12 写 mini-agent-sdk + 章节收尾
-chapter: 08-AI-Agent-框架与源码
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 13
 week: 12
-date: 2026-06-19
+prerequisites:
+  - W11
+outputs:
+  - mini-agent-sdk
 tags: [agent, sdk, project, capstone, opensource]
 prev: "[[W11-LangGraph源码导读]]"
-next: "[[09-综合实战-毕业项目/09-毕业项目总纲]]"
+next: "[[13-GitHub项目精选-Agent全景]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W12 写 mini-agent-sdk + 章节收尾

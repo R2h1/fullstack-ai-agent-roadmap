@@ -1,9 +1,17 @@
 ---
 title: 第 08 章 - AI Agent 框架与源码
-chapter: 08
+type: chapter-outline
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 1
 duration: 12 周
-prerequisite: [[07-AI基础-Prompt与LLM/07-AI基础总纲]]
+prerequisites:
+  - "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
 tags: [AI-Agent, MCP, LangGraph, 源码级]
+prev: "[[全栈学习路线/07-AI基础-Prompt与LLM/07-GitHub项目精选-LLM学习]]"
+next: "[[W01-Agent全景与5模式]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # 第 08 章 · AI Agent 框架与源码（12 周）

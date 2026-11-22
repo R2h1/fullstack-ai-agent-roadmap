@@ -1,11 +1,21 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W04
 title: RAG 完整实现
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 5
+week: 4
 duration: 7-10 天
-prereq: W01-W03
-goal: 从零搭一套生产可用的 RAG：上传 PDF → 提问 → 流式答案 + 引用跳转
+prerequisites:
+  - W01-W03
+goals:
+  - 从零搭一套生产可用的 RAG：上传 PDF → 提问 → 流式答案 + 引用跳转
+outputs:
+  - 文档问答系统
 tags: [rag, embedding, vector-db, hybrid-search, rerank, citations]
+prev: "[[W03-Function-Calling与Tool-Use]]"
+next: "[[W05-评测与LLM-as-Judge]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

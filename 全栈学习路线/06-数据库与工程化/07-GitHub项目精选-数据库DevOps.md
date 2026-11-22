@@ -1,8 +1,13 @@
 ---
 title: GitHub 项目精选 - 数据库 & DevOps
-chapter: 06
 type: github-curation
+chapter: "06"
+chapter_title: 数据库与工程化
+order: 8
+difficulty: 🌱→🌲
 tags: [github, database, postgresql, redis, vector-db, docker, kubernetes, devops, observability]
+prev: "[[W06-K8s与监控]]"
+next: "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
 created: 2026-06-19
 updated: 2026-06-19
 ---

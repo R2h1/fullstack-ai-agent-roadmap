@@ -1,9 +1,14 @@
 ---
 title: GitHub 项目精选 · 后端实战（FastAPI / Node / SaaS 源码）
-chapter: 05
-type: resource-pack
-tags: [github, fastapi, hono, nestjs, postgres, prisma, supabase, n8n, 项目精选]
+type: github-curation
+chapter: "05"
+chapter_title: 后端 FastAPI + Node
+order: 10
 difficulty: 🌱→🌲
+tags: [github, fastapi, hono, nestjs, postgres, prisma, supabase, n8n, 项目精选]
+prev: "[[W08-Docker部署]]"
+next: "[[全栈学习路线/06-数据库与工程化/06-数据库工程化总纲]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

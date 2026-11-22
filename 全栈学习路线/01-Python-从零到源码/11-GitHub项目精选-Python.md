@@ -1,8 +1,15 @@
 ---
 title: GitHub 项目精选 - Python
-chapter: 01-Python-从零到源码
-section: 11
+type: github-curation
+chapter: "01"
+chapter_title: Python 从零到源码
+order: 13
+difficulty: 🌱→🌲
 tags: [GitHub项目, 资源]
+prev: "[[MRO 与 C3 线性化]]"
+next: "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # GitHub 项目精选 · Python

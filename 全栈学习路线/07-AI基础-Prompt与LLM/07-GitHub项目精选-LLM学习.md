@@ -1,8 +1,13 @@
 ---
 title: GitHub 项目精选 - LLM 学习
-chapter: 07
 type: github-curation
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 8
+difficulty: 🌱→🌲
 tags: [github, llm, prompt-engineering, rag, fine-tuning, multimodal, evaluation]
+prev: "[[W06-从零实现GPT]]"
+next: "[[全栈学习路线/08-AI-Agent-框架与源码/08-Agent总纲]]"
 created: 2026-06-19
 updated: 2026-06-19
 ---

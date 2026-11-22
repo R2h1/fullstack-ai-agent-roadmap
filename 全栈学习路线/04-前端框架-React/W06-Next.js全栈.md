@@ -1,8 +1,21 @@
 ---
-chapter: 04
-week: 06
-duration: 7天
+title: W06  Next.js 全栈
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 7
+week: 6
+duration: 7 天
+difficulty: ⭐⭐⭐⭐
+prerequisites:
+  - W05
+outputs:
+  - 全栈博客
 tags: [react, nextjs, ssr, ssg, rsc, app-router, server-actions, vercel]
+prev: "[[W05-路由与表单]]"
+next: "[[W07-测试与质量]]"
+created: 2026-06-19
+updated: 2026-11-22
 ---
 
 # W06 · Next.js 全栈

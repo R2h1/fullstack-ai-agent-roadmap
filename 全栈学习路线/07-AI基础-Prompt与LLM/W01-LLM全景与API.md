@@ -1,11 +1,21 @@
 ---
-chapter: 07-AI基础-Prompt与LLM
-week: W01
 title: LLM 全景与 API
+type: weekly-tutorial
+chapter: "07"
+chapter_title: AI 基础 Prompt + LLM
+order: 2
+week: 1
 duration: 7-10 天
-prereq: 第 06 章 后端进阶（HTTP / 流式 / 异步）
-goal: 理解 LLM 是什么、知道 2026 主流模型怎么选、能用 Anthropic API 写出带流式与缓存的 chat CLI
+prerequisites:
+  - 第 05 章 后端进阶（HTTP / 流式 / 异步）
+goals:
+  - 理解 LLM 是什么、知道 2026 主流模型怎么选、能用 Anthropic API 写出带流式与缓存的 chat CLI
+outputs:
+  - Prompt 库
 tags: [llm, anthropic, api, ollama, tokenizer]
+prev: "[[07-AI基础总纲]]"
+next: "[[W02-Prompt工程进阶]]"
+created: 2026-06-19
 updated: 2026-06-19
 ---
 

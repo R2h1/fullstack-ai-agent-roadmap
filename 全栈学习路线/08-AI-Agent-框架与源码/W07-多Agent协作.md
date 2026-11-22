@@ -1,11 +1,19 @@
 ---
 title: W07 多 Agent 协作
-chapter: 08-AI-Agent-框架与源码
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 8
 week: 7
-date: 2026-06-19
+prerequisites:
+  - W06
+outputs:
+  - 模拟公司
 tags: [agent, multi-agent, crewai, autogen, langgraph]
 prev: "[[W06-Claude与OpenAI-Agent-SDK]]"
 next: "[[W08-浏览器与Computer-Use]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W07 多 Agent 协作

@@ -1,8 +1,21 @@
 ---
-chapter: 04
+title: W10  手写 mini-react v2（Hooks + Diff + Lane）
+type: weekly-tutorial
+chapter: "04"
+chapter_title: React 从使用到源码
+order: 11
 week: 10
-duration: 7天
+duration: 7 天
+difficulty: ⭐⭐⭐⭐⭐
+prerequisites:
+  - W09
+outputs:
+  - 完整 mini-react
 tags: [react, fiber, hooks, useState, useEffect, diff, lane, concurrent, mini-react]
+prev: "[[W09-手写mini-react-v1]]"
+next: "[[11-GitHub项目精选-React生态]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W10 · 手写 mini-react v2（Hooks + Diff + Lane）

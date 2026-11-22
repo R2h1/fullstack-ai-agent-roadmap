@@ -1,11 +1,19 @@
 ---
 title: W11 LangGraph 源码导读
-chapter: 08-AI-Agent-框架与源码
+type: weekly-tutorial
+chapter: "08"
+chapter_title: AI Agent 框架与源码
+order: 12
 week: 11
-date: 2026-06-19
+prerequisites:
+  - W10
+outputs:
+  - 源码注释
 tags: [agent, langgraph, source-code, pregel, checkpointer]
 prev: "[[W10-可观测性]]"
 next: "[[W12-写mini-agent-sdk]]"
+created: 2026-06-19
+updated: 2026-06-19
 ---
 
 # W11 LangGraph 源码导读

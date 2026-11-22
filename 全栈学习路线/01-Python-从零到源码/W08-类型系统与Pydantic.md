@@ -58,14 +58,14 @@ def greet(name: str, times: int = 1) -> None:
 
 ## 3. typing 模块进阶 🛠️
 
-| 注解 | 含义 | 例子 |
-|------|------|------|
-| `Optional[X]` 或 `X \| None` | X 或 None | `name: str \| None = None` |
-| `Union[A, B]` 或 `A \| B` | A 或 B | `x: int \| str` |
-| `Literal["a", "b"]` | 只能是这几个具体值 | `mode: Literal["r", "w"]` |
-| `Any` | 任何类型（关掉检查） | `data: Any` |
-| `Callable[[int, str], bool]` | 一个吃 (int, str) 返回 bool 的函数 | 见下 |
-| `Final[int]` | 常量，不能再赋值 | `PI: Final = 3.14` |
+| 注解                           | 含义                         | 例子                         |
+| ---------------------------- | -------------------------- | -------------------------- |
+| `Optional[X]` 或 `X \| None`  | X 或 None                   | `name: str \| None = None` |
+| `Union[A, B]` 或 `A \| B`     | A 或 B                      | `x: int \| str`            |
+| `Literal["a", "b"]`          | 只能是这几个具体值                  | `mode: Literal["r", "w"]`  |
+| `Any`                        | 任何类型（关掉检查）                 | `data: Any`                |
+| `Callable[[int, str], bool]` | 一个吃 (int, str) 返回 bool 的函数 | 见下                         |
+| `Final[int]`                 | 常量，不能再赋值                   | `PI: Final = 3.14`         |
 
 ```python
 from typing import Literal, Callable
@@ -84,9 +84,7 @@ print(apply(lambda n: n * 2, 5))      # 10
 ### 🎯 动手练习 8.1
 写一个 `parse_age(value: str | int) -> int`，传字符串和整数都能解析，非数字字符串抛 `ValueError`。
 
-<details>
 <summary>👀 参考答案</summary>
-
 ```python
 def parse_age(value: str | int) -> int:
     if isinstance(value, int):
@@ -97,7 +95,6 @@ def parse_age(value: str | int) -> int:
 
 print(parse_age(18), parse_age("20"))     # 18 20
 ```
-</details>
 
 ---
 
@@ -108,19 +105,33 @@ print(parse_age(18), parse_age("20"))     # 18 20
 ```python
 from typing import TypeVar, Generic
 
-T = TypeVar("T")                                 # T 是占位符
+# T 是「类型占位符」—— 它本身不是类型，是「某个类型」的代号。
+# 同一个类里所有 T 都指向「同一个具体类型」，由使用方在 Stack[int] 时确定。
+# 注意：TypeVar 只在类型检查器里起作用，运行时它就是个普通对象。
+T = TypeVar("T")
 
 class Stack(Generic[T]):
+    # Generic[T] 声明：Stack 是泛型类，T 是它的「类型参数」。
+    # 不继承 Generic[T] 的话，mypy 会把 T 当成未定义，Stack[int] 也不合法。
+
     def __init__(self) -> None:
+        # list[T] 是「元素类型为 T 的列表」—— 只在注解里用，不影响运行时。
+        # Python 3.9+ 可直接写 list[T]；3.8 及以下要写 List[T]（从 typing import List）。
         self._items: list[T] = []
 
     def push(self, x: T) -> None:
+        # 参数 x 是 T —— 当 Stack[int] 时，这里等价于 push(self, x: int)。
         self._items.append(x)
 
     def pop(self) -> T:
+        # 返回 T —— Stack[int].pop() 的静态返回类型是 int。
+        # ⚠️ 空栈时这行抛 IndexError，类型系统管不到运行时的空栈。
         return self._items.pop()
 
 s: Stack[int] = Stack()
+# 右边 Stack() 不带参数，mypy 会根据左边的注解推断成 Stack[int]。
+# 也可以显式写 Stack[int]() —— 但运行时两者完全一样，见下文第 1 条。
+
 s.push(1)
 s.push("oops")     # mypy 报错：期望 int，得到 str
 ```
@@ -135,6 +146,10 @@ s.push("oops")     # mypy 报错：期望 int，得到 str
 from typing import Protocol
 
 class Drawable(Protocol):
+    # Protocol 定义的是「接口契约」，不是「基类」。
+    # 方法体写 ... —— 这里永远不执行，只是声明签名。
+    # 关键：Circle 和 Square 不继承 Drawable，也不需要「注册」。
+    # 只要它们「有 draw(self) -> None」，mypy 就认为它们满足 Drawable。
     def draw(self) -> None: ...
 
 class Circle:
@@ -146,6 +161,11 @@ class Square:
         print("画方")
 
 def render(items: list[Drawable]) -> None:
+    # items 的静态类型是 list[Drawable]。
+    # mypy 会检查「传进来的 list 的元素类型」是否满足 Drawable：
+    #   list[Circle]  → Circle 有 draw() -> None → ✅
+    #   list[Square]  → Square 有 draw() -> None → ✅
+    # 但注意：运行时 render 里对 items 没有任何类型检查，it.draw() 就是普通属性访问。
     for it in items:
         it.draw()
 
@@ -161,13 +181,24 @@ render([Circle(), Square()])     # ✅ 它们都没继承 Drawable，但都"长�
 ```python
 from typing import TypedDict
 
+
 class User(TypedDict):
+    # 类体里只写「键: 类型」，没有 __init__、没有方法、没有默认值。
+    # 默认 total=True —— 所有键都是「必需的」。
     id: int
     name: str
     email: str
 
+
 u: User = {"id": 1, "name": "Alice", "email": "a@x.com"}    # ✅
+# ⚠️ 运行时 u 就是一个普通 dict —— type(u) 是 dict，不是 User。
+#    TypedDict 只在 mypy/pyright 眼里存在，运行时完全消失。
+
 bad: User = {"id": "1"}                                       # mypy 报错
+# 这里其实有两个错误：
+#   1. 缺了 name 和 email（total=True 时必需）
+#   2. id 是 str 不是 int
+# mypy 通常只报第一个，修完再报第二个 —— 别以为只有一个问题。
 ```
 
 适合处理 JSON / API 响应。
@@ -262,28 +293,57 @@ pip install pydantic
 from pydantic import BaseModel, Field, EmailStr, field_validator
 
 class User(BaseModel):
+    # 字段声明 = 类型 + 约束。pydantic 在「实例化时」运行校验，
+    # 不通过直接抛 ValidationError —— 这是它和 dataclass / TypedDict 的根本区别。
+
     id: int
+    # 只写类型，没有额外约束。默认「宽松模式」：传 "1" 会尝试转成 1。
+
     name: str = Field(min_length=1, max_length=20)
+    # Field 的参数是「校验规则」，不是普通默认值。
+    # min_length / max_length 在「类型校验之后」检查 —— 见第 3 条。
+
     age: int = Field(ge=0, le=150)        # ge=大于等于, le=小于等于
+    # ge / le 是数值约束，等价于 0 <= age <= 150。
+    # 还有 gt / lt（严格大于/小于）。
+
     email: EmailStr                        # 自动校验邮箱格式
+    # EmailStr 依赖 email-validator 包：pip install "pydantic[email]"
+    # 没装的话 import 时报错，不是运行到 email 字段才报。
+
     tags: list[str] = []
+    # ⚠️ 这里和 dataclass 的关键区别：
+    #    dataclass 里写 `tags: list = []` 会报 "mutable default" 错误；
+    #    pydantic 会自动把默认值「深拷贝」到每个实例 —— 不会出现「所有实例共享同一个 list」的坑。
+    #    这是 pydantic 相对 dataclass 的便利之一。
 
     @field_validator("name")
     @classmethod
     def name_no_space(cls, v: str) -> str:
+        # 自定义校验器：在「类型校验通过之后」执行。
+        # 所以这里的 v 一定是 str，不用再判断类型。
+        # 抛 ValueError → pydantic 捕获并包装成 ValidationError 的一条错误。
         if " " in v:
             raise ValueError("name 不能含空格")
         return v.strip()
+        # ⚠️ 校验器返回的值会「替换」原值 —— 所以 strip 后的结果才是最终存进模型的。
+        # 但检查空格在 strip 之前，顺序是有意的：`" A "` 会被 strip 成 `"A"` 通过，
+        # `"A B"` 因为含空格被拒。如果先 strip 再查，`" A B "` 也会被拒 —— 行为不同。
 
 # 字符串自动转 int
 u = User(id="1", name="Alice", age=18, email="a@x.com")
 print(u)
+# 输出：id=1 name='Alice' age=18 email='a@x.com' tags=[]
+# ⚠️ id 已经是 int 1，不是字符串 "1" —— 转换发生在校验时。
 
 # 校验失败
 try:
     User(id="x", name="A B", age=-1, email="not-an-email")
 except Exception as e:
     print(e)
+# ⚠️ pydantic 会「收集所有错误」再抛，不是遇到第一个就停。
+# 这个例子里 4 个字段都错，ValidationError 里会有 4 条错误信息。
+# 用 except ValidationError 更精确，但当前 except Exception 也能接住。
 ```
 
 **运行结果**：
@@ -304,7 +364,14 @@ email
 
 ```python
 print(u.model_dump())              # 转 dict
+# v2 的 API（v1 是 .dict()）。
+# 返回的是「纯 Python dict」——嵌套的 BaseModel 也会递归转成 dict。
+# ⚠️ 但 datetime / Path / Enum 等对象「仍是原对象」，不是字符串
+
 print(u.model_dump_json(indent=2)) # 转 JSON
+# v2 的 API（v1 是 .json()）。
+# 返回 JSON 字符串：datetime 自动转 ISO 8601、Enum 自动转 value、
+# 中文默认原样输出（ensure_ascii=False）。
 ```
 
 ### 反序列化
@@ -312,6 +379,10 @@ print(u.model_dump_json(indent=2)) # 转 JSON
 ```python
 data = '{"id": 2, "name": "Bob", "age": 30, "email": "b@x.com"}'
 u2 = User.model_validate_json(data)
+# v2 的 API（v1 是 .parse_raw()）。
+# 一步完成：解析 JSON 字符串 → 按 User 的规则校验 → 返回 User 实例。
+# 缺字段时用默认值，多字段默认忽略（见第 5 条），类型不合法抛 ValidationError。
+
 print(u2)
 ```
 
@@ -333,40 +404,65 @@ class Task(BaseModel):
     id: int
     title: str = Field(min_length=1, max_length=80)
     status: Literal["todo", "doing", "done"] = "todo"
+    # default_factory 而不是 default=datetime.now()：
+    # 后者在「类定义时」求值一次，所有实例共享同一个时间。
+    # 前者每次实例化才调用，每个 Task 拿到独立的时间戳。
+    # 这是 dataclass 和 pydantic 共有的经典坑。
     created_at: datetime = Field(default_factory=datetime.now)
 
 class TaskList(BaseModel):
+    # list[Task] 是「嵌套模型」—— 传进来 dict 会自动转成 Task 实例，
+    # 这是 pydantic 的核心能力：递归校验嵌套结构。
+    # 默认值 [] 在 pydantic 里会被深拷贝，每个 TaskList 拿到独立 list。
     tasks: list[Task] = []
 
     def add(self, title: str) -> Task:
+        # max(..., default=0) + 1：空列表时第一个 id 是 1。
+        # ⚠️ 这个策略在「有删除功能」时会重用 id —— 当前没有删除，暂时安全。
+        # ⚠️ 并发调用 add 会撞 id（max 和 append 之间有间隙）—— 单线程无所谓。
         new_id = max((t.id for t in self.tasks), default=0) + 1
         t = Task(id=new_id, title=title)
         self.tasks.append(t)
         return t
 
     def done(self, tid: int) -> None:
+        # 遍历 O(n)。任务量小无所谓；上千个任务应改成 dict 索引。
         for t in self.tasks:
             if t.id == tid:
+                # ⚠️ pydantic v2 默认 validate_assignment=False ——
+                # 这里赋值「不会」重新校验。当前值是合法的 "done"，所以没事；
+                # 但 t.status = "invalid" 也不会报错，直到下次序列化/反序列化才炸。
                 t.status = "done"
                 return
+        # 抛 ValueError 而不是自定义异常 —— 调用方不好精确捕获。
+        # 小项目无所谓；库里应定义 TaskNotFound(Exception)。
         raise ValueError(f"任务不存在 id={tid}")
 
     def save(self, path: Path) -> None:
+        # model_dump_json 是 v2 的 API（v1 是 .json()）。
+        # 默认 ensure_ascii=False —— 中文「写 W08 教程」直接原样写入，不转 \uXXXX。
+        # ⚠️ 没有原子写 —— 写到一半崩溃会损坏原文件。生产环境用 safe_writer。
         path.write_text(self.model_dump_json(indent=2), encoding="utf-8")
 
     @classmethod
     def load(cls, path: Path) -> "TaskList":
+        # 返回类型写 "TaskList"（字符串）而不是 TaskList：
+        # 类体里还没定义完这个类，直接写名字会 NameError。
+        # 这是「前向引用」，pydantic 和普通类都需要。
         if not path.exists():
-            return cls()
+            return cls()                # 首次运行，没有文件 → 空列表
+        # ⚠️ 文件存在但 JSON 损坏 / 字段不合法时，这里会抛
+        #    JSONDecodeError 或 ValidationError，程序直接崩。
+        #    生产环境应 catch 后备份坏文件、返回空 TaskList。
         return cls.model_validate_json(path.read_text(encoding="utf-8"))
 
 # 主程序
 if __name__ == "__main__":
     db = Path("tasks.json")
-    tl = TaskList.load(db)
-    tl.add("写 W08 教程")
-    tl.add("学 Pydantic")
-    tl.done(1)
+    tl = TaskList.load(db)              # 首次为空，再次加载已有任务
+    tl.add("写 W08 教程")               # id=1
+    tl.add("学 Pydantic")               # id=2
+    tl.done(1)                           # 把 id=1 标记为 done
     tl.save(db)
     print(tl.model_dump_json(indent=2))
 ```
@@ -384,9 +480,7 @@ if __name__ == "__main__":
 ### 🎯 动手练习 8.2
 给 `Task` 增加字段 `priority: Literal["low", "mid", "high"] = "mid"` 和 `due: datetime | None = None`，并加一个校验器：截止时间不能早于创建时间。
 
-<details>
 <summary>👀 参考答案</summary>
-
 ```python
 from pydantic import model_validator
 
@@ -403,7 +497,7 @@ class Task(BaseModel):
             raise ValueError("due 不能早于 created_at")
         return self
 ```
-</details>
+
 
 ---
 

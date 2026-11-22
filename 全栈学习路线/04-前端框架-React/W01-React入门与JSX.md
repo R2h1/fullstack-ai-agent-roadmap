@@ -4,7 +4,7 @@ week: 1
 duration: 7d
 tags: [react, jsx, vite, typescript, components, props]
 ---
-
+ 
 # W01 React 入门与 JSX
 
 ## 0. 一句话理解 React
@@ -216,8 +216,7 @@ export function Card({ title, children }: CardProps) {
 
 要求：size 默认 48，缺省 src 时显示 name 首字母。
 
-<details><summary>答案</summary>
-
+==<summary>答案</summary>
 ```tsx
 // src/components/Avatar.tsx
 interface Props { src?: string; size?: number; name: string }
@@ -232,7 +231,6 @@ export function Avatar({ src, size = 48, name }: Props) {
       </div>
 }
 ```
-</details>
 
 ---
 
@@ -376,12 +374,12 @@ export default function App() {
 
 加一个"全部完成 / 未完成 / 全部"过滤按钮。
 
-<details><summary>提示</summary>
+<summary>提示</summary>
 
+```tsx
 新增 `const [filter, setFilter] = useState<'all'|'done'|'todo'>('all')`，渲染前 `todos.filter(...)`。
-</details>
+```
 
----
 
 ## 周末检查
 

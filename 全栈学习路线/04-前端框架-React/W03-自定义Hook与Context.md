@@ -181,7 +181,7 @@ const isMobile = useMediaQuery('(max-width: 768px)')
 
 要求：返回 `[value, toggle, setTrue, setFalse]`。
 
-<details><summary>答案</summary>
+<summary>答案</summary>
 
 ```tsx
 import { useState, useCallback } from 'react'
@@ -193,7 +193,6 @@ export function useToggle(initial = false) {
   return [v, toggle, setTrue, setFalse] as const
 }
 ```
-</details>
 
 ---
 
@@ -462,7 +461,7 @@ export default function App() {
 
 加一个 `<RequireAuth>{children}</RequireAuth>` 组件：未登录时显示 "请先登录"。
 
-<details><summary>答案</summary>
+<summary>答案</summary>
 
 ```tsx
 import { useAuth } from './context/AuthContext'
@@ -472,7 +471,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 ```
-</details>
+
 
 ---
 

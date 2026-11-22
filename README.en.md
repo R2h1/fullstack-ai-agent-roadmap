@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)
 
-> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **580,000+ words / 110 detailed tutorials**, organized with Obsidian.
+> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **580,000+ words / 111 detailed tutorials**, organized with Obsidian.
 >
 > Covers **Python · JavaScript · React · FastAPI · Database · LLM · AI Agent · Graduation Project**. Every knowledge point comes with **analogies + complete code + exercises + GitHub project recommendations**.
 
@@ -16,7 +16,7 @@
 
 Not a list of links. This is a complete tutorial package for **"from zero → able to independently deliver AI Agent products"**:
 
-- 📘 **110 Markdown files / 580,000 words** —— every new concept is explained with everyday analogies
+- 📘 **111 Markdown files / 580,000 words** —— every new concept is explained with everyday analogies
 - 💻 **Complete runnable code** —— not snippets, but line-by-line comments + expected output + exercise answers
 - 🎯 **30+ chapter projects** —— each chapter requires a verification project; you haven't finished until you've built it
 - ⭐ **400+ curated GitHub projects** —— each annotated with "how to use it to learn"

@@ -5,7 +5,7 @@ week: 12
 date: 2026-06-19
 tags: [agent, sdk, project, capstone, opensource]
 prev: "[[W11-LangGraph源码导读]]"
-next: "[[../09-毕业项目/W01-毕业项目启动]]"
+next: "[[09-综合实战-毕业项目/09-毕业项目总纲]]"
 ---
 
 # W12 写 mini-agent-sdk + 章节收尾

@@ -16,15 +16,15 @@ tags: [react, nextjs, ssr, ssg, rsc, app-router, server-actions, vercel]
 
 纯 React (CRA / Vite) 的痛点：
 
-| 痛点 | 表现 | Next.js 怎么解决 |
-| --- | --- | --- |
-| SEO 差 | 首屏空 HTML，爬虫抓不到 | SSR / SSG 直出 HTML |
-| 首屏慢 | JS 下载完才渲染 | 服务端预渲染 |
-| 路由要装库 | react-router 手动配 | 文件即路由 |
-| 图片优化要自己做 | `<img>` 没懒加载 | `<Image>` 自动 webp + lazy |
-| 字体闪烁 (FOUT) | 切字体时跳一下 | `next/font` 自托管 |
-| 后端要另起 | 还得起 Express | API Routes / Server Actions |
-| 部署麻烦 | 配 Nginx / Docker | `git push` → Vercel 上线 |
+| 痛点          | 表现               | Next.js 怎么解决                |
+| ----------- | ---------------- | --------------------------- |
+| SEO 差       | 首屏空 HTML，爬虫抓不到   | SSR / SSG 直出 HTML           |
+| 首屏慢         | JS 下载完才渲染        | 服务端预渲染                      |
+| 路由要装库       | react-router 手动配 | 文件即路由                       |
+| 图片优化要自己做    | `<img>` 没懒加载     | `<Image>` 自动 webp + lazy    |
+| 字体闪烁 (FOUT) | 切字体时跳一下          | `next/font` 自托管             |
+| 后端要另起       | 还得起 Express      | API Routes / Server Actions |
+| 部署麻烦        | 配 Nginx / Docker | `git push` → Vercel 上线      |
 
 **类比**：纯 React 像"自己买零件装 PC"，Next.js 像"开箱即用的 Mac"。
 

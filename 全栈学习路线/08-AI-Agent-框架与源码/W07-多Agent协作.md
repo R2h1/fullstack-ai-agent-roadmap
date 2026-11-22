@@ -4,7 +4,7 @@ chapter: 08-AI-Agent-框架与源码
 week: 7
 date: 2026-06-19
 tags: [agent, multi-agent, crewai, autogen, langgraph]
-prev: "[[06-LangChain与LangGraph/W06-LangGraph进阶]]"
+prev: "[[W06-Claude与OpenAI-Agent-SDK]]"
 next: "[[W08-浏览器与Computer-Use]]"
 ---
 

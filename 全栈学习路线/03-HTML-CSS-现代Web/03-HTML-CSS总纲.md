@@ -2,7 +2,7 @@
 title: 第 03 章 - HTML / CSS 现代 Web
 chapter: 03
 duration: 4 周
-prerequisite: [[02-JavaScript-从零到源码/02-JavaScript总纲]]
+prerequisite: "[[00-学习方法论/00-如何高效学习编程]]（可与 [[02-JavaScript-从零到源码/02-JavaScript总纲]] 并行）"
 tags: [HTML, CSS, 前端]
 ---
 

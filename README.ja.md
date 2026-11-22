@@ -1,3 +1,18 @@
+---
+title: フルスタック + AIエージェント 学習ロードマップ
+type: overview
+description: ゼロからAI時代のフルスタックエンジニアを目指す体系的学習ロードマップ（Obsidian vault）
+target: ゼロからソースレベルまで
+duration: 12-18 ヶ月
+daily_hours: 3-4
+tags: [ロードマップ, フルスタック, AIエージェント, 入口]
+next: "[[全栈学习路线/README]]"
+total_files: 114
+chapters: 10
+created: 2026-06-25
+updated: 2026-11-23
+---
+
 # 🎯 フルスタック + AIエージェント 学習ロードマップ
 
 **日本語** | [简体中文](README.md) | [English](README.en.md)

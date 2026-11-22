@@ -1,3 +1,18 @@
+---
+title: 全栈 + AI Agent 学习路线
+type: overview
+description: 从零基础到 AI 时代全栈工程师的系统化学习路线（Obsidian vault）
+target: 零基础 → 源码级精通
+duration: 12-18 个月
+daily_hours: 3-4
+tags: [学习路线, 全栈, AI-Agent, 入口]
+next: "[[全栈学习路线/README]]"
+total_files: 114
+chapters: 10
+created: 2026-06-19
+updated: 2026-11-23
+---
+
 # 🎯 全栈 + AI Agent 学习路线
 
 **简体中文** | [English](README.en.md) | [日本語](README.ja.md)

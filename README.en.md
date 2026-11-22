@@ -1,3 +1,18 @@
+---
+title: Full-Stack + AI Agent Learning Roadmap
+type: overview
+description: A systematic learning roadmap from scratch to an AI-era full-stack engineer (Obsidian vault)
+target: Zero basics to source-level mastery
+duration: 12-18 months
+daily_hours: 3-4
+tags: [roadmap, full-stack, ai-agent, entry]
+next: "[[全栈学习路线/README]]"
+total_files: 114
+chapters: 10
+created: 2026-06-25
+updated: 2026-11-23
+---
+
 # 🎯 Full-Stack + AI Agent Learning Roadmap
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)

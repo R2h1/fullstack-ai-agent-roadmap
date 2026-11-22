@@ -26,13 +26,6 @@ CANONICAL_ORDER = [
 ]
 REQUIRED = ["title", "type", "created", "updated"]
 
-# 明确豁免 frontmatter 的文件（仓库入口页，保持纯 README 形态）
-FM_EXEMPT = {
-    "README.md",
-    "README.en.md",
-    "README.ja.md",
-}
-
 # wikilink：[[target]] / [[target|alias]] / [[target\|alias]]（markdown 表格里竖线要转义）
 WIKILINK = re.compile(r"!?\[\[([^\]\n]+)\]\]")
 FENCE = re.compile(r"^\s*(```|~~~)")
@@ -140,9 +133,6 @@ def main():
             text = f.read()
         if "\r\n" in text:
             errors.append(f"[行尾] 文件含 CRLF: {rel}")
-
-        if os.path.basename(rel) in FM_EXEMPT:
-            continue
 
         fm, body, ok = parse_frontmatter(text)
         if not ok:

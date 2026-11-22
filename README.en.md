@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)
 
-> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **580,000+ words / 111 detailed tutorials**, organized with Obsidian.
+> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **114 Markdown files / ~920,000 characters (149,000 CJK characters) / 1,286 code blocks**, organized with Obsidian.
 >
 > Covers **Python · JavaScript · React · FastAPI · Database · LLM · AI Agent · Graduation Project**. Every knowledge point comes with **analogies + complete code + exercises + GitHub project recommendations**.
 
@@ -16,14 +16,16 @@
 
 Not a list of links. This is a complete tutorial package for **"from zero → able to independently deliver AI Agent products"**:
 
-- 📘 **111 Markdown files / 580,000 words** —— every new concept is explained with everyday analogies
+- 📘 **114 Markdown files / 920,735 characters / 40,424 lines** —— every new concept is explained with everyday analogies
 - 💻 **Complete runnable code** —— not snippets, but line-by-line comments + expected output + exercise answers
-- 🎯 **30+ chapter projects** —— each chapter requires a verification project; you haven't finished until you've built it
-- ⭐ **400+ curated GitHub projects** —— each annotated with "how to use it to learn"
+- 🎯 **66 weekly tasks + 10 chapter capstone projects** —— each chapter requires a verification project; you haven't finished until you've built it
+- ⭐ **328 de-duplicated curated GitHub repositories** (528 references) —— each annotated with "how to use it to learn"
 - 🗺️ **Obsidian Canvas mind maps** —— global view + chapter relationships at a glance
 - 📊 **Companion learning contract / weekly report / milestone templates** —— a forced feedback system
 
 > This tutorial is **designed specifically for zero-foundation learners**: you need no prerequisite knowledge, just 3 hours a day + a determined heart.
+
+> 📊 **How the numbers were measured** (2026-11-22): 114 Markdown files (3 multilingual READMEs + 3 chapter index pages + 108 chapter articles), 920,735 characters, 149,491 CJK characters, 40,424 lines, 1,286 code blocks, 66 weekly tasks, 328 de-duplicated GitHub repositories (528 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
 
 ---
 
@@ -174,7 +176,7 @@ After completing this roadmap, you should be able to:
 
 ## 📜 License
 
-This repository is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+This repository is licensed under [CC BY-SA 4.0](LICENSE) (full text in [LICENSE](LICENSE); human-readable summary at [creativecommons.org/licenses/by-sa/4.0](https://creativecommons.org/licenses/by-sa/4.0/)).
 
 - ✅ Free to share, repost, and adapt
 - ✅ Commercial use (please indicate the source)

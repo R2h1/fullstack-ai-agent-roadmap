@@ -1,0 +1,49 @@
+# 行尾统一策略（仓库内一律 LF）
+#
+# 背景：Windows 上 core.autocrlf=true 会让 Git 在检出时把 LF 换成 CRLF、
+# 提交时再转回 LF，而本仓库同时存在 LF 与 CRLF 两种工作区文件，
+# 于是 `git status` 常年列出几十个“已修改”、`git diff` 却为空。
+# 这里显式声明文本文件统一 LF，让“工作区 == 索引”不再受本机配置影响。
+#
+# 改完后请执行一次：
+#   git add --renormalize . && git commit -m "chore: normalize line endings"
+# 再执行（把工作区文件也物理改成 LF）：
+#   git checkout-index -a -f
+
+* text=auto eol=lf
+
+*.md       text eol=lf
+*.mdx      text eol=lf
+*.canvas   text eol=lf
+*.json     text eol=lf
+*.js       text eol=lf
+*.mjs      text eol=lf
+*.cjs      text eol=lf
+*.ts       text eol=lf
+*.tsx      text eol=lf
+*.jsx      text eol=lf
+*.py       text eol=lf
+*.css      text eol=lf
+*.scss     text eol=lf
+*.html     text eol=lf
+*.htm      text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.toml     text eol=lf
+*.txt      text eol=lf
+*.sh       text eol=lf
+LICENSE    text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# 图片、压缩包、字体等二进制资源不做文本处理
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.woff binary
+*.woff2 binary

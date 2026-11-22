@@ -1,0 +1,17 @@
+# wikilink 校验豁免清单
+#
+# 这里的每一条都会被 check_vault.py 跳过断链检查。
+# 只放"正文里举例用的伪链接"，不要放真的坏链接。
+#
+# 00-学习方法论/06-费曼学习法与笔记系统.md：讲 Obsidian 别名语法时的示例
+useState
+相关概念 B
+MOC-主题
+# 00-学习方法论/07-反向工程别人的代码.md：示例的 Excalidraw 附件名
+arch.excalidraw
+# 02-JavaScript-从零到源码/W07-ES6进阶特性.md：Proxy 内部方法名，不是笔记链接
+OwnKeys
+# 05-后端开发-FastAPI-Node/W08-Docker部署.md：示例的 healthcheck 片段
+services.tcp_checks
+# _我的进度追踪/周报模板.md：模板占位符
+XX

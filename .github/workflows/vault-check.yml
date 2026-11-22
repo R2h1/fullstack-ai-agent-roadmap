@@ -1,0 +1,37 @@
+name: Vault Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: 行尾 / frontmatter / wikilink
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: 校验 vault
+        run: python .github/scripts/check_vault.py
+
+      - name: 校验器自测
+        run: python .github/scripts/test_check_vault.py
+
+      - name: 校验行尾（.gitattributes 生效）
+        run: |
+          # 仓库里不允许出现 CRLF 工作区文件
+          if git ls-files --eol | grep -q 'w/crlf'; then
+            echo "::error::存在 CRLF 行尾文件，请运行 git add --renormalize . 后提交"
+            git ls-files --eol | grep 'w/crlf'
+            exit 1
+          fi
+          echo "行尾全部为 LF ✓"

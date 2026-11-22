@@ -17,7 +17,7 @@ outputs:
 prev: "[[W03-认证授权]]"
 next: "[[W05-Node与Hono]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W04 · WebSocket 与 SSE：让服务端"主动说话"
@@ -251,7 +251,7 @@ client = AsyncAnthropic()  # 读 ANTHROPIC_API_KEY
 async def chat_stream(body: ChatIn):
     async def gen():
         async with client.messages.stream(
-            model="claude-sonnet-4-5",
+            model="claude-sonnet-5-5",
             max_tokens=1024,
             messages=[{"role": "user", "content": body.prompt}],
         ) as stream:

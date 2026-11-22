@@ -11,7 +11,7 @@ tags: [Python, 后端, 源码级]
 prev: "[[全栈学习路线/00-学习方法论/07-反向工程别人的代码]]"
 next: "[[W01-语法基础]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 第 01 章 · Python 从零到源码（10 周）
@@ -141,7 +141,7 @@ updated: 2026-06-19
 9. 打包发布到 PyPI
 
 ### 技术栈
-- Python 3.12+
+- Python 3.13+
 - httpx（异步 HTTP）
 - asyncio
 - BeautifulSoup4

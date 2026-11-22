@@ -8,7 +8,7 @@ tags: [学习路线, 全栈, AI-Agent, 总览]
 next: "[[INDEX]]"
 status: in-progress
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # 🚀 全栈 + AI Agent 源码级学习路线
@@ -75,6 +75,36 @@ graph TD
 | 容器 | Docker Desktop | 第 06 章用到 |
 | AI 助手 | Claude / Cursor | 学习而非依赖，详见学习方法论 |
 | 笔记 | Obsidian（这里！） | 边学边写笔记 |
+
+## 📌 版本基线（全库唯一权威口径）
+
+> 实测于 **2026-11-23**（npm / PyPI / 官方文档）。全库所有章节都以这张表为准；
+> 遇到版本冲突，以本表和对应官方升级指南为准。
+
+| 领域 | 版本基线 | 说明 |
+|------|----------|------|
+| Node.js | **26.x**（最新 LTS） | Next.js 16 要求 ≥ 20.9 |
+| pnpm | 最新稳定版 | 配合 `corepack` 使用 |
+| Python | **3.13** | 安全支持到 2029-10；新特性可用 3.14 / 3.15 |
+| uv / poetry | uv 最新版 | uv 是 2025 后的新标准 |
+| TypeScript | **5.1+** | Next.js 16 的最低要求 |
+| React | **19.3.x** | use() / Actions / RSC 稳定 |
+| React Compiler | **1.0**（已稳定） | Next 16 起 `reactCompiler: true` |
+| Next.js | **16.4.x** | Turbopack 默认；middleware → proxy |
+| Vite | **8.x** | 前端构建 |
+| Tailwind CSS | **v4**（CSS-first） | 主题用 `@theme`，无 config.js |
+| FastAPI | **0.165** | 搭配 Pydantic v2 |
+| Pydantic | **v2** | v1 的 `dict()` → v2 `model_dump()` |
+| SQLAlchemy | **2.0+** | 2.0 起的写法 |
+| PostgreSQL | **18** | 17 仍可用；pgvector 支持 PG 13+ |
+| Redis | **8** | 8.0 起为 RSALv2 / SSPLv1 / AGPLv3 三选一 |
+| LangGraph | **1.x** | 配 LangChain v1 |
+| LangChain | **v1** | `create_agent` 取代 `create_react_agent` |
+| Claude | **Sonnet 5.5**（主）/ Haiku 5.5（廉价）/ Opus 5.5（难题） | API ID：`claude-sonnet-5-5` 等，1M 上下文 |
+| OpenAI | **GPT-6.2 Sol**（日常）/ GPT-6 Luna（高吞吐） | GPT-4o 与 GPT-5 系列已弃用 |
+| Claude Code / Agent SDK | 最新稳定版 | 08 章源码导读按此版本 |
+
+> 写作教程时如果需要提到具体版本号，请从这里抄，不要凭记忆写。
 
 ## 📖 资源总库
 

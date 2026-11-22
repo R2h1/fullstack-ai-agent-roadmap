@@ -9,7 +9,7 @@ tags: [VSCode, IDE, Cursor, Claude, AI, 提示词, 调试]
 prev: "[[03-命令行终端基础]]"
 next: "[[05-GitHub项目精选-入门导航]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # VSCode 与 AI 辅助编程
@@ -284,7 +284,7 @@ code .
 ### 正面示例 ✅
 
 ```
-我用 Python 3.12 + FastAPI 0.110，
+我用 Python 3.13 + FastAPI 0.165，
 要写邮箱密码登录，
 密码用 bcrypt 哈希存 SQLite，
 登录成功返回 JWT。

@@ -6,7 +6,7 @@ tags: [saas, 开源, 商业级架构, 源码精读, 毕业项目]
 prev: "[[build-your-own-x-中文跟做指南]]"
 next: "[[全栈学习路线/_我的进度追踪/学习契约]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 真实开源 SaaS 拆解
@@ -196,7 +196,7 @@ updated: 2026-06-19
 高颜值多模型 ChatGPT 替代品。商业模式：自托管 + Lobe Cloud 订阅。
 
 ### 技术栈
-- Next.js 14 App Router
+- Next.js 16 App Router
 - Zustand + tRPC
 - Drizzle ORM
 - Vercel AI SDK

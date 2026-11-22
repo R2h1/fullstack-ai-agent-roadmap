@@ -13,7 +13,7 @@ tags: [agent, multi-agent, crewai, autogen, langgraph]
 prev: "[[W06-Claude与OpenAI-Agent-SDK]]"
 next: "[[W08-浏览器与Computer-Use]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W07 多 Agent 协作
@@ -211,7 +211,7 @@ crew = Crew(
     agents=[researcher, writer, critic],
     tasks=[t_overall],
     process=Process.hierarchical,
-    manager_llm="gpt-4o",
+    manager_llm="gpt-6.2-sol",
 )
 ```
 
@@ -241,7 +241,7 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.conditions import TextMentionTermination, MaxMessageTermination
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 
-model = OpenAIChatCompletionClient(model="gpt-4o-mini")
+model = OpenAIChatCompletionClient(model="gpt-6-luna")
 
 pm = AssistantAgent(
     name="PM",
@@ -284,7 +284,7 @@ AutoGen 自带本地 / Docker 沙箱执行：
 
 ```python
 from autogen_ext.code_executors.docker import DockerCommandLineCodeExecutor
-executor = DockerCommandLineCodeExecutor(image="python:3.12-slim")
+executor = DockerCommandLineCodeExecutor(image="python:3.13-slim")
 ```
 
 让 Engineer Agent 真的把代码跑起来再回答可行性。
@@ -330,7 +330,7 @@ app = g.compile()
 
 ### 5.3 Swarm（共享 state + handoff）
 
-LangGraph 0.2+ 提供 `langgraph-swarm`，每个 Agent 有 `handoff` 工具，可显式把控制权交给别的 Agent。
+`langgraph-swarm`（0.1.x，依赖 langgraph >= 1）提供 Swarm 模式，每个 Agent 有 `handoff` 工具，可显式把控制权交给别的 Agent。
 
 ```python
 from langgraph_swarm import create_swarm, create_handoff_tool

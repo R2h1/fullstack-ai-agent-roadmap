@@ -15,7 +15,7 @@ tags: [agent, anthropic, building-effective-agents, 全景]
 prev: "[[08-Agent总纲]]"
 next: "[[W02-手写Agent不用框架]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W01 · Agent 全景与 5 大模式
@@ -98,7 +98,7 @@ from anthropic import Anthropic
 client = Anthropic()
 
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=[{
         "name": "search_docs",
@@ -122,19 +122,19 @@ print(response)
 def write_blog(topic: str) -> str:
     # Step 1: 大纲
     outline = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=512,
+        model="claude-sonnet-5-5", max_tokens=512,
         messages=[{"role": "user", "content": f"为「{topic}」写大纲"}]
     ).content[0].text
 
     # Step 2: 正文
     draft = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=2048,
+        model="claude-sonnet-5-5", max_tokens=2048,
         messages=[{"role": "user", "content": f"按大纲写正文：\n{outline}"}]
     ).content[0].text
 
     # Step 3: 校对
     final = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=2048,
+        model="claude-sonnet-5-5", max_tokens=2048,
         messages=[{"role": "user", "content": f"校对并润色：\n{draft}"}]
     ).content[0].text
 
@@ -151,7 +151,7 @@ def write_blog(topic: str) -> str:
 ```python
 def route(user_msg: str):
     cls = client.messages.create(
-        model="claude-haiku-4-5",  # 用便宜的小模型分类
+        model="claude-haiku-5-5",  # 用便宜的小模型分类
         max_tokens=20,
         messages=[{
             "role": "user",
@@ -182,7 +182,7 @@ aclient = AsyncAnthropic()
 
 async def review_one(code: str, aspect: str):
     r = await aclient.messages.create(
-        model="claude-sonnet-4-5", max_tokens=512,
+        model="claude-sonnet-5-5", max_tokens=512,
         messages=[{"role": "user", "content": f"从{aspect}角度审查代码：\n{code}"}]
     )
     return aspect, r.content[0].text
@@ -203,7 +203,7 @@ async def parallel_review(code):
 def orchestrator(goal: str):
     # 大脑拆解
     plan = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=512,
+        model="claude-sonnet-5-5", max_tokens=512,
         messages=[{"role": "user", "content": f"把任务「{goal}」拆成 3-5 个独立子任务，输出 JSON 数组"}]
     ).content[0].text
     subtasks = json.loads(plan)
@@ -213,7 +213,7 @@ def orchestrator(goal: str):
 
     # 大脑汇总
     final = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=2048,
+        model="claude-sonnet-5-5", max_tokens=2048,
         messages=[{"role": "user", "content": f"根据子结果汇总最终答案：\n{results}"}]
     ).content[0].text
     return final
@@ -231,14 +231,14 @@ def write_with_review(prompt: str, max_rounds=3):
     for i in range(max_rounds):
         # 生成/改进
         draft = client.messages.create(
-            model="claude-sonnet-4-5", max_tokens=1024,
+            model="claude-sonnet-5-5", max_tokens=1024,
             messages=[{"role": "user",
                        "content": f"任务：{prompt}\n上一版：{draft}\n请生成或改进"}]
         ).content[0].text
 
         # 评判
         verdict = client.messages.create(
-            model="claude-sonnet-4-5", max_tokens=256,
+            model="claude-sonnet-5-5", max_tokens=256,
             messages=[{"role": "user",
                        "content": f"评分（PASS/FAIL + 理由）：\n{draft}"}]
         ).content[0].text
@@ -259,7 +259,7 @@ def agent_loop(user_msg, tools):
     messages = [{"role": "user", "content": user_msg}]
     while True:
         r = client.messages.create(
-            model="claude-sonnet-4-5", max_tokens=2048,
+            model="claude-sonnet-5-5", max_tokens=2048,
             tools=tools, messages=messages
         )
         messages.append({"role": "assistant", "content": r.content})

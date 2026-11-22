@@ -11,7 +11,7 @@ tags: [React, 前端, 源码级]
 prev: "[[全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]]"
 next: "[[W01-React入门与JSX]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 第 04 章 · React 从使用到源码（10 周）
@@ -20,7 +20,7 @@ updated: 2026-06-19
 
 ## 🎯 章节目标
 
-- 用 React 18+/19 写出生产级应用
+- 用 React 19 写出生产级应用
 - 完全掌握 Hooks 心智模型 + 自定义 Hook
 - 用 Next.js App Router 做 SSR/RSC
 - 状态管理：Zustand / Jotai / TanStack Query
@@ -46,7 +46,7 @@ updated: 2026-06-19
 ## 📖 详细内容
 
 ### W1 - JSX 与组件基础
-- React 18/19 心智模型
+- React 19 心智模型
 - JSX 编译产物（React.createElement）
 - 函数组件 vs 类组件（类组件只读不写）
 - Props + Children + key
@@ -57,7 +57,7 @@ updated: 2026-06-19
 - useEffect（依赖数组、清理函数、闭包陷阱）
 - useRef（DOM 引用 + 可变值）
 - useMemo / useCallback（**只在性能敏感处用**）
-- useTransition / useDeferredValue（React 18 并发）
+- useTransition / useDeferredValue（并发特性，React 18 引入）
 - use Hook（React 19 新增）
 
 ### W3 - 自定义 Hook + Context

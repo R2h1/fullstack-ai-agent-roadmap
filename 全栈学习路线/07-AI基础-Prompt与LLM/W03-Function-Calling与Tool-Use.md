@@ -16,7 +16,7 @@ tags: [tool-use, function-calling, anthropic, react]
 prev: "[[W02-Prompt工程进阶]]"
 next: "[[W04-RAG完整实现]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W03 · Function Calling 与 Tool Use
@@ -87,7 +87,7 @@ tools = [{
 
 ```python
 resp = client.messages.create(
-    model="claude-sonnet-4-5", max_tokens=1024,
+    model="claude-sonnet-5-5", max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "北京今天多少度？"}],
 )
@@ -116,7 +116,7 @@ messages.append({"role": "user", "content": [{
 }]})
 
 resp2 = client.messages.create(
-    model="claude-sonnet-4-5", max_tokens=1024,
+    model="claude-sonnet-5-5", max_tokens=1024,
     tools=tools, messages=messages,
 )
 print(resp2.content[0].text)
@@ -129,7 +129,7 @@ def run(user_msg, tools, executors, max_steps=8):
     messages = [{"role": "user", "content": user_msg}]
     for _ in range(max_steps):
         resp = client.messages.create(
-            model="claude-sonnet-4-5", max_tokens=1024,
+            model="claude-sonnet-5-5", max_tokens=1024,
             tools=tools, messages=messages)
         messages.append({"role": "assistant", "content": resp.content})
         if resp.stop_reason != "tool_use":
@@ -273,7 +273,7 @@ tools = [
 def run(user_msg):
     messages = [{"role": "user", "content": user_msg}]
     for _ in range(8):
-        resp = client.messages.create(model="claude-sonnet-4-5", max_tokens=1024,
+        resp = client.messages.create(model="claude-sonnet-5-5", max_tokens=1024,
             tools=tools, messages=messages)
         messages.append({"role":"assistant","content": resp.content})
         if resp.stop_reason != "tool_use":

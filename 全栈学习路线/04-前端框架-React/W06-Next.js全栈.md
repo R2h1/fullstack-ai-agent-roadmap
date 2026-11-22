@@ -15,7 +15,7 @@ tags: [react, nextjs, ssr, ssg, rsc, app-router, server-actions, vercel]
 prev: "[[W05-路由与表单]]"
 next: "[[W07-测试与质量]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # W06 · Next.js 全栈
@@ -46,7 +46,7 @@ updated: 2026-11-22
 - **SSR**（Server Side Rendering）：每次请求服务端渲染 HTML。新闻、个性化页面。
 - **SSG**（Static Site Generation）：构建时生成 HTML。博客、文档、营销页。
 - **ISR**（Incremental Static Regeneration）：SSG + 定时再生成。
-- **RSC**（React Server Components）：组件本身就在服务端跑，不打包到 bundle。Next 14+ 默认。
+- **RSC**（React Server Components）：组件本身就在服务端跑，不打包到 bundle。App Router 默认就是 RSC。
 
 ---
 
@@ -110,7 +110,7 @@ app/
 
 ```tsx
 // app/blog/[slug]/page.tsx
-type Props = { params: Promise<{ slug: string }> }   // Next 15 起 params 是 Promise
+type Props = { params: Promise<{ slug: string }> }   // Next 15 起 params 是 Promise，Next 16 起必须 await
 export default async function Page({ params }: Props) {
   const { slug } = await params
   return <h1>文章：{slug}</h1>
@@ -271,15 +271,20 @@ export default function Home() {
 
 ---
 
-## 十、中间件鉴权 `middleware.ts`
+## 十、中间件鉴权 `proxy.ts`（Next 16 已改名）
 
-放在项目根目录，每个请求先过它一遍：
+放在项目根目录，每个请求先过它一遍。
+
+> ⚠️ **Next 16 破坏性变更**：`middleware.ts` 改名为 **`proxy.ts`**，导出的函数从 `middleware` 改名为 `proxy`。
+> 旧名字在 Next 16 里不再生效；配置项 `skipMiddlewareUrlNormalize` 同步改为 `skipProxyUrlNormalize`。
+> 另外 **proxy 只能用 Node.js runtime**（不再支持 Edge runtime）。
 
 ```ts
+// proxy.ts（Next 16 新名字；Next 15 及以前叫 middleware.ts）
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const token = req.cookies.get('token')?.value
   if (req.nextUrl.pathname.startsWith('/admin') && !token) {
     return NextResponse.redirect(new URL('/login', req.url))
@@ -291,7 +296,71 @@ export const config = { matcher: ['/admin/:path*'] }
 
 ---
 
-## 十一、部署到 Vercel（5 分钟）
+## 十一、Next 16 升级要点（必读）
+
+Next 16 是一次带强制升级的大版本。官方要求：**Node.js 20.9+ / TypeScript 5.1+ / Chrome·Edge·Firefox 111+ / Safari 16.4+**。
+
+| 变化 | Next 15 及以前 | Next 16 |
+|---|---|---|
+| 中间件文件名 | `middleware.ts` | **`proxy.ts`**（导出函数 `proxy`） |
+| 中间件运行时 | Edge（也支持 Node） | **只能用 Node.js runtime** |
+| `params` / `searchParams` / `cookies` / `headers` | 可同步访问（有临时兼容） | **同步访问完全移除，必须 `await`** |
+| 构建器 | Webpack 为主 | **Turbopack 成为 `next dev` / `next build` 默认** |
+| `revalidateTag` | `revalidateTag('tag')` | **`revalidateTag('tag', profile)`，第二参数必填** |
+| PPR | `experimental.ppr` | **顶层 `cacheComponents: true`** |
+| `next lint` | 内置 lint 命令 | **已移除**，改用 ESLint / Biome CLI |
+| `images.domains` | 可用 | **移除**，改用 `remotePatterns` |
+| React Compiler | 实验特性 | **稳定**（`reactCompiler: true`） |
+
+### 异步 Request API（最容易踩的坑）
+
+```tsx
+// ❌ Next 16 直接报错：同步访问被移除
+export default function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params
+  return <h1>{slug}</h1>
+}
+
+// ✅ 必须 await
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const cookieStore = await cookies()          // cookies() / headers() / draftMode() 同样要 await
+  return <h1>{slug}</h1>
+}
+```
+
+跑 `npx next typegen` 可以拿到 `PageProps` / `LayoutProps` / `RouteContext` 这几个全局类型，不用手写 props 形状。
+
+### 缓存 API
+
+```ts
+// ❌ Next 16 弃用单参数形式
+revalidateTag('posts')
+
+// ✅ 新签名：第二个参数是缓存 profile
+revalidateTag('posts', 'max')
+
+// read-your-writes：更新后立刻读到新数据
+updateTag('posts')
+
+// 手动刷新
+refresh()
+```
+
+`cacheLife` / `cacheTag` 已经去掉 `unstable_` 前缀变成稳定 API；`experimental.useCache` 和 `experimental.dynamicIO` 被移除，改用顶层 `cacheComponents`。
+
+### 其他移除项
+
+`next lint` 命令、AMP、runtime config（`serverRuntimeConfig` / `publicRuntimeConfig`）、`experimental_ppr`、`unstable_rootParams`、`next/legacy/image`、`images.domains` 都不再支持。
+
+`next/image` 的默认值也变了：`minimumCacheTTL` 从 60s 变成 4h，`qualities` 只保留 `[75]`，`maximumRedirects` 变成 3，本地 IP 默认被拦截。
+
+> 想退回 Webpack：`next dev --webpack` / `next build --webpack`。
+> Turbopack 的开关从 `experimental.turbopack` 挪到了顶层 `turbopack` 选项。
+
+---
+
+## 十二、部署到 Vercel（5 分钟）
 
 1. 把代码 push 到 GitHub。
 2. 打开 https://vercel.com → New Project → 选你的仓库。
@@ -300,7 +369,7 @@ export const config = { matcher: ['/admin/:path*'] }
 
 ---
 
-## 十二、实战：Markdown 博客 + 评论
+## 十三、实战：Markdown 博客 + 评论
 
 **目标**：
 - `/` 列出所有文章（SSG）
@@ -354,7 +423,7 @@ export async function renderMd(md: string) {
 - [ ] 用 `fetch` 三种缓存策略做对比实验
 - [ ] 写一个 Server Action 向 SQLite 写数据 + `revalidatePath`
 - [ ] 用 `Suspense` 做流式渲染
-- [ ] `middleware.ts` 做一个 `/admin` 鉴权
+- [ ] `proxy.ts`（Next 16，原 `middleware.ts`）做一个 `/admin` 鉴权
 - [ ] 部署到 Vercel，把链接发给朋友看
 - [ ] 实战：Markdown 博客 + 评论功能上线
 
@@ -365,7 +434,7 @@ export async function renderMd(md: string) {
 | `useState only works in client component` | 漏写 `"use client"` | 文件首行加 |
 | `Functions cannot be passed directly to Client Components` | 把 server 函数当 prop 传给 client | 包成 Server Action 或挪到 client |
 | `Hydration failed` | 服务端 HTML ≠ 客户端首渲染 | 检查 `Date.now()`、随机数、`window` |
-| `params should be awaited` | Next 15 起 params 是 Promise | `const { slug } = await params` |
+| `params should be awaited` | Next 15 起 params 是 Promise，Next 16 起同步访问被移除 | `const { slug } = await params` |
 | `fetch 一直返回旧数据` | 默认 force-cache | 加 `cache: 'no-store'` 或 `revalidate` |
 
 ## 资源

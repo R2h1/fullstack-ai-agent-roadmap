@@ -9,7 +9,7 @@ tags: [github, database, postgresql, redis, vector-db, docker, kubernetes, devop
 prev: "[[W06-K8s与监控]]"
 next: "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 06 章配套 · GitHub 项目精选：数据库 & DevOps
@@ -433,7 +433,7 @@ updated: 2026-06-19
 └──────┬──────┘
        │ HTTP
 ┌──────▼──────┐    ┌──────────────┐
-│  PostgREST  │ ←  │ Postgres 16  │ ← pgvector 扩展
+│  PostgREST  │ ←  │ Postgres 18  │ ← pgvector 扩展
 └─────────────┘    │  + RLS       │
                    └──────────────┘
        ▲                  ▲

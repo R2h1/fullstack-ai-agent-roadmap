@@ -13,7 +13,7 @@ tags: [agent, sdk, project, capstone, opensource]
 prev: "[[W11-LangGraph源码导读]]"
 next: "[[13-GitHub项目精选-Agent全景]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W12 写 mini-agent-sdk + 章节收尾
@@ -267,7 +267,7 @@ from .approval import ApprovalHook
 from .checkpoint import SqliteCheckpoint
 
 class Agent:
-    def __init__(self, name, system, tools=None, model="gpt-4o-mini"):
+    def __init__(self, name, system, tools=None, model="gpt-6-luna"):
         self.name, self.system, self.model = name, system, model
         self.registry = ToolRegistry(tools)
     def schema(self):

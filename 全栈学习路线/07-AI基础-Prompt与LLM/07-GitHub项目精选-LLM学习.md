@@ -9,7 +9,7 @@ tags: [github, llm, prompt-engineering, rag, fine-tuning, multimodal, evaluation
 prev: "[[W06-从零实现GPT]]"
 next: "[[全栈学习路线/08-AI-Agent-框架与源码/08-Agent总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 07 章配套 · GitHub 项目精选：LLM 学习
@@ -221,7 +221,7 @@ updated: 2026-06-19
 - URL：https://github.com/lobehub/lobe-chat
 - Star：约 50k
 - 难度：🟡 进阶
-- 学习要点：Next.js 14 工程标杆；插件系统、知识库、TTS/STT 全。
+- 学习要点：Next.js 16 工程标杆；插件系统、知识库、TTS/STT 全。
 - 推荐理由：中文社区最活跃的开源 ChatGPT 替代品。
 
 ### mckaywrigley/chatbot-ui

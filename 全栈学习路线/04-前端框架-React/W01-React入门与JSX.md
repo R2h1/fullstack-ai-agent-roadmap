@@ -14,7 +14,7 @@ tags: [react, jsx, vite, typescript, components, props]
 prev: "[[04-React总纲]]"
 next: "[[W02-Hooks全集]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-23
 ---
  
 # W01 React 入门与 JSX
@@ -46,15 +46,15 @@ function Counter() {
 
 ---
 
-## 1. React 18 / 19 / Server Components 现状
+## 1. React 19 / Server Components 现状
 
 到 2026 年，主流栈如下：
 
 | 版本 | 关键特性 |
 |---|---|
-| React 18 (2022) | 并发渲染、Suspense、Automatic Batching |
+| React 18 (2022) | 并发渲染、Suspense、Automatic Batching（历史：React 19 已取代） |
 | React 19 (2024) | `use()` Hook、Actions、Server Components 稳定、表单 hook |
-| React Compiler (2024-2025) | 自动 memo，告别 useMemo/useCallback 滥用 |
+| React Compiler (2024-2026) | 自动 memo，告别 useMemo/useCallback 滥用（Next 16 起稳定） |
 
 **Server Components (RSC)**：组件可以"在服务端渲染、不发送 JS 到客户端"。本周不用，第 5 章讲 Next.js 时再深入。
 

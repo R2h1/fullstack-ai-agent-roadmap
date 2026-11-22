@@ -9,7 +9,7 @@ tags: [github, ai-agent, mcp, claude, langchain, langgraph, autogen, browser-use
 prev: "[[W12-写mini-agent-sdk]]"
 next: "[[全栈学习路线/09-综合实战-毕业项目/09-毕业项目总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 08 章配套 · GitHub 项目精选：AI Agent 全景
@@ -535,7 +535,7 @@ updated: 2026-06-19
 - URL：https://github.com/lobehub/lobe-chat
 - Star：约 50k
 - 难度：🟡 进阶
-- 学习要点：Next.js 14 工程标杆；插件、Agent Market、知识库、TTS/STT。
+- 学习要点：Next.js 16 工程标杆；插件、Agent Market、知识库、TTS/STT。
 - 推荐理由：中文社区最活跃的开源 ChatGPT 替代品。
 
 ---

@@ -16,7 +16,7 @@ tags: [Tailwind, shadcn, 浏览器渲染, 性能优化, Lighthouse]
 prev: "[[W03-CSS进阶与动画]]"
 next: "[[05-GitHub项目精选-CSS与设计]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W04 · Tailwind 与渲染原理
@@ -62,7 +62,7 @@ updated: 2026-06-19
 | 起名 | 想很久 | 不需要 |
 | 改样式 | 跳两个文件 | 改一行 |
 | 删除组件 | CSS 残留 | HTML 删掉就完事 |
-| 包大小 | 越写越大 | PurgeCSS 只打包用到的 |
+| 包大小 | 越写越大 | v4 自动扫描，只打包用到的类 |
 
 > 你担心的"HTML 太长"在 VS Code 里有自动折行 + Tailwind 智能提示，写起来比传统 CSS 快 3 倍。
 
@@ -241,43 +241,47 @@ import './index.css';
 
 ## 七、自定义主题
 
-`tailwind.config.js`：
+> **Tailwind v4 是 CSS-first**：主题写在 CSS 里，用 `@theme` 指令定义设计变量，不再需要 `tailwind.config.js`。
+> （v3 的 JS 配置文件仍可用，但要显式 `@config "./tailwind.config.js";` 才会被加载。）
 
-```js
-export default {
-  theme: {
-    extend: {
-      colors: {
-        brand: {
-          50:  '#eff6ff',
-          500: '#2563eb',
-          900: '#1e3a8a',
-        },
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui'],
-      },
-      borderRadius: {
-        '4xl': '2rem',
-      },
-    },
-  },
-};
+在 `index.css` 里用 `@theme` 定义：
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50:  #eff6ff;
+  --color-brand-500: #2563eb;
+  --color-brand-900: #1e3a8a;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-4xl: 2rem;
+}
 ```
 
 之后就能用 `bg-brand-500`、`rounded-4xl`。
+
+命名规则就一条：**变量名决定工具类名**。
+
+| CSS 变量 | 生成的工具类 |
+|---|---|
+| `--color-brand-500` | `bg-brand-500` / `text-brand-500` / `border-brand-500` |
+| `--font-sans` | `font-sans` |
+| `--radius-4xl` | `rounded-4xl` |
+
+> v4 的小提醒：`ring` 默认宽度变成 1px，要 3px 得写 `ring-3`；`outline-none` 改名 `outline-hidden`；
+> 任意值里的 CSS 变量要用圆括号 —— `bg-(--brand-color)`。
 
 ---
 
 ## 八、组件抽离 @apply
 
-如果一组类反复用，抽出来：
+如果一组类反复用，抽出来。**v4 用 `@utility` 取代 `@layer components`**：
 
 ```css
-@layer components {
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md;
-  }
+@utility btn-primary {
+  @apply px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md;
 }
 ```
 
@@ -558,7 +562,7 @@ SEO:            100
 
 - [ ] 能用 Tailwind 不查文档写完整页面
 - [ ] 知道响应式前缀 sm/md/lg
-- [ ] 自定义过 tailwind.config 主题
+- [ ] 用 `@theme` 自定义过主题变量（v4 写法）
 - [ ] 用过 shadcn/ui 安装组件
 - [ ] 能画浏览器渲染管线流程图
 - [ ] 知道哪些属性触发 layout/paint/composite
@@ -569,8 +573,8 @@ SEO:            100
 
 | 现象 | 原因 | 解决 |
 |------|------|------|
-| Tailwind 类名不生效 | content 没配 / 文件路径错 | 检查 `tailwind.config.js` 的 content |
-| 生产打包巨大 | 没用 PurgeCSS | Tailwind v3+ 默认开启 |
+| Tailwind 类名不生效 | v4 自动扫描路径不对 / 用了 v3 的 content 配置 | 检查 `@source` 或改用 v4 默认扫描 |
+| 生产打包巨大 | 扫描范围过大 / 写了 safelist | v4 默认按需生成，检查 `@source` 范围 |
 | 暗黑模式不切换 | 没在 `<html>` 加 `class="dark"` | 用 JS 切换 |
 | CLS 太高 | 图片没设 width/height | 都加上 |
 | LCP > 4s | 大图没优化 / 字体阻塞 | WebP + font-display:swap |

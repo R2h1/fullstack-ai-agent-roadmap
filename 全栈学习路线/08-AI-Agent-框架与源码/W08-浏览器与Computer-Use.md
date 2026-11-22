@@ -13,7 +13,7 @@ tags: [agent, browser-use, computer-use, playwright, anthropic]
 prev: "[[W07-多Agent协作]]"
 next: "[[W09-Agent评测]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W08 浏览器与 Computer Use
@@ -78,7 +78,7 @@ tools = [
 ]
 
 resp = client.beta.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-5-5",
     max_tokens=2048,
     tools=tools,
     messages=[{"role": "user", "content": "打开浏览器搜索 weather Beijing"}],
@@ -141,7 +141,7 @@ from langchain_openai import ChatOpenAI
 async def main():
     agent = Agent(
         task="去 hackernews 抓今天前 5 条最热帖子的标题和分数",
-        llm=ChatOpenAI(model="gpt-4o-mini"),
+        llm=ChatOpenAI(model="gpt-6-luna"),
     )
     result = await agent.run()
     print(result.final_result())
@@ -281,7 +281,7 @@ task = f"""
 {resume}
 """
 
-agent = Agent(task=task, llm=ChatOpenAI(model="gpt-4o"))
+agent = Agent(task=task, llm=ChatOpenAI(model="gpt-6.2-sol"))
 asyncio.run(agent.run())
 ```
 
@@ -305,7 +305,7 @@ task = """
 关键点：
 
 - 最后一步**必须停在确认页**，不自动按"确定"——这是经典的人工审批 hook
-- OCR 用 GPT-4o-mini vision 即可，简单发票准确率 > 95%
+- OCR 用 GPT-6 Luna 的视觉能力即可，简单发票准确率 > 95%
 - 所有操作录屏（VNC + ffmpeg），出问题能复盘
 
 ## 11. 练习

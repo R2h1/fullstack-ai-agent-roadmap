@@ -15,7 +15,7 @@ tags: [claude-agent-sdk, openai-agents-sdk, handoff, guardrail, hook, agent-sdk�
 prev: "[[W05-MCP协议详解]]"
 next: "[[W07-多Agent协作]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W06 · Claude Agent SDK 与 OpenAI Agents SDK
@@ -83,7 +83,7 @@ options = ClaudeAgentOptions(
     system_prompt="你是一个严谨助理",
     tools=[calc],
     allowed_tools=["calc"],   # 关掉默认工具
-    model="claude-sonnet-4-5"
+    model="claude-sonnet-5-5"
 )
 
 async def main():
@@ -167,7 +167,7 @@ from agents import Agent, Runner
 agent = Agent(
     name="Helper",
     instructions="你是一个友善助理",
-    model="gpt-5"
+    model="gpt-6.2-sol"
 )
 
 result = Runner.run_sync(agent, "你好，介绍一下自己")

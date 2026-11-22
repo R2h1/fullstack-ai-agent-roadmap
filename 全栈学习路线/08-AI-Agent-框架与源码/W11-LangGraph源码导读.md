@@ -13,7 +13,7 @@ tags: [agent, langgraph, source-code, pregel, checkpointer]
 prev: "[[W10-可观测性]]"
 next: "[[W12-写mini-agent-sdk]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W11 LangGraph 源码导读
@@ -69,7 +69,7 @@ checkpoint/
   memory.py
   serde/
 prebuilt/
-  chat_agent_executor.py  # create_react_agent 的实现
+  chat_agent_executor.py  # ReAct Agent 执行器（v1 起官方入口迁到 langchain.create_agent）
   tool_node.py
 ```
 

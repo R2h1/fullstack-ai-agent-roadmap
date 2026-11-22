@@ -15,7 +15,7 @@ tags: [langgraph, langchain, state-machine, agent-framework]
 prev: "[[W02-手写Agent不用框架]]"
 next: "[[W04-LangGraph进阶]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W03 · LangGraph 入门
@@ -257,10 +257,12 @@ class State(TypedDict):
 
 ## 十一、ReAct Agent 模板
 
-LangGraph 提供开箱即用的 ReAct Agent：
+开箱即用的 ReAct Agent 现在由 **LangChain v1 的 `create_agent`** 提供：
+
+> ⚠️ `langgraph.prebuilt.create_react_agent` 在 LangGraph v1 已弃用，请改用 `langchain.create_agent`（支持 middleware）。
 
 ```python
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
 from langchain_core.tools import tool
 
@@ -274,8 +276,8 @@ def calc(expr: str) -> str:
     """计算"""
     return str(eval(expr))
 
-llm = ChatAnthropic(model="claude-sonnet-4-5")
-agent = create_react_agent(llm, tools=[get_weather, calc])
+llm = ChatAnthropic(model="claude-sonnet-5-5")
+agent = create_agent(llm, tools=[get_weather, calc])
 
 result = agent.invoke({"messages": [{"role": "user",
                                        "content": "北京天气如何？1+2 等于几？"}]})
@@ -298,7 +300,7 @@ from langgraph.graph import StateGraph, MessagesState, START, END
 tools = [get_weather, calc]
 tool_node = ToolNode(tools)
 
-llm_with_tools = ChatAnthropic(model="claude-sonnet-4-5").bind_tools(tools)
+llm_with_tools = ChatAnthropic(model="claude-sonnet-5-5").bind_tools(tools)
 
 def call_llm(state):
     return {"messages": [llm_with_tools.invoke(state["messages"])]}
@@ -342,7 +344,7 @@ agent = g.compile()
 - [ ] 能讲清 State / Node / Edge
 - [ ] 条件边、循环都写过
 - [ ] 知道 reducer 怎么用，`add_messages` 用过
-- [ ] `create_react_agent` 跑通
+- [ ] `create_agent` 跑通
 - [ ] 自己画的 ToolNode + LLM 图跑通
 - [ ] 5 模式 LangGraph 版全部跑通
 

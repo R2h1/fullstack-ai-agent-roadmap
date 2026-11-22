@@ -15,7 +15,7 @@ tags: [redis, cache, distributed-lock, rate-limit, leaderboard, queue]
 prev: "[[W02-索引事务锁]]"
 next: "[[W04-ORM与迁移]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 第 06 章 · 第 03 周 · Redis 全集
@@ -33,7 +33,7 @@ Redis 还能干别的：分布式锁、限流、排行榜、消息队列、地�
 ```bash
 docker run -d --name redis -p 6379:6379 \
   -v redisdata:/data \
-  redis:7-alpine redis-server --appendonly yes
+  redis:8-alpine redis-server --appendonly yes
 ```
 
 ```bash

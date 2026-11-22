@@ -16,7 +16,7 @@ tags: [rag, embedding, vector-db, hybrid-search, rerank, citations]
 prev: "[[W03-Function-Calling与Tool-Use]]"
 next: "[[W05-评测与LLM-as-Judge]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W04 · RAG 完整实现
@@ -315,7 +315,7 @@ ctx = "\n\n".join(f"[{i+1}] (来源:{c['source']} p.{c['page']})\n{c['text']}"
                   for i, c in enumerate(top))
 
 resp = client.messages.create(
-    model="claude-sonnet-4-5", max_tokens=1024,
+    model="claude-sonnet-5-5", max_tokens=1024,
     system=SYSTEM,
     messages=[{"role":"user","content":
         f"<context>\n{ctx}\n</context>\n\n问题：{q}"}],
@@ -428,7 +428,7 @@ async def ask(q: str):
                       for i, c in enumerate(top))
     def gen():
         with ant.messages.stream(
-            model="claude-sonnet-4-5", max_tokens=1024,
+            model="claude-sonnet-5-5", max_tokens=1024,
             system="只根据 context 回答，事实标 [n]，找不到说不知道。",
             messages=[{"role":"user","content":
                 f"<context>\n{ctx}\n</context>\n问题：{q}"}],

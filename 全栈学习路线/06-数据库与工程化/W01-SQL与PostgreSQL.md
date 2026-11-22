@@ -15,7 +15,7 @@ tags: [database, sql, postgresql, psql, joins, jsonb, window-function]
 prev: "[[06-数据库工程化总纲]]"
 next: "[[W02-索引事务锁]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 第 06 章 · 第 01 周 · SQL 与 PostgreSQL
@@ -61,7 +61,7 @@ docker run -d --name pg \
   -e POSTGRES_DB=playground \
   -p 5432:5432 \
   -v pgdata:/var/lib/postgresql/data \
-  postgres:16
+  postgres:18
 ```
 
 进容器执行 psql：

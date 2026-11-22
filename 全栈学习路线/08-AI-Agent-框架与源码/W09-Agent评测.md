@@ -13,7 +13,7 @@ tags: [agent, evaluation, benchmark, swe-bench, gaia, langsmith]
 prev: "[[W08-浏览器与Computer-Use]]"
 next: "[[W10-可观测性]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W09 Agent 评测
@@ -133,7 +133,7 @@ YAML 驱动，跨多模型一键跑：
 
 ```yaml
 prompts: ["你是客服，回答：{{q}}"]
-providers: [openai:gpt-4o-mini, anthropic:claude-haiku-4]
+providers: [openai:gpt-6-luna, anthropic:claude-haiku-5-5]
 tests:
   - vars: {q: "我要退款"}
     assert:
@@ -176,7 +176,7 @@ def refund_eval():
     return Task(dataset=json_dataset("cases.jsonl"), solver=generate(), scorer=includes())
 ```
 
-`inspect eval refund_eval --model openai/gpt-4o`。
+`inspect eval refund_eval --model openai/gpt-6.2-sol`。
 
 ### 5.5 选哪个？
 
@@ -242,8 +242,8 @@ LLM judge 会偏向：
 
 ```python
 configs = {
-    "v1": {"system": "你是客服...", "model": "gpt-4o-mini"},
-    "v2": {"system": "你是耐心客服...", "model": "gpt-4o-mini"},
+    "v1": {"system": "你是客服...", "model": "gpt-6-luna"},
+    "v2": {"system": "你是耐心客服...", "model": "gpt-6-luna"},
 }
 for name, cfg in configs.items():
     evaluate(lambda x: run_agent(x, **cfg), data=ds.name,

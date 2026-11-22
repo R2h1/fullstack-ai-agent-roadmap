@@ -9,7 +9,7 @@ tags: [github, react, nextjs, zustand, tanstack, react-hook-form, 项目精选]
 prev: "[[W10-手写mini-react-v2]]"
 next: "[[全栈学习路线/05-后端开发-FastAPI-Node/05-后端总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # 📦 GitHub 项目精选：React 生态
@@ -236,7 +236,7 @@ zustand 是个**「200 行教科书」**，新人读源码的最佳第一站。
 | Day 7 | 写一篇「我读 zustand 源码学到了什么」博客 |
 
 **关键收获**：
-- 发布订阅 pattern 的 React 18 安全实现
+- 发布订阅 pattern 的 React 19 安全实现
 - 为什么 selector 要做浅比较
 - 中间件如何洋葱模型组合
 

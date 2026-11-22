@@ -15,7 +15,7 @@ tags: [agent, from-scratch, anthropic-sdk, tool-use, mini-agent]
 prev: "[[W01-Agent全景与5模式]]"
 next: "[[W03-LangGraph入门]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W02 · 手写 Agent，不用框架
@@ -70,7 +70,7 @@ import os, json
 from anthropic import Anthropic
 
 client = Anthropic()
-MODEL = "claude-sonnet-4-5"
+MODEL = "claude-sonnet-5-5"
 
 TOOLS = [{
     "name": "calculator",

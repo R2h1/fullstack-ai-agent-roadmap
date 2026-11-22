@@ -16,7 +16,7 @@ tags: [prompt, cot, few-shot, structured-output, jailbreak]
 prev: "[[W01-LLM全景与API]]"
 next: "[[W03-Function-Calling与Tool-Use]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W02 · Prompt 工程进阶
@@ -182,7 +182,7 @@ W01 学过的 `thinking={"type":"enabled"}` 是**模型原生的隐藏推理**�
 ```python
 answers = []
 for _ in range(5):
-    r = client.messages.create(model="claude-sonnet-4-5",
+    r = client.messages.create(model="claude-sonnet-5-5",
         max_tokens=512, temperature=0.8,
         messages=[{"role":"user","content":"问题..."}])
     answers.append(parse(r.content[0].text))
@@ -229,7 +229,7 @@ W03 的 Tool Use 就是 ReAct 的工程实现。
 
 ```python
 client.messages.create(
-    model="claude-sonnet-4-5", max_tokens=512,
+    model="claude-sonnet-5-5", max_tokens=512,
     system='只输出 JSON，符合 schema：{"name":string,"age":number}',
     messages=[{"role":"user","content":"老王 35"}],
 )
@@ -341,7 +341,7 @@ messages=[
 name: 周报生成器
 scenario: 把工作流水变成结构化周报
 tags: [office, summary]
-model: claude-sonnet-4-5
+model: claude-sonnet-5-5
 ---
 
 # System

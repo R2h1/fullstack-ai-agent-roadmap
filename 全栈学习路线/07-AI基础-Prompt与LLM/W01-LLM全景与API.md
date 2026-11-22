@@ -16,7 +16,7 @@ tags: [llm, anthropic, api, ollama, tokenizer]
 prev: "[[07-AI基础总纲]]"
 next: "[[W02-Prompt工程进阶]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W01 · LLM 全景与 API
@@ -92,9 +92,9 @@ ChatGPT、Claude、Gemini 本质都在做这件事。
 
 | 模型 | 定位 | 上下文 | 特点 |
 |---|---|---|---|
-| **Claude Opus 4.5** | 最强旗舰 | 1M | 长任务规划、复杂代码 |
-| **Claude Sonnet 4.5** | 主力 | 1M | 性价比之王，extended thinking |
-| **Claude Haiku 4.5** | 小快灵 | 200K | 高频调用、便宜快 |
+| **Claude Opus 5.5.5** | 最强旗舰 | 1M | 长任务规划、复杂代码 |
+| **Claude Sonnet 5.5.5** | 主力 | 1M | 性价比之王，extended thinking |
+| **Claude Haiku 5.5.5** | 小快灵 | 200K | 高频调用、便宜快 |
 
 亮点：1M 上下文、Tool Use 稳定、prompt caching 省钱、computer use。
 
@@ -123,7 +123,7 @@ ChatGPT、Claude、Gemini 本质都在做这件事。
 
 | 场景 | 推荐 |
 |---|---|
-| 写代码 / Agent | Claude Sonnet 4.5 |
+| 写代码 / Agent | Claude Sonnet 5.5.5 |
 | 极致便宜批处理 | Haiku 4.5 / DeepSeek V3 |
 | 多模态视频 | Gemini 2.5 Pro |
 | 离线 / 数据敏感 | Llama 4 本地 |
@@ -173,7 +173,7 @@ from anthropic import Anthropic
 client = Anthropic()  # 自动读 ANTHROPIC_API_KEY
 
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "用一句话解释 LLM"}
@@ -192,7 +192,7 @@ messages = [
 ]
 
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     system="你是一位幽默的相声演员，回答都用包袱。",  # ← system 单独传
     max_tokens=512,
     messages=messages,
@@ -214,7 +214,7 @@ resp = client.messages.create(
 
 ```python
 with client.messages.stream(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[{"role": "user", "content": "写一首关于秋天的诗"}],
 ) as stream:
@@ -230,7 +230,7 @@ Sonnet 4.5 支持显式"先想再答"：
 
 ```python
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=8192,
     thinking={"type": "enabled", "budget_tokens": 4000},
     messages=[{"role": "user", "content": "证明根号 2 是无理数"}],
@@ -276,7 +276,7 @@ def call_with_retry(fn, max_try=5):
 import base64, httpx
 img = base64.standard_b64encode(httpx.get("https://...").content).decode()
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[{
         "role": "user",
@@ -313,7 +313,7 @@ LLM 不直接看字符，先把文本切成 **token**（一段子词）。Claude
 ```python
 # Anthropic 提供 count_tokens
 n = client.messages.count_tokens(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     messages=[{"role": "user", "content": "你好"}],
 )
 print(n.input_tokens)
@@ -336,7 +336,7 @@ print(n.input_tokens)
 
 ```python
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     system=[
         {"type": "text", "text": "You are a helpful assistant."},
@@ -385,9 +385,9 @@ import os, sys
 from anthropic import Anthropic
 
 MODELS = {
-    "1": "claude-haiku-4-5",
-    "2": "claude-sonnet-4-5",
-    "3": "claude-opus-4-5",
+    "1": "claude-haiku-5-5",
+    "2": "claude-sonnet-5-5",
+    "3": "claude-opus-5-5",
 }
 
 def main():

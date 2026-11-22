@@ -11,7 +11,7 @@ prev: "[[06-真实毕业项目案例库]]"
 next: "[[全栈学习路线/_资源库/资源总览]]"
 status: active
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # GitHub 项目精选 - 灵感库
@@ -37,7 +37,7 @@ updated: 2026-11-22
 ### 2. vercel/ai-chatbot
 
 - **定位**：Vercel 官方的 AI 聊天界面模板
-- **技术栈**：Next.js 14 + AI SDK + Postgres + Auth.js
+- **技术栈**：Next.js 16 + AI SDK + Postgres + Auth.js
 - **适合**：做任何"GPT 套壳"产品的起点（已支持流式、Markdown、代码高亮、附件、artifacts）
 - **链接**：[github.com/vercel/ai-chatbot](https://github.com/vercel/ai-chatbot)
 

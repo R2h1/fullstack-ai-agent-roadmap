@@ -15,7 +15,7 @@ tags: [react, hooks, useState, useEffect, useMemo, useRef, useReducer, useContex
 prev: "[[W01-React入门与JSX]]"
 next: "[[W03-自定义Hook与Context]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W02 Hooks 全集
@@ -281,9 +281,9 @@ const handle = useCallback(() => doThing(id), [id])
 | 传给被 memo 包裹的子组件的 prop | ✅ useCallback / useMemo |
 | 当 useEffect 依赖项 | ✅ useCallback |
 
-### 5.2 React Compiler（2026 趋势）
+### 5.2 React Compiler（已稳定）
 
-React 19 配套的 **React Compiler**（实验稳定中）会**自动**给所有组件加 memo。装上后，你**几乎不用再写 useMemo/useCallback**。
+React 19 配套的 **React Compiler**（Next 16 起已稳定）会**自动**给所有组件加 memo。装上后，你**几乎不用再写 useMemo/useCallback**。
 
 ```bash
 pnpm add babel-plugin-react-compiler
@@ -353,7 +353,7 @@ function Title() {
 
 ---
 
-## 8. React 18/19 新 Hook
+## 8. React 19 新 Hook
 
 ### 8.1 useId
 

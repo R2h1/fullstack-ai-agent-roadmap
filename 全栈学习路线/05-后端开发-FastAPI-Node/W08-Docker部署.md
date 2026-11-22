@@ -17,7 +17,7 @@ outputs:
 prev: "[[W07-测试]]"
 next: "[[09-GitHub项目精选-后端实战]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W08 · Docker 与部署：让世界访问到你写的服务
@@ -118,14 +118,14 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 Node/Hono 同理：
 
 ```dockerfile
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
 
-FROM node:22-alpine AS runtime
+FROM node:26-alpine AS runtime
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
@@ -191,7 +191,7 @@ services:
     depends_on: [redis]
 
   db:
-    image: postgres:16-alpine
+    image: postgres:18-alpine
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
@@ -203,7 +203,7 @@ services:
       interval: 5s
 
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     volumes: [redisdata:/data]
 
   caddy:

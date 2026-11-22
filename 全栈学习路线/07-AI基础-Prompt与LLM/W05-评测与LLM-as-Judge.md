@@ -16,7 +16,7 @@ tags: [eval, llm-judge, promptfoo, ragas, ab-test]
 prev: "[[W04-RAG完整实现]]"
 next: "[[W06-从零实现GPT]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W05 · 评测与 LLM-as-Judge
@@ -228,9 +228,9 @@ prompts:
   - "你是严谨的助手，先列要点再回答。问题：{{q}}"
 
 providers:
-  - anthropic:messages:claude-haiku-4-5
-  - anthropic:messages:claude-sonnet-4-5
-  - openai:chat:gpt-5
+  - anthropic:messages:claude-haiku-5-5
+  - anthropic:messages:claude-sonnet-5-5
+  - openai:chat:gpt-6.2-sol
 
 tests:
   - vars: { q: "公司年假怎么算？" }

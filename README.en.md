@@ -77,22 +77,28 @@ Go directly to the [`全栈学习路线/`](全栈学习路线/) folder and read 
 
 Interactive version: `全栈学习路线/🗺️学习路线思维导图.canvas` (requires Obsidian to open)
 
+> **Parallel note**: 06 (Database) and 07 (AI Basics) are **two parallel branches** that both feed into 08. Once 01 is done you can jump ahead to 07, and pick 06 up later.
+> **Main serial order**: 00 → 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 = 67 weeks, plus 09 (8-12 weeks) for **75-79 weeks** total; following the recommended parallel path and skipping non-essential chapters brings it down to **12-18 months**.
+> The phase split in the diagram is a **nominal timeline**; the chapter dependency graph is what actually matters.
+
 ---
 
 ## 📚 Chapter Catalog
 
 | # | Module | Duration | Chapter Verification Project | Tutorials |
 |---|------|------|--------------|----------|
-| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 1 week | Learning dashboard + learning contract | 8 |
-| **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `pyspider-cli` async crawler + PyPI release | 12 |
+| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 1 week | Learning dashboard (HTML progress page) + learning contract | 8 |
+| **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `pyspider-cli` async crawler + PyPI release | 13 |
 | **02** | [JavaScript from Scratch to Source Code](全栈学习路线/02-JavaScript-从零到源码/) | 10 weeks | `mini-lodash` + online code sandbox | 12 |
-| **03** | [Modern Web with HTML/CSS](全栈学习路线/03-HTML-CSS-现代Web/) | 4 weeks | Pixel-perfect reproduction of Linear / Stripe / Apple landing pages | 6 |
+| **03** | [Modern Web with HTML/CSS](全栈学习路线/03-HTML-CSS-现代Web/) | 4 weeks | Pixel-perfect reproduction of 3 real sites (Linear / Stripe / Apple) | 6 |
 | **04** | [React from Usage to Source Code](全栈学习路线/04-前端框架-React/) | 10 weeks | Online collaborative whiteboard + handwritten mini-react (Fiber + Hooks) | 12 |
 | **05** | [Backend FastAPI + Node](全栈学习路线/05-后端开发-FastAPI-Node/) | 8 weeks | RealWorld Conduit backend + real-time chat | 10 |
 | **06** | [Database + Engineering](全栈学习路线/06-数据库与工程化/) | 6 weeks | `mini-twitter` high-concurrency short-post community | 8 |
 | **07** | [AI Basics: Prompt + LLM](全栈学习路线/07-AI基础-Prompt与LLM/) | 6 weeks | `AskMyDocs` enterprise doc Q&A + GPT from scratch | 8 |
 | **08** | [AI Agent Frameworks and Source Code](全栈学习路线/08-AI-Agent-框架与源码/) ⭐ | 12 weeks | `mini-agent-sdk` + self-built MCP Server | 14 |
 | **09** | [Graduation Project](全栈学习路线/09-综合实战-毕业项目/) | 8-12 weeks | **A deployable, profitable, resume-worthy product** | 8 |
+
+> Durations follow the actual number of weekly files per chapter (01/02/04 = 10 weeks each, 05 = 8, 06/07 = 6 each, 08 = 12; 09 is 6 stage documents over 8-12 weeks).
 
 ---
 

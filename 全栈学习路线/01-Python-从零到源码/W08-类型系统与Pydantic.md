@@ -18,7 +18,7 @@ tags: [python, 类型注解, typing, mypy, pydantic, 工程化]
 prev: "[[W07-并发与异步]]"
 next: "[[W09-工程化与发布]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # W08 · 类型系统与 Pydantic 📐
@@ -98,7 +98,9 @@ print(apply(lambda n: n * 2, 5))      # 10
 ### 🎯 动手练习 8.1
 写一个 `parse_age(value: str | int) -> int`，传字符串和整数都能解析，非数字字符串抛 `ValueError`。
 
+<details>
 <summary>👀 参考答案</summary>
+
 ```python
 def parse_age(value: str | int) -> int:
     if isinstance(value, int):
@@ -109,6 +111,7 @@ def parse_age(value: str | int) -> int:
 
 print(parse_age(18), parse_age("20"))     # 18 20
 ```
+</details>
 
 ---
 
@@ -494,7 +497,9 @@ if __name__ == "__main__":
 ### 🎯 动手练习 8.2
 给 `Task` 增加字段 `priority: Literal["low", "mid", "high"] = "mid"` 和 `due: datetime | None = None`，并加一个校验器：截止时间不能早于创建时间。
 
+<details>
 <summary>👀 参考答案</summary>
+
 ```python
 from pydantic import model_validator
 
@@ -511,6 +516,7 @@ class Task(BaseModel):
             raise ValueError("due 不能早于 created_at")
         return self
 ```
+</details>
 
 
 ---

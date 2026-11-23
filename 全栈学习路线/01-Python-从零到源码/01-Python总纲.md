@@ -30,7 +30,7 @@ updated: 2026-11-23
 |---|------|------|----------|
 | W1 | 语法基础：变量/类型/运算/控制流 | 入门 | 100 道基础题 |
 | W2 | 数据结构：list/tuple/dict/set + 字符串 | 入门 | LeetCode 简单 20 题 |
-| W3 | 函数 + 模块 + 文件 IO | 入门 | 命令行工具 v1 |
+| W3 | 函数 + 模块 + 文件 IO | 入门 | 命令行工具 v1（`cli-todo`，W08/W09 会继续在它身上改） |
 | W4 | OOP：类/继承/魔术方法/多态 | 进阶 | 自定义类库 |
 | W5 | 异常 + 装饰器 + 上下文管理器 | 进阶 | 装饰器 5 件套 |
 | W6 | 迭代器/生成器/yield from | 进阶 | 实现 itertools |
@@ -69,6 +69,9 @@ updated: 2026-11-23
 - 魔术方法：`__repr__` / `__eq__` / `__hash__` / `__getitem__` / `__call__`
 - @property / @classmethod / @staticmethod
 - dataclass、enum
+- 元类 metaclass、`__init_subclass__`
+- 描述符协议（`__get__` / `__set__`）、数据 vs 非数据描述符
+- `__slots__`
 - **必读**：《Fluent Python》第 1 章 - "Python 数据模型"
 
 ### W5 - 装饰器与上下文管理器
@@ -117,7 +120,7 @@ updated: 2026-11-23
 
 - [ ] **T1（W1）**：完成 [Python 基础 100 题](https://github.com/jackfrued/Python-100-Days) 第 1-30 题
 - [ ] **T2（W2）**：LeetCode 简单 20 题用 Python 通过
-- [ ] **T3（W3）**：实现一个 `cli-todo` 命令行待办，支持 add/list/done/remove
+- [ ] **T3（W3）**：实现一个 `cli-todo` 命令行待办，支持 add/list/done/remove → 见 W03「实战 4：命令行待办 cli-todo」
 - [ ] **T4（W4）**：实现一个简易 `Vector` 类（支持 +、-、*、==、`__repr__`），通过《Fluent Python》第一章的所有测试
 - [ ] **T5（W5）**：手写 5 个装饰器：`@timer`、`@retry`、`@cache`、`@deprecated`、`@validate_args`
 - [ ] **T6（W6）**：手写一个生成器版的 `range / enumerate / zip / chain`
@@ -193,7 +196,7 @@ updated: 2026-11-23
 - 📖 [Python Language Reference](https://docs.python.org/zh-cn/3/reference/)
 
 ### 项目实战
-- 🛠️ [Python-100-Days](https://github.com/jackfrued/Python-100-Days) ~155k star
+- 🛠️ [Python-100-Days](https://github.com/jackfrued/Python-100-Days) ~188k star（2026-11-23 实测）
 - 🛠️ [build-your-own-x](https://github.com/codecrafters-io/build-your-own-x)
 
 ---

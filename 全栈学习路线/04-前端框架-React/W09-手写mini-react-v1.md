@@ -74,21 +74,45 @@ const el = React.createElement('div', { id: 'x' }, 'hi ', React.createElement('b
 
 ```ts
 // src/mini-react.ts
+
+// Props 约定：所有属性 + children 数组。
+// children 是「函数式组件里 props.children」的来源 —— 后面 render 时子元素全从这里拿。
 type Props = Record<string, any> & { children: any[] }
+
+// Element 就是「虚拟 DOM 节点」：一个普通 JS 对象。
+// 注意 type 可以是 string（原生标签，如 'div'）或 Function（函数组件）。
 type Element = { type: string | Function, props: Props }
 
+// JSX 编译后长这样：
+//   <div id="a">hello</div>
+//   → createElement('div', { id: 'a' }, 'hello')
+// 所以 JSX 的「第一个参数是标签」，和这里签名完全对应。
 function createElement(type: any, props: any, ...children: any[]): Element {
   return {
     type,
     props: {
       ...props,
-      children: children.flat().map(c =>
-        typeof c === 'object' ? c : createTextElement(c)
-      ),
+      // 覆盖 props.children —— 即使调用方手写了 children 属性，也以「JSX 子元素」为准
+      // （React 本身也是这样：props.children 是编译器给的，不是手写的）。
+      children: children
+        // ① 扁平化一层：处理 <ul>{items.map(...)}</ul> 这种「数组作为子元素」。
+        //    但 flat() 默认只拍平一层 —— 嵌套两层的数组不会被完全拍平（见第 2 条）。
+        .flat()
+        // ② 非对象 → 包成文本节点；对象（Element）原样保留。
+        //    ⚠️ 这里有三个隐患，见下文第 1 条：
+        //    - null / undefined：typeof 为 'object'，被当成 Element 保留，后面 render 崩
+        //    - boolean：typeof 为 'boolean'，被包成 TEXT_ELEMENT，渲染出 "true"/"false"
+        //    - 数组里嵌套数组：flat() 只拍平一层
+        .map(c =>
+          typeof c === 'object' ? c : createTextElement(c)
+        ),
     },
   }
 }
 
+// 文本节点也是 Element，只是 type 固定为 'TEXT_ELEMENT'。
+// 后面 render 时靠这个 type 区分「创建文本节点」还是「创建元素节点」。
+// 用 nodeValue 而不是 children —— 文本节点没有子元素，直接存值更直接。
 function createTextElement(text: string | number | boolean) {
   return {
     type: 'TEXT_ELEMENT',
@@ -96,6 +120,8 @@ function createTextElement(text: string | number | boolean) {
   }
 }
 
+// 默认导出成对象，是为了让 JSX 的「自动导入」能找到 createElement。
+// Babel / TypeScript 的 jsxFactory 配置会生成 `MiniReact.createElement(...)`。
 export default { createElement }
 ```
 
@@ -154,14 +180,47 @@ function render(el: Element, container: HTMLElement) {
 
 ```ts
 type Fiber = {
+  // ─── 描述「这个节点是什么」───
   type: string | Function
+  // 和 Element 的 type 一致：'div' / 'TEXT_ELEMENT' / 函数组件。
+  // 它是「创建 DOM 时用什么」的依据。
+
   props: Props
+  // 和 Element 的 props 一致：属性 + children。
+  // 注意 children 在这里是「待调和的子 Element 数组」，不是 Fiber 数组 ——
+  // 子 Fiber 是通过下面的 child / sibling 指针连起来的。
+
+  // ─── 指向「已经存在的真实 DOM」───
   dom: HTMLElement | Text | null
+  // 函数组件的 Fiber 没有自己的 DOM —— 它返回的 Element 才有。
+  // 所以函数组件 Fiber 的 dom 是 null，它的子 Fiber 才有真实 DOM。
+
+  // ─── 树结构，但用「链表」表达 ───
   parent: Fiber | null
+  // 父 Fiber。用于「向上冒泡」—— 比如 commit 阶段从根一路找下去，
+  // 或者「找下一个要处理的节点」时回溯。
+
   child: Fiber | null
+  // 第一个子 Fiber。
+  // ⚠️ 注意：只有「第一个」—— 后续兄弟通过 sibling 链走。
+
   sibling: Fiber | null
-  alternate: Fiber | null   // 指向"上一次的自己"（双缓冲）
+  // 下一个兄弟 Fiber。
+  // child + sibling 合起来等价于「children 数组」，但可以「逐个处理、随时中断」。
+
+  // ─── 双缓冲：指向「上一次渲染的自己」───
+  alternate: Fiber | null
+  // 上一次 commit 后的 Fiber。新 Fiber 和 alternate 配对做 diff：
+  //   - 同一个位置，old fiber 和 new fiber 的 type 相同 → 复用 DOM，打 UPDATE
+  //   - type 不同 → 删旧的，建新的，打 PLACEMENT
+  // 根 Fiber 的 alternate 是「上一次的根」，这是「哪棵树是当前树」的锚点。
+
+  // ─── 本次渲染要对这个节点做什么 ───
   effectTag?: 'PLACEMENT' | 'UPDATE' | 'DELETION'
+  // PLACEMENT：新建 DOM，commit 时 appendChild
+  // UPDATE：复用 DOM，只更新变化的属性/事件
+  // DELETION：删除 DOM，commit 时 removeChild
+  // ⚠️ 没有 effectTag 表示「这个节点没变化」—— commit 时跳过
 }
 ```
 
@@ -206,18 +265,42 @@ current ──┐         wipRoot ──┐
 浏览器每帧大概 16.6ms。React 的承诺：**渲染可以中断，让浏览器先处理用户输入**。
 
 ```ts
+// ── 调度状态 ──
 let nextUnitOfWork: Fiber | null = null
+// 「下一个要处理的工作单元」。performUnitOfWork 处理完当前节点后返回它，
+// workLoop 拿它继续下一轮。为 null 表示「这棵树处理完了」。
+
 let wipRoot: Fiber | null = null
+// Work In Progress Root —— 「正在构建的新树」的根。
+// 和屏幕上当前的树（currentRoot）并存，构建完才一次性切换（双缓冲）。
+// 它同时是「是否还有未提交的树」的标志：非 null 说明有活要干/要提交。
+
 
 function workLoop(deadline: IdleDeadline) {
   let shouldYield = false
+
+  // 核心循环：只要还有工作、且这一帧还有时间，就继续处理
   while (nextUnitOfWork && !shouldYield) {
+    // performUnitOfWork 做三件事：
+    //   ① 给当前 fiber 创建 DOM / 更新属性
+    //   ② 为 children 创建子 fiber（diff）
+    //   ③ 返回「下一个要处理的 fiber」
+    // 返回值的设计是精髓：把递归变成了「迭代 + 外部状态机」
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork)
-    shouldYield = deadline.timeRemaining() < 1   // 这一帧没空了，暂停
+
+    // 剩余空闲时间不足 1ms → 让出主线程，避免掉帧
+    // 循环退出后，nextUnitOfWork 仍非 null，下一帧的 workLoop 会接着跑
+    shouldYield = deadline.timeRemaining() < 1
   }
+
+  // 所有工作单元处理完（nextUnitOfWork 为 null），且有待提交的树 → 提交
+  // 两个条件缺一不可：只有 nextUnitOfWork 为 null 才是「这棵树构建完了」
   if (!nextUnitOfWork && wipRoot) commitRoot()
+
+  // ⚠️ 必须重新注册，否则只会在第一帧跑一次
   requestIdleCallback(workLoop)
 }
+
 requestIdleCallback(workLoop)
 ```
 

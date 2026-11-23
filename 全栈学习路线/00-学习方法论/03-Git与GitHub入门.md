@@ -510,7 +510,7 @@ git push origin main
 - [ ] 会用 restore / reset / revert / reflog 撤销与回滚
 - [ ] 遇到 merge conflict 不慌
 
-全部打勾 → 进入下一节《命令行终端基础》🚀
+全部打勾 → 进入下一篇《命令行终端基础》🚀
 
 ---
 

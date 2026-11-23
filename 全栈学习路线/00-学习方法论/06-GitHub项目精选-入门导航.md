@@ -4,7 +4,7 @@ type: github-curation
 chapter: "00"
 chapter_title: 学习方法论
 order: 7
-reading_minutes: 40
+reading_minutes: 90
 difficulty: 🌱→🌲
 prerequisites:
   - "[[03-Git与GitHub入门]]"
@@ -25,10 +25,10 @@ updated: 2026-11-23
 
 ---
 
-## 🎯 本章目标
+## 🎯 本篇目标
 
-- 认得 20+ 个高质量开源项目，知道每一个**具体该拿来学什么**
-- 学会用 GitHub 当学习平台，而不只是代码托管：README、Issues、Discussions、PR 四件套
+- 认得 **24 个**高质量开源项目 + 1 个 PR 靶子仓库，知道每一个**具体该拿来学什么**（实测：必 fork 8 + Easy-vibe 6 + 中文向导 7 + 工具类 3 = 24，⭐ 为 2026-11-23 快照）
+- 学会用 GitHub 当学习平台，而不只是代码托管：**README + Issues + Discussions 三件套读懂它**，**PR 看懂它怎么长大**
 - 掌握 7 个"用 GitHub 学习"的技巧，知道怎么从海量仓库里筛出适合自己的
 - 避开 8 个学习者陷阱，尤其是"收藏即学会"和"教程地狱"
 - 给自己定下规矩：**收藏 ≠ 学会，fork + 改一行 + 提一个 PR 才是学会**
@@ -260,7 +260,7 @@ updated: 2026-11-23
 
 新手用 GitHub 像用云盘——只用来 star。下面是真正高效的玩法。
 
-### 1. 看 README + Issues + Discussions，三件套缺一不可
+### 1. 看 README + Issues + Discussions，三件套缺一不可（这是「读懂一个项目」的基本功）
 - README 告诉你"它是什么"
 - Issues 告诉你"它的 bug 和限制"
 - Discussions 告诉你"高级用户怎么用它"
@@ -286,7 +286,7 @@ language:python stars:>1000 topic:web-framework
 - fork = "我把它带回家了"
 - fork + 改一行 + push = "我开始拥有它"
 
-### 6. 看 PR 学协作
+### 6. 看 PR 学协作（补上三件套缺的那一块）
 找一个你喜欢的库，过滤 `is:pr is:merged`，挑一个文件少的 PR 通读。你会看到：作者怎么写描述、review 者提什么问题、CI 怎么跑、最后怎么合并。**这就是真实软件工程**，比任何课都生动。
 
 ### 7. 给 typo 提 PR 入门
@@ -296,7 +296,20 @@ language:python stars:>1000 topic:web-framework
 
 ## 🐛 常见错误：8 个常见误区
 
-> 学过的东西比 star 过的多，才算真正在前进。
+> 学过的东西比 star 过的多，才算真正在前进。读完下面 8 条，先自己对照一遍再往下走。
+
+**自检（每条问你一句"我中招了吗"）：**
+
+| # | 误区 | 我中招了吗 |
+|---|------|-----------|
+| 1 | Star 上瘾：收藏 200 个仓库，一个没读完 | ☐ |
+| 2 | 资源囤积：下载 50G 电子书一本没看 | ☐ |
+| 3 | 教程地狱：永远在"看下一个视频" | ☐ |
+| 4 | 盯巨型项目：一上来读 Linux 内核 | ☐ |
+| 5 | 追新潮：今天 Hono 明天 Bun | ☐ |
+| 6 | 不发 issue / PR：只读用户 | ☐ |
+| 7 | 不写 commit message：全是"update""fix" | ☐ |
+| 8 | 不写 README：自己的项目没 README | ☐ |
 
 1. **Star 上瘾**：收藏 200 个仓库不如读完 1 个 README。每月做"Star 清理"，超过 6 个月没碰的取消 star。
 2. **资源囤积**：下载了 50G 电子书一本没看。**先选 1 本，完整读完再下下一本**。
@@ -325,8 +338,35 @@ language:python stars:>1000 topic:web-framework
 
 ---
 
+## ✅ 本篇实战：真的 fork 一次
+
+> 这一篇全是"看"，不练就白看。**收藏 ≠ 学会**，唯一的验证方式是动手。
+
+### 任务（30 分钟）
+
+- [ ] **任务 1**：从上面 24 个仓库里挑 **2 个**你当前最需要的，`fork` 到自己账号下
+  - 建议：`freeCodeCamp/freeCodeCamp`（地基）+ 一个跟你当下方向匹配的（AI 相关就选 `anthropics/claude-cookbooks`）
+- [ ] **任务 2**：在 fork 的副本里改**一行**（改个错别字、加一行 README 说明、或者改个配置注释都行），`git commit` + `git push`
+- [ ] **任务 3**：给你的 fork 写一个 README，至少有 What / Why / How 三段
+- [ ] **任务 4**：用 `is:issues` 搜索挑一个仓库的 open issue，**随便写一条有内容的回复**（哪怕只是"我也遇到了，我在 xx 环境复现"）
+  - 挑不出合适的 issue？去 `goodfirstissue.dev` 挑一个 `good first issue` 标签的
+
+### 本篇 checklist
+
+- [ ] 我认得本篇 24 个仓库，并知道每一个**具体**该拿来学什么（不是只 star 过）
+- [ ] 我会写 GitHub 高级搜索：`language:` `stars:>` `pushed:` `org:`
+- [ ] 我知道 README / Issues / Discussions 各能告诉我什么，以及 PR 怎么看
+- [ ] 我 fork 了 2 个仓库，并且**改了至少一行 push 上去**
+- [ ] 我给某个仓库的 issue 留过一条有内容的回复
+- [ ] 我定下了"收藏 ≠ 学会"的规矩，并且做了一次 star 清理
+- [ ] 我避开了上面 8 个常见误区里的至少 6 个
+
+---
+
 ## 📌 一句话收尾
 
 GitHub 不是云盘，是健身房。
 **别只买年卡（star），要进去练（fork、clone、改、push、PR）**。
 下一篇 [[07-费曼学习法与笔记系统]] 讲怎么把"看懂了"变成"讲得出"；等到第 01 章 [[全栈学习路线/01-Python-从零到源码/01-Python总纲]]，Python 项目精选才是真正的"练习曲"。
+
+> 📌 本篇是**第 00 章里的第 06 篇**（章内篇），不是全书第 06 章。整章的考核任务和章节项目见 [[00-学习方法论总纲]]。

@@ -17,7 +17,7 @@ updated: 2026-11-23
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)
 
-> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **116 Markdown files / ~1,000,000 characters (167,000 CJK characters) / 1,309 code blocks**, organized with Obsidian.
+> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **116 Markdown files / ~1,000,000 characters (170,000 CJK characters) / 1,314 code blocks**, organized with Obsidian.
 >
 > Covers **Python · JavaScript · React · FastAPI · Database · LLM · AI Agent · Graduation Project**. Every knowledge point comes with **analogies + complete code + exercises + GitHub project recommendations**.
 
@@ -31,16 +31,16 @@ updated: 2026-11-23
 
 Not a list of links. This is a complete tutorial package for **"from zero → able to independently deliver AI Agent products"**:
 
-- 📘 **116 Markdown files / 1,000,959 characters / 42,998 lines** —— every new concept is explained with everyday analogies
+- 📘 **116 Markdown files / 1,008,930 characters / 43,220 lines** —— every new concept is explained with everyday analogies
 - 💻 **Complete runnable code** —— not snippets, but line-by-line comments + expected output + exercise answers
 - 🎯 **66 weekly tasks + 10 chapter capstone projects** —— each chapter requires a verification project; you haven't finished until you've built it
-- ⭐ **334 de-duplicated curated GitHub repositories** (590 references) —— each annotated with "how to use it to learn"
+- ⭐ **335 de-duplicated curated GitHub repositories** (590 references) —— each annotated with "how to use it to learn"
 - 🗺️ **Obsidian Canvas mind maps** —— global view + chapter relationships at a glance
 - 📊 **Companion learning contract / weekly report / milestone templates** —— a forced feedback system
 
 > This tutorial is **designed specifically for zero-foundation learners**: you need no prerequisite knowledge, just 3 hours a day + a determined heart.
 
-> 📊 **How the numbers were measured** (2026-11-23): 116 Markdown files (109 chapter articles + 6 navigation pages + 1 contributing guide), 1,000,959 characters, 167,475 CJK characters, 42,998 lines, 1,309 code blocks, 66 weekly tasks, 334 de-duplicated GitHub repositories (590 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
+> 📊 **How the numbers were measured** (2026-11-23): 116 Markdown files (109 chapter articles + 6 navigation pages + 1 contributing guide), 1,008,930 characters, 170,423 CJK characters, 43,220 lines, 1,314 code blocks, 66 weekly tasks, 335 de-duplicated GitHub repositories (590 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
 
 ---
 
@@ -93,7 +93,7 @@ Go directly to the [`全栈学习路线/`](全栈学习路线/) folder and read 
 Interactive version: `全栈学习路线/🗺️学习路线思维导图.canvas` (requires Obsidian to open)
 
 > **Parallel note**: 06 (Database) and 07 (AI Basics) are **two parallel branches** that both feed into 08. Once 01 is done you can jump ahead to 07, and pick 06 up later.
-> **Main serial order**: 00 → 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 = 67 weeks, plus 09 (8-12 weeks) for **75-79 weeks** total; following the recommended parallel path and skipping non-essential chapters brings it down to **12-18 months**.
+> **Main serial order**: 00 → 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 = 68-69 weeks, plus 09 (8-12 weeks) for **76-81 weeks** total; following the recommended parallel path and skipping non-essential chapters brings it down to **12-18 months**.
 > The phase split in the diagram is a **nominal timeline**; the chapter dependency graph is what actually matters.
 
 ---
@@ -102,7 +102,7 @@ Interactive version: `全栈学习路线/🗺️学习路线思维导图.canvas`
 
 | # | Module | Duration | Chapter Verification Project | Tutorials |
 |---|------|------|--------------|----------|
-| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 1 week | Learning dashboard (HTML progress page) + learning contract | 9 |
+| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 2-3 weeks | Learning dashboard (HTML progress page) + learning contract + 8 tasks | 9 |
 | **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `pyspider-cli` async crawler + PyPI release | 13 |
 | **02** | [JavaScript from Scratch to Source Code](全栈学习路线/02-JavaScript-从零到源码/) | 10 weeks | `mini-lodash` + online code sandbox | 12 |
 | **03** | [Modern Web with HTML/CSS](全栈学习路线/03-HTML-CSS-现代Web/) | 4 weeks | Pixel-perfect reproduction of 3 real sites (Linear / Stripe / Apple) | 6 |

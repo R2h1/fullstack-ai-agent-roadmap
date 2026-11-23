@@ -75,9 +75,26 @@ anyio.run(main)
 ```python
 from claude_agent_sdk import query, tool, ClaudeAgentOptions
 
+import ast, math
+
+_ALLOWED_NODES = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant,
+                  ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod,
+                  ast.Pow, ast.USub, ast.UAdd, ast.Load)
+
+def _safe_eval(expr: str) -> float:
+    """只允许四则运算——工具入参来自模型，不能裸 eval"""
+    tree = ast.parse(expr, mode="eval")
+    for node in ast.walk(tree):
+        if not isinstance(node, _ALLOWED_NODES):
+            raise ValueError(f"表达式包含不允许的语法: {type(node).__name__}")
+    return eval(compile(tree, "<calc>", "eval"), {"__builtins__": {}}, math.__dict__)
+
 @tool("calc", "执行表达式", {"expr": str})
 async def calc(args):
-    return {"content": [{"type": "text", "text": str(eval(args["expr"]))}]}
+    try:
+        return {"content": [{"type": "text", "text": str(_safe_eval(args["expr"]))}]}
+    except Exception as e:
+        return {"content": [{"type": "text", "text": f"计算失败: {e}"}]}
 
 options = ClaudeAgentOptions(
     system_prompt="你是一个严谨助理",
@@ -90,6 +107,8 @@ async def main():
     async for msg in query(prompt="(1+2)*3 等于几？", options=options):
         print(msg)
 ```
+
+> ⚠️ **工具安全**：Agent 的工具入参是**模型生成的**，等同于用户输入。`eval` 一次就可能执行任意代码（`__import__('os').system(...)`）。所以要么像上面那样用 `ast` 白名单把语法限死，要么改用 `simpleeval` / `sympy`，要么只暴露固定粒度的 `add/sub/mul/div` 工具。Claude Agent SDK 的 `allowed_tools` 只控制"能不能调"，**不控制"调了会不会出事"**。
 
 ### Handoff（子 Agent）
 
@@ -360,7 +379,7 @@ print(Runner.run_sync(main, "调研：Anthropic 公司").final_output)
 
 ---
 
-## 七、checklist
+## 七、✅ 本周 Checklist
 
 - [ ] Claude Agent SDK Hello world
 - [ ] 自定义 tool + hook 跑通
@@ -370,20 +389,37 @@ print(Runner.run_sync(main, "调研：Anthropic 公司").final_output)
 - [ ] guardrail 触发过一次 tripwire
 - [ ] OpenAI Traces 平台看到调用图
 - [ ] 同一调研任务两边各做一遍并对比
+- [ ] 能说清 Claude 的 hook 与 OpenAI 的 guardrail 差别
+- [ ] 子 Agent 只传必要上下文（成本可控，不是整段复制历史）
+- [ ] 两个 SDK 各做一遍同一任务，并记下了代码量与 token 差异
 
 ---
 
-## 八、参考
+## 八、🐛 常见错误
 
-- Anthropic Claude Agent SDK 文档
-- claude-agent-sdk-python 仓库
-- OpenAI Agents SDK 文档（openai.github.io/openai-agents-python）
-- openai-agents-python 仓库
-- 本路线 W02（手写） / W04（LangGraph） / W05（MCP）
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 自定义 tool 一直不被调用 | `allowed_tools` 没包含该工具名 | Claude 侧必须显式写 `allowed_tools=["calc"]`；OpenAI 侧确认工具已进 agent |
+| handoff 了但模型还在原 Agent 跑 | handoff 工具没被触发，或描述不清 | handoff 的 description 要写清「何时移交」，并确认它在工具列表里 |
+| 两个 Agent 无限互相 handoff | 没有移交次数上限 | 记录移交次数，超限强制转人工；或规定单向移交链条 |
+| 成本比单 Agent 高好几倍 | 每个 Agent 都带完整 system + 全量历史 | 共享「事实层」（检索结果），各 Agent 只带自己角色片段 |
+| guardrail 只挡输入不挡输出 | 只实现了输入校验 | 输入、输出双向校验（OpenAI Agents SDK 有 input / output guardrail） |
+| 两家 API 写法混着来 | Claude 的 hook 与 OpenAI 的 guardrail 语义不同 | 对照 §四 的表；先只用一家跑通，再换第二家 |
+| 子 Agent 的 trace 是断裂的 | 没有传递会话/用户标识 | 把 `user_id` / `thread_id` 透传给每个子 Agent，trace 才能串成树 |
 
 ---
 
-## 九、第 08 章总结：你现在会什么
+## 九、📚 参考与延伸阅读
+
+- Claude Agent SDK 文档与示例：<https://github.com/anthropics/claude-agent-sdk-python>
+- Anthropic Claude Code SDK 文档：<https://docs.claude.com/en/docs/claude-code/sdk>
+- OpenAI Agents SDK 文档（handoff / guardrail / tracing）：<https://openai.github.io/openai-agents-python>
+- `openai/openai-agents-python` 仓库：<https://github.com/openai/openai-agents-python>
+- 本路线 W02（手写）、W04（LangGraph）、W05（MCP）
+
+---
+
+## 十、第 08 章总结：你现在会什么
 
 走完 W01-W06：
 

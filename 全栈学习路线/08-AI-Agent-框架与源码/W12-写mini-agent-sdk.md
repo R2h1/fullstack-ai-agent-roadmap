@@ -507,7 +507,7 @@ gh repo create mini-agent --public --source=. --push
 4. 加一个 `LangfuseTraceWriter`，把 trace 推到 Langfuse
 5. 写一篇博客《我用 500 行写了一个 Agent SDK》并发到掘金 / 知乎
 
-## 9. checklist
+## 9. ✅ 本周 Checklist
 
 - [ ] mini-agent-sdk 完整跑通 + 测试通过
 - [ ] 已 push 到 GitHub 并写 README
@@ -515,6 +515,34 @@ gh repo create mini-agent --public --source=. --push
 - [ ] 第 08 章笔记整理进 vault
 - [ ] 第 09 章选题已定
 - [ ] 至少 5 个真实用户排队等你交付
+- [ ] 仓库装到干净环境能 `pip install -e .` 跑起来
+- [ ] 每个工具都有 3 个单测：正常 / 抛错 / 非法入参
+- [ ] README 含 30 行快速开始 + 一张真实 demo 截图
+
+---
+
+## 10. 🐛 常见错误
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| SDK 写成一坨大文件 | 没有分层 | 至少拆成 tool / llm / trace / checkpoint / approval / handoff 六层，单文件控制在 200 行内 |
+| 想支持 10 种模型，结果一个都没跑好 | 抽象过度 | 先支持 1 家 + 1 个具体模型，把接口留出来就行 |
+| 进程崩了状态全丢 | 没做 checkpointer | 至少实现 `save` / `load`，SQLite 起步再换 Postgres |
+| 审批在异步路径上被绕过 | 只在同步调用里加了 hook | 审批挂在工具执行入口，同步 / 异步共用一条路径 |
+| `RuntimeError: event loop is closed` | 同步与异步混用 | 全链路统一 async，入口用 `asyncio.run`，别在同步侧手动跑 loop |
+| 测试只覆盖 happy path | 没测工具失败、超时、非法参数 | 每个工具 3 个单测：正常 / 抛错 / 非法入参 |
+| 别人装上跑不起来 | 依赖没锁 | `pyproject.toml` 固定依赖版本 + 锁文件，README 写清安装命令 |
+| 仓库没人用 | README 只有一句话 | README 写清：它是什么 / 30 行快速开始 / 真实 demo 截图 / 与官方 SDK 的差异 |
+
+---
+
+## 11. 📚 参考与延伸阅读
+
+- `anthropics/claude-agent-sdk-python` —— 对标实现（工具、Handoff、hook、权限）：<https://github.com/anthropics/claude-agent-sdk-python>
+- `openai/openai-agents-python` —— 另一套官方抽象（handoff / guardrail / tracing）：<https://github.com/openai/openai-agents-python>
+- `huggingface/smolagents` —— 极简 Agent 库，代码量小，适合对照读：<https://github.com/huggingface/smolagents>
+- `pydantic/pydantic-ai` —— 类型优先的 Agent 框架：<https://github.com/pydantic/pydantic-ai>
+- HumanLayer《12-Factor Agents》—— 把 Agent 当「提示词 + 工具」，不要把控制流写死：<https://github.com/humanlayer/12-factor-agents>
+- 本路线 W02（手写 mini-agent）、W10（trace / checkpoint 的实现参考）
 
 第 08 章到此结束。下一章是毕业项目——把所学的一切，凝结成你简历上最响亮的一行。
-

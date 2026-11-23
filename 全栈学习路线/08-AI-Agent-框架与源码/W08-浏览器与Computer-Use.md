@@ -316,7 +316,7 @@ task = """
 4. 实现一个最小的"DOM + 视觉"双路感知函数，看在哪些场景视觉派会帮上忙
 5. 给你的浏览器 Agent 加上"危险动作人工审批"hook（点击含 "支付/删除/退出" 文本的按钮前必须人工 y/n）
 
-## 12. checklist
+## 12. ✅ 本周 Checklist
 
 - [ ] 能说清三种浏览器 Agent 范式 + 各自优劣
 - [ ] 跑通了 Anthropic Computer Use Docker
@@ -324,6 +324,34 @@ task = """
 - [ ] 至少完成实战 1 或实战 2 的一半
 - [ ] 设计了你自己 Agent 的安全沙箱方案（至少 3 道防线）
 - [ ] 知道 Prompt Injection 是什么，写过一个防御示例
+- [ ] 浏览器 Agent 跑在沙箱或独立浏览器 profile 里
+- [ ] 对 Prompt Injection 做过一次演示，并写出对应防御
+- [ ] 高危动作（支付 / 删除 / 提交）停在确认页等人工
+
+---
+
+## 13. 🐛 常见错误
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| Agent 把真实浏览器当试验田，点掉了付款 | 没有沙箱 | 用 Docker 或独立浏览器 profile；生产账号绝不给真实登录态 |
+| 网页里的隐藏指令被执行了 | Prompt Injection（页面内容伪装成指令） | 把网页内容当「数据」不当「指令」；工具层二次校验，关键动作人工确认 |
+| 坐标点击总是点偏 | 视觉派分辨率 / 缩放不一致 | 统一截图尺寸与缩放比例；关键路径优先用 DOM 选择器（结构派） |
+| 页面一改元素就失效 | 依赖脆弱选择器（第 N 个 div） | 用语义定位（role + accessible name / aria-label） |
+| 登录态反复掉 | 每次都新建浏览器上下文 | 复用同一 context，或持久化 storage_state |
+| 弹窗、iframe 里的内容看不见 | 没有处理页面层级 | 显式处理 iframe；识别并关闭遮罩弹窗 |
+| 无限点击不收敛 | 没有操作预算 | 设最大步数 / 时长 / 金额上限，超限停下并报错 |
+| 最后一步自动点了「确定」 | 没有人工审批点 | 含「支付 / 删除 / 提交 / 退出」文本的按钮一律停在确认页 |
+
+---
+
+## 14. 📚 参考与延伸阅读
+
+- Anthropic Computer Use 工具文档（工具声明、沙箱、循环）：<https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/computer-use-tool>
+- `anthropics/anthropic-quickstarts` · computer-use-demo：<https://github.com/anthropics/anthropic-quickstarts>
+- browser-use 文档：<https://docs.browser-use.com>
+- Playwright 文档（DOM 自动化底座）：<https://playwright.dev/python/>
+- OWASP Top 10 for LLM Applications（含 Prompt Injection 条目）：<https://owasp.org/www-project-top-10-for-large-language-model-applications/>
+- 本路线 §7.2 沙箱设计、§7.3 Prompt Injection 防御
 
 下一周（W09），我们解决另一个 Agent 工程师必修课——**怎么知道你的 Agent 真的好用**。
-

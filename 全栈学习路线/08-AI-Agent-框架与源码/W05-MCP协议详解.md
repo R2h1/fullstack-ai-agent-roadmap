@@ -15,7 +15,7 @@ tags: [mcp, model-context-protocol, anthropic, tool-protocol, claude-desktop]
 prev: "[[W04-LangGraph进阶]]"
 next: "[[W06-Claude与OpenAI-Agent-SDK]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W05 · MCP 协议详解
@@ -391,7 +391,7 @@ if __name__ == "__main__":
 
 ---
 
-## 十四、checklist
+## 十四、✅ 本周 Checklist
 
 - [ ] 能讲清 Tools / Resources / Prompts 区别
 - [ ] FastMCP 写过最小 server
@@ -399,15 +399,33 @@ if __name__ == "__main__":
 - [ ] Claude Desktop 接过自定义 server
 - [ ] Obsidian Vault MCP server 实战完成
 - [ ] 自己 mini-agent 也能接 MCP
+- [ ] 能用 Inspector 看清一次 `tools/list` 与 `tools/call` 的报文
+- [ ] 给工具描述写了「什么时候该用它」
+- [ ] 给文件类工具加了路径越界校验
 
 ---
 
-## 十五、参考
+## 十五、🐛 常见错误
 
-- spec: modelcontextprotocol.io
-- python-sdk: github.com/modelcontextprotocol/python-sdk
-- typescript-sdk: github.com/modelcontextprotocol/typescript-sdk
-- awesome-mcp-servers
-- Anthropic 博客《Introducing the Model Context Protocol》(2024.11)
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| Claude Desktop 里看不到自己的 server | `mcpServers` 路径写错或没重启客户端 | 配置用**绝对路径**，改完重启客户端，用 `claude mcp list` 验证 |
+| Inspector 连不上 | server 一启动就崩 | 先手动 `python my_mcp.py` 看报错；stdio 传输时 stdout 只能写协议消息，日志一律走 stderr |
+| 模型从来不调你的工具 | 工具名/描述太模糊 | description 写清「什么时候该用」，参数给 JSON Schema 并带 example |
+| 工具返回了但模型看不到 | 返回值类型不是文本 | 返回字符串，或 `{"content":[{"type":"text","text":...}]}` |
+| 只能读不能写 | 只实现了 resources 没实现 tools | 三原语按需实现：tools（可执行）/ resources（只读）/ prompts（模板） |
+| 能读写任意路径（安全洞） | 没有做路径校验 | 把 vault 根 resolve 后校验 `path.is_relative_to(root)`，越界直接拒绝 |
+| 改了代码没生效 | server 进程还挂着旧的 | 每次改完重启 MCP 客户端里的 server 进程（stdio 模式不会热重载） |
+
+---
+
+## 十六、📚 参考与延伸阅读
+
+- MCP 官方规范：<https://modelcontextprotocol.io>
+- Python SDK（FastMCP）：<https://github.com/modelcontextprotocol/python-sdk>
+- TypeScript SDK：<https://github.com/modelcontextprotocol/typescript-sdk>
+- MCP Inspector（调试必备）：<https://github.com/modelcontextprotocol/inspector>
+- 现成服务器合集：<https://github.com/punkpeye/awesome-mcp-servers>
+- 本路线 W02（给 mini-agent 接 MCP）、W06（官方 SDK 内置 MCP 客户端）
 
 下一周：**Claude Agent SDK + OpenAI Agents SDK**——官方抽象。

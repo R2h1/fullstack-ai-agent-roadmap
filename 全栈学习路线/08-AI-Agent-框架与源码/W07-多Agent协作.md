@@ -8,7 +8,7 @@ week: 7
 prerequisites:
   - W06
 outputs:
-  - 模拟公司
+  - 内容工作室 / 产品评审会 / 投资研究小组 三个多 Agent 实战
 tags: [agent, multi-agent, crewai, autogen, langgraph]
 prev: "[[W06-Claude与OpenAI-Agent-SDK]]"
 next: "[[W08-浏览器与Computer-Use]]"
@@ -435,7 +435,7 @@ print(crew.kickoff(inputs={"ticker": "NVDA"}))
 4. 设计一个故意会失败的任务（比如让 risk 给买卖建议），看你的 system prompt 是否能稳住角色
 5. 给整个 Crew 加上日志，输出每个 Agent 的 token / 耗时
 
-## 11. checklist
+## 11. ✅ 本周 Checklist
 
 - [ ] 能画出三种多 Agent 拓扑并各举一例
 - [ ] 用 CrewAI 跑通了内容工作室
@@ -444,5 +444,34 @@ print(crew.kickoff(inputs={"ticker": "NVDA"}))
 - [ ] 能说出多 Agent 反模式三条
 - [ ] 完成投资研究小组实战并核对产出
 - [ ] 估算了一次任务的 token 成本
+- [ ] 能估算多 Agent 相对单 Agent 的 token 倍数（并给出实测数）
+- [ ] 给每个 Agent 划了「只做什么 / 绝不做什么」的边界
+- [ ] worker 的输出用 reducer 汇总，没有互相覆盖
+
+---
+
+## 12. 🐛 常见错误
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 简单任务硬上多 Agent，成本翻十倍 | 没评估「多 Agent 增益 > 成本」 | 先单 Agent + 好工具；多 Agent 只在角色确实需要不同上下文/工具时用 |
+| Agent 角色越位 | system prompt 只描述任务、没划边界 | 每个 Agent 写清「只做什么 / 绝不做什么」，再加一道输出校验 |
+| worker 输出互相覆盖 | 共享 state 都写同一个 key | 每个 worker 写独立 key，或用 `Annotated[list, operator.add]` 汇总 |
+| 并行结果只剩最后一个 | 汇总节点没有 reducer | 汇总字段挂 reducer，否则后写的覆盖先写的 |
+| token 成本失控 | 每个 Agent 都带完整历史与长 prompt | 共享「事实层」检索结果，各 Agent 只带自己角色片段 |
+| AutoGen 示例跑不起来 | 还在抄 v0.2 的老 API | v0.4 是全新 API（`AssistantAgent` / `Runtime`），照官方最新示例抄 |
+| 报告里的引用是编的 | 没有「引用必须真实」的校验 | 让 critic Agent 专门核对引用，或加 URL 存在性检查 |
+| 代码执行 Agent 跑飞 | Docker executor 没有资源限制 | `--network none`、只读文件系统、内存与超时上限 |
+
+---
+
+## 13. 📚 参考与延伸阅读
+
+- CrewAI 文档：<https://docs.crewai.com>
+- Microsoft AutoGen 文档（v0.4）：<https://microsoft.github.io/autogen>
+- LangChain 多 Agent 文档（Supervisor / Handoff / Subagent）：<https://docs.langchain.com/oss/python/langchain/multi-agent>
+- `langchain-ai/langgraph-supervisor` —— Supervisor 模式的官方实现：<https://github.com/langchain-ai/langgraph-supervisor>
+- Anthropic《How we built our multi-agent research system》—— 多 Agent 的工程细节与成本：<https://www.anthropic.com/engineering/multi-agent-research-system>
+- 延伸阅读 · **A2A 协议**（Agent-to-Agent，Agent 互操作的另一套标准，与 MCP 互补）：<https://a2a-protocol.org>
 
 下一周（W08），我们让 Agent 长出"手"——直接操作浏览器和电脑。

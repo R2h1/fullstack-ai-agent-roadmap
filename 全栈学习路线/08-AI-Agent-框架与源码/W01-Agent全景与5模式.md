@@ -331,21 +331,38 @@ def agent_loop(user_msg, tools):
 
 ---
 
-## 九、checklist
+## 九、✅ 本周 Checklist
 
 - [ ] 能用一句话讲清 Agent vs Workflow 区别
 - [ ] 5 大模式各能说出适用场景
 - [ ] 5 个 demo 都跑通
 - [ ] 读完 Anthropic《Building Effective Agents》原文
 - [ ] 看过至少 2 个生产 Agent（Claude Code / Cursor）的工作流截图
+- [ ] 能为自己的场景在「workflow / 单 Agent / 多 Agent」三者间说出选型理由
+- [ ] 给 Agent 设过步数上限与成本上限（并真的触发过一次）
+- [ ] 知道「人在环上」应该插在哪一步、拦什么动作
 
 ---
 
-## 十、参考
+## 十、🐛 常见错误
 
-- Anthropic, *Building Effective Agents* (2024.12)
-- Anthropic Cookbook · Agents 章
-- LangChain, *Multi-Agent Systems* 文档
-- Claude Code 内部架构博客（Anthropic 2025）
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 什么都上 Agent，成本暴涨 | 没区分 workflow 与 agent | 能用一个 prompt 解决的不要上 agent；按 §二 决策树先判形态 |
+| 并行化反而更慢更贵 | 三个分支各调一次大模型 | 只在「子任务互不依赖且都慢」时并行，否则串行 |
+| Evaluator-Optimizer 无限循环 | 评判标准（rubric）不明确 | 写死可判定的 rubric（必须含/禁止含/字数/格式），并设最大迭代次数 |
+| Agent 死循环烧钱 | 没有步数与成本上限 | 每轮记录 token 与步数，超阈值就返回「未完成」并交人工 |
+| 拆了一堆子任务但没人合并 | 图里少了 synthesize/aggregator 节点 | Orchestrator-Workers 必须有汇总节点，否则 worker 输出没人用 |
+| Routing 分支后不知道干什么 | 只做了「分类」，没定义各分支的职责 | 每条分支都要有明确的输入输出契约 |
+
+---
+
+## 十一、📚 参考与延伸阅读
+
+- Anthropic《Building Effective Agents》—— 5 大模式原文：<https://www.anthropic.com/engineering/building-effective-agents>
+- Anthropic Cookbook · Agents / Prompt Engineering 章：<https://github.com/anthropics/anthropic-cookbook>
+- Anthropic《How we built our multi-agent research system》—— 多 Agent 的真实工程与成本数据：<https://www.anthropic.com/engineering/multi-agent-research-system>
+- LangChain 文档 · Multi-agent：<https://docs.langchain.com/oss/python/langchain/multi-agent>
+- 本路线 W02（同一批模式的手写版对照）、W07（多 Agent 深化）
 
 下一周：**抛开所有框架，纯手写一个 300 行的 mini Agent**。

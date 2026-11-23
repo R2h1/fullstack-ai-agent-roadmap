@@ -330,7 +330,7 @@ def check(case, out):
 4. 把判错样本按 §7 分类，画一个分布饼图
 5. 对比 temperature=0 vs temperature=0.7 的稳定性差异（同一题跑 5 次）
 
-## 12. checklist
+## 12. ✅ 本周 Checklist
 
 - [ ] 能讲清楚 Agent 评测的至少 5 个维度
 - [ ] 知道 SWE-bench / GAIA / τ-bench 是什么
@@ -338,6 +338,33 @@ def check(case, out):
 - [ ] 用过至少 1 个评测框架（LangSmith / Promptfoo / DeepEval）
 - [ ] 实现并使用了 LLM-as-a-Judge
 - [ ] 完成三实现对比报告
+- [ ] eval 集里含「该拒绝」的样本，并统计过拒答率
+- [ ] 同一版本跑 3 次取均值，并看过方差
+- [ ] 报告里同时给出通过率 / 成本 / 步数 / p95 延迟
+
+---
+
+## 13. 🐛 常见错误
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 通过率很高，线上却没人用 | eval 集太简单，只有 happy path | 至少 30 题，覆盖异常输入、歧义输入、「该拒绝」的请求 |
+| 判分结果不可信 | 用被测模型自己当 judge | judge 用更强的独立模型；关键指标用规则/单测交叉验证 |
+| 同一题跑三次结论不同 | 没固定温度、没多次取均值 | `temperature=0` + 每题跑 3-5 次，看均值与方差 |
+| 「正确」没法判定 | 指标定义模糊 | 写成可自动判的 rubric：必须包含 / 禁止包含 / 字数 / 格式 |
+| 只看通过率 | 忽略步数、成本、延迟 | 报告同时给出通过率、平均步数、平均 token、p95 延迟 |
+| 分数虚高 | 答案泄漏进了 prompt | 检查题面与 system prompt，别把答案写进上下文 |
+| 分数涨了产品却更差 | 没管安全与体验指标 | 加「越狱 / 拒答 / 延迟 / 成本」四类护栏指标一起看 |
+
+---
+
+## 14. 📚 参考与延伸阅读
+
+- LangSmith 文档 · Evaluation（Datasets / Evaluators）：<https://docs.smith.langchain.com/evaluation>
+- Promptfoo 文档（轻量、A/B、red team）：<https://promptfoo.dev>
+- DeepEval（单测式评测）：<https://github.com/confident-ai/deepeval>
+- Inspect AI（UK AISI）：<https://inspect.aisi.org.uk>
+- 公开 benchmark：SWE-bench <https://github.com/SWE-bench/SWE-bench>、τ-bench <https://github.com/sierra-research/tau-bench>、GAIA <https://huggingface.co/gaia-benchmark>
+- 论文《Judging LLM-as-a-Judge with MT-Bench》（judge 偏置的经典分析）：<https://arxiv.org/abs/2306.05685>
 
 下一周（W10），我们解决另一个生产线问题——**怎么知道线上正在发生什么**：可观测性。
-

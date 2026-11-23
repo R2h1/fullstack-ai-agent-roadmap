@@ -271,10 +271,27 @@ def get_weather(city: str) -> str:
     """查天气"""
     return f"{city} 24度晴"
 
+import ast, math
+
+# 只允许数字与四则运算，禁掉函数调用/属性访问/变量注入
+_ALLOWED_NODES = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant,
+                  ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod,
+                  ast.Pow, ast.USub, ast.UAdd, ast.Load)
+
+def _safe_eval(expr: str) -> float:
+    tree = ast.parse(expr, mode="eval")
+    for node in ast.walk(tree):
+        if not isinstance(node, _ALLOWED_NODES):
+            raise ValueError(f"表达式包含不允许的语法: {type(node).__name__}")
+    return eval(compile(tree, "<calc>", "eval"), {"__builtins__": {}}, math.__dict__)
+
 @tool
 def calc(expr: str) -> str:
-    """计算"""
-    return str(eval(expr))
+    """计算（只支持四则运算）"""
+    try:
+        return str(_safe_eval(expr))
+    except Exception as e:
+        return f"计算失败: {e}"
 
 llm = ChatAnthropic(model="claude-sonnet-5-5")
 agent = create_agent(llm, tools=[get_weather, calc])
@@ -286,6 +303,8 @@ for m in result["messages"]:
 ```
 
 **3 行配工具，Agent 就有了**。这是日常最常用的捷径。
+
+> ⚠️ **别在生产里裸写 `eval(expr)`**。工具入参直接来自模型输出，等于把 `__import__`、`open` 全交出去了 —— 模型被诱导执行一次 `eval("__import__('os').system('rm -rf /')")` 就完蛋。上面的 `_safe_eval` 先用 `ast` 白名单把语法限死在四则运算，再关掉 `__builtins__`。真实项目里更推荐：① 换成 `sympy` / `simpleeval` 这类表达式求值库；② 或干脆不给模型"算任意表达式"的能力，只暴露 `add/mul/...` 这类固定工具。
 
 ---
 
@@ -338,7 +357,7 @@ agent = g.compile()
 
 ---
 
-## 十四、checklist
+## 十四、✅ 本周 Checklist
 
 - [ ] Hello Graph 能跑
 - [ ] 能讲清 State / Node / Edge
@@ -347,14 +366,32 @@ agent = g.compile()
 - [ ] `create_agent` 跑通
 - [ ] 自己画的 ToolNode + LLM 图跑通
 - [ ] 5 模式 LangGraph 版全部跑通
+- [ ] 能解释 reducer 到底解决了什么问题（覆盖 vs 追加）
+- [ ] 跑过一次 `recursion_limit` 触发，并知道怎么改
+- [ ] 知道 `create_agent`（快捷）和自己画图各适合什么场景
 
 ---
 
-## 十五、参考
+## 十五、🐛 常见错误
 
-- LangGraph 官方文档 (langchain-ai.github.io/langgraph)
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| `messages` 里只剩最后一条 | state 字段没有配 reducer，后写覆盖先写 | 用 `MessagesState`，或给字段加 `Annotated[list, add_messages]` |
+| `add_conditional_edges` 报 key 不匹配 | 条件函数返回值不在映射字典里 | 返回值必须与映射的 key 完全一致（`"tools"` / `END`） |
+| `RecursionError` / 死循环 | 条件边回到了自己却没有出口 | 补终止条件，并显式设 `app.invoke(..., {"recursion_limit": 25})` |
+| 节点写了但没生效 | 节点函数返回了整个 state 或返回非 dict | 节点只返回**变化的键**：`return {"messages": [...]}` |
+| state 类型报错 | 用了 dataclass / Pydantic 模型当 state | LangGraph v1 的 state 用 TypedDict（普通 dict）即可 |
+| `create_agent` 传了 ToolNode 报错 | v1 的 `tools` 只接受工具列表 | `create_agent(llm, tools=[BaseTool...])`；ToolNode 只能自己 `add_node` |
+| 工具结果对不上号 | 工具名或 tool_call id 拼错 | 用 `tools_by_name[call["name"]]`，回填时带上原始 `tool_call["id"]` |
+
+---
+
+## 十六、📚 参考与延伸阅读
+
+- LangGraph 官方文档（v1）：<https://docs.langchain.com/oss/python/langgraph>
+- LangChain v1 迁移指南（`create_react_agent` → `create_agent`、middleware）：<https://docs.langchain.com/oss/python/migrate/langchain-v1>
+- LangGraph 源码 · `prebuilt/tool_node.py`、`graph/state.py`：<https://github.com/langchain-ai/langgraph>
 - LangGraph 教程 · *Build a chatbot*
-- LangGraph 源码 · `prebuilt/chat_agent_executor.py`
-- 本路线 W01 / W02
+- 本路线 W02（对照手写版）、W04（子图 / Send / Checkpointer）
 
 下一周：**子图、Send、Checkpointer、人工审批、Streaming、Studio**——LangGraph 进阶全家桶。

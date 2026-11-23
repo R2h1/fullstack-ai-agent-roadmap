@@ -84,7 +84,8 @@ TOOLS = [{
 
 def run_tool(name, args):
     if name == "calculator":
-        return str(eval(args["expr"]))  # demo 用 eval，生产别用
+        # ⚠️ 这里为了讲清楚流程用了裸 eval；生产环境必须换成安全求值（见下方提示）
+        return str(eval(args["expr"]))
     return f"unknown tool: {name}"
 
 def agent(user_msg: str):
@@ -139,6 +140,10 @@ def run_tool(name, args):
     if name == "get_weather": return f"{args['city']} 24度晴"
     return "unknown"
 ```
+
+> ⚠️ **本节为了讲透最小流程，两处 `eval` 写得极简，生产必须加固**。工具入参来自**模型生成**，等同用户输入；一次 `eval("__import__('os').system('...')")` 就能执行任意代码。两种改法：
+> 1. 用 `ast` 白名单把表达式限死在四则运算（完整可复制代码见 [[W03-LangGraph入门]] 的 `_safe_eval`）；
+> 2. 更推荐：干脆不给模型"算任意表达式"的能力，只暴露固定粒度的 `add/sub/mul/div` 工具 —— **能力最小化比事后过滤更安全**。
 
 主循环不变——一次返回多个 `tool_use`，遍历执行即可。提问 "北京和上海各 24 度还是 25 度？哪个更凉？" 时，Claude 会**同一回合**返回两个 `get_weather` 调用。
 
@@ -439,7 +444,7 @@ class MiniAgent:
 
 ---
 
-## 十五、checklist
+## 十五、✅ 本周 Checklist
 
 - [ ] 第 1 版能跑（calculator）
 - [ ] 第 2 版多工具 + 并行调用
@@ -451,14 +456,32 @@ class MiniAgent:
 - [ ] budget 超了能正常熔断
 - [ ] 5 个真实任务全部跑通
 - [ ] 仓库 push 到 GitHub
+- [ ] 工具抛异常时 Agent 能自己换策略，而不是整个循环崩掉
+- [ ] 上下文压缩真实触发过一次，且摘要没丢掉关键约束
+- [ ] trace 里能查到每次工具调用的入参、出参与耗时
 
 ---
 
-## 十六、参考
+## 十六、🐛 常见错误
 
-- Anthropic 官方 Cookbook · `tool_use` 章
-- Claude Code 开源版（Anthropic SDK 内核相同）
-- 本路线 W01《Agent 全景》
-- Anthropic API 文档 · streaming + tool_use
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| `tool_use` 一直接收，循环停不下来 | 只判断了 `stop_reason == "end_turn"`，没处理 `tool_use` 分支 | 先判 `stop_reason`；是 `tool_use` 就执行工具、把结果回填后继续下一轮 |
+| 报 `tool_result blocks must be in user message` | 把工具结果当成 assistant 消息发了回去 | Anthropic API 要求 tool_result 放在 **user** 消息里，且 `tool_use_id` 必须与请求一一对应 |
+| 工具抛异常，Agent 直接崩 | 没有 try / except | 工具失败要 catch，把错误信息当 tool_result 回给模型，让它自己换策略 |
+| 长对话超出上下文 | messages 无限追加 | 到阈值就压缩历史：保留 system + 最近 N 轮 + 摘要（§七） |
+| 流式输出时 JSON 解析失败 | 按 chunk 拼 JSON | 流式里用增量解析或先聚合再解析；用 Claude Agent SDK 直接取 `final_message()` |
+| 审批 hook 写在工具函数内部 | 审批散落在每个工具里，必然漏 | 统一在工具注册/执行入口做审批，一处管全部 |
+| token 花费完全不可控 | 没有预算 | 每轮记 usage，超 max_steps / max_cost 立即停（§十） |
+
+---
+
+## 十七、📚 参考与延伸阅读
+
+- Anthropic API 文档 · Tool use：<https://docs.anthropic.com/en/docs/agents-and-tools/tool-use>
+- Anthropic API 文档 · Streaming：<https://docs.anthropic.com/en/api/messages-streaming>
+- Anthropic Cookbook · `tool_use` 章（含多工具并行示例）：<https://github.com/anthropics/anthropic-cookbook>
+- `anthropics/claude-agent-sdk-python` —— 工业级主循环、权限与 hook 的参考实现：<https://github.com/anthropics/claude-agent-sdk-python>
+- 本路线 W01（5 模式）、W05（给 mini-agent 接 MCP）
 
 **手写完了再看 LangGraph，你会发现"哦，原来它就是把这些抽象成了图"。** 这正是下一周的内容。

@@ -69,7 +69,7 @@ checkpoint/
   memory.py
   serde/
 prebuilt/
-  chat_agent_executor.py  # ReAct Agent 执行器（v1 起官方入口迁到 langchain.create_agent）
+  chat_agent_executor.py  # ReAct Agent 旧执行器（v1 起 create_react_agent 已迁到 langchain-classic；官方入口是 langchain.create_agent）
   tool_node.py
 ```
 
@@ -395,7 +395,7 @@ PR 不一定能合并（项目主语为英文），但你的注释版可以放�
 4. 用 SqliteSaver 跑同一个 graph，停下来，重启进程恢复 → 观察 thread / checkpoint 表的变化
 5. 把你的注释版 fork push 到 GitHub，README 写阅读顺序
 
-## 14. checklist
+## 14. ✅ 本周 Checklist
 
 - [ ] 能口述 Pregel 模型的三步循环
 - [ ] 看过 `pregel/loop.py` 的 tick 方法源码
@@ -404,6 +404,32 @@ PR 不一定能合并（项目主语为英文），但你的注释版可以放�
 - [ ] 在自己的 LangGraph 里读懂过一次 trace
 - [ ] 完成 _runner.py 中文注释
 - [ ] 写完一篇源码博客并发出去
+- [ ] 用 `pip install -e .` 在本地源码上打断点跑通一次
+- [ ] 读过 LangGraph 某个模块的单元测试（最精确的行为说明）
+- [ ] 每读一个模块都产出了 200 字中文笔记 + 一张时序图
+
+---
+
+## 15. 🐛 常见错误
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 读了三天源码没收获 | 上来就啃 Pregel 主循环 | 先跑最小 demo，再「在源码里走一遍」你那个 demo 的执行路径 |
+| 找不到某段逻辑 | 按旧博客里的文件路径找（v1 目录重构过） | 以当前 master 为准，先 `git log` 看目录重构的 commit 再定位 |
+| 看不懂 channel 抽象 | 把 channel 当普通 dict 用 | channel = 节点间通信抽象（LastValue / Topic / BinaryOpAggregate），先理解「写入如何被合并」 |
+| 打断点不生效 | 装的是 PyPI 版本而不是本地 checkout | `pip install -e .` 装本地克隆，或把 `sys.path` 指向源码目录 |
+| 源码和文档对不上 | 文档描述的是旧版本行为 | 以源码 + 单元测试为准，单测是最精确的行为说明 |
+| 注释版 PR 被拒 | 直接往上游仓库提 PR | fork 后改自己仓库，README 写阅读顺序，上游只提 Issue 讨论 |
+| 读完没有沉淀 | 只读不写 | 每读一个模块写 200 字中文笔记 + 一张时序图 |
+
+---
+
+## 16. 📚 参考与延伸阅读
+
+- LangGraph 源码仓库（重点目录：`langgraph/graph/`、`pregel/`、`channels/`、`checkpoint/`、`prebuilt/`）：<https://github.com/langchain-ai/langgraph>
+- LangGraph 单元测试目录 `tests/` —— 行为的最精确说明
+- Google 论文《Pregel: A System for Graph-Based Abstractions》（LangGraph 的理论底座）：<https://research.google/pubs/pregel-a-system-for-graph-based-abstractions/>
+- LangChain 官方博客（架构演进与版本变更说明）：<https://blog.langchain.com>
+- 本路线 W03 / W04（先会用，再读源码）、W12（把读懂的东西写成自己的 SDK）
 
 下一周（W12）是收尾——我们把这八周所学融合，**亲手写一个 mini-agent-sdk**。
-

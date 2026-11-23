@@ -15,7 +15,7 @@ tags: [langgraph, subgraph, checkpointer, human-in-the-loop, streaming, studio]
 prev: "[[W03-LangGraph入门]]"
 next: "[[W05-MCP协议详解]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # W04 · LangGraph 进阶
@@ -348,7 +348,7 @@ app.invoke(Command(resume="approve"), config=config)
 
 ---
 
-## 十、checklist
+## 十、✅ 本周 Checklist
 
 - [ ] 子图嵌套跑通
 - [ ] Send API 派动态 worker 数
@@ -357,14 +357,33 @@ app.invoke(Command(resume="approve"), config=config)
 - [ ] 4 种 stream_mode 都见过输出
 - [ ] LangGraph Studio 在本地起来过
 - [ ] 客服 Agent 可以连续对话、能持久化、能审批
+- [ ] 同一个 `thread_id` 能续上上次的会话
+- [ ] 能讲清 interrupt 前后 state 发生了什么变化
+- [ ] 用 Studio 定位过一次「为什么走了这条边」
 
 ---
 
-## 十一、参考
+## 十一、🐛 常见错误
 
-- LangGraph 文档 · *Subgraphs / Send / Persistence / Human-in-the-loop*
-- LangGraph 文档 · *Streaming*
-- LangGraph Studio 官方教程
-- LangGraph 开源仓库 · `examples/customer_support`
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| 子图里的字段莫名丢了 | 子图 state 与父图 state 不一致 | 子图用 TypedDict 显式声明入参；共享 key 由父图 reducer 合并 |
+| 第二次 invoke 记不住上次 | 没传 `thread_id` | `config={"configurable":{"thread_id":"u42"}}`，且每次都要传同一个 |
+| interrupt 之后恢复失败 | 恢复时换了 config 或 thread_id | 恢复必须用**同一个** config：`app.invoke(Command(resume=...), config=config)` |
+| 时间旅行报错 | 用了 InMemorySaver（进程内、重启即丢） | 时间旅行需要 Sqlite/Postgres saver；InMemory 只在开发期用 |
+| Send API 没生效 | Send 只能从条件边返回 | 在 `add_conditional_edges` 的路由函数里 `return [Send("worker", {...})]` |
+| 流式拿不到 token | `stream_mode` 写错 | v1 支持 values / updates / messages / custom；token 级用 messages 模式 |
+| Studio 连不上 | 图没有按约定导出 | `langgraph dev` 启动时图要从模块顶层导出（`app = graph.compile()`） |
+
+---
+
+## 十二、📚 参考与延伸阅读
+
+- LangGraph 文档 · Persistence（thread / checkpoint / time travel）：<https://docs.langchain.com/oss/python/langgraph/persistence>
+- LangGraph 文档 · Human-in-the-loop（`interrupt` / `Command`）：<https://docs.langchain.com/oss/python/langgraph/interrupts>
+- LangGraph 文档 · Streaming：<https://docs.langchain.com/oss/python/langgraph/streaming>
+- LangGraph 文档 · Subgraphs 与 Send API
+- LangGraph Studio 官方指南（`langgraph dev`）
+- 本路线 W03（入门）、W05（MCP 接入）
 
 下一周：**MCP 协议**——比 LangGraph 更底层、跨厂商的工具/资源标准。

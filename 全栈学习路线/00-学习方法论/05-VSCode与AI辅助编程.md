@@ -3,11 +3,14 @@ title: VSCode 与 AI 辅助编程
 type: method-guide
 chapter: "00"
 chapter_title: 学习方法论
-order: 5
+order: 6
 duration: 3-5 小时
+difficulty: ⭐⭐
+prerequisites:
+  - "[[04-命令行终端基础]]"
 tags: [VSCode, IDE, Cursor, Claude, AI, 提示词, 调试]
-prev: "[[03-命令行终端基础]]"
-next: "[[05-GitHub项目精选-入门导航]]"
+prev: "[[04-命令行终端基础]]"
+next: "[[06-GitHub项目精选-入门导航]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---
@@ -15,6 +18,18 @@ updated: 2026-11-23
 # VSCode 与 AI 辅助编程
 
 > 编辑器是程序员的画板，AI 是会聊天的副驾驶。学会让它们配合你工作，而不是替你工作。
+
+## 🎯 本章目标
+
+- 说清 VSCode 相对其他编辑器的取舍（免费、生态、AI 支持好；代价是偶尔吃内存）
+- 装好 VSCode + 15 个必装插件，并学会按需禁用而不是乱装
+- 记住 20 个高频快捷键，至少熟练用上 10 个
+- 会用多光标、全局搜索、集成终端三个提效功能
+- 会用调试器跑通一段代码，而不是只会 `print`
+- 在 Cursor / Claude Code 里选一个作为主力 AI 工具
+- 掌握「15 分钟原则」，能写出 4 要素以上的提问提示词
+
+---
 
 ## 一、为什么是 VSCode？📝
 
@@ -315,7 +330,22 @@ code .
 
 ---
 
-## 十二、常见问题解决方案 🚨
+## 十二、🐛 常见错误 🚨
+
+先查速查表，再往下看细节。
+
+| 错误现象 | 原因 | 解决 |
+|---|---|---|
+| VSCode 启动越来越慢 | 插件装太多 / 全局启用 | 禁用不用的插件（按工作区禁用，不是全局）；关掉 telemetry |
+| 文件中文乱码 | 编码不是 UTF-8 | 设置搜 "encoding" 改成 `utf8`；老文件用 `iconv` 转换一次 |
+| 终端提示一堆改动但你没改 | Windows CRLF vs Linux LF | **仅 Windows**：`git config --global core.autocrlf input`；**macOS / Linux 不用设**（默认就是 LF），照抄反而会出问题 |
+| AI 给的代码跑不通 | 版本不匹配 | 先看版本号，把完整报错粘给 AI；三轮还修不好说明该自己读文档了 |
+| 终端里敲 `code` 说找不到命令 | 没把 VSCode 加进 PATH | `Cmd+Shift+P` → "Shell Command: Install 'code' command in PATH" |
+| Python 文件没有智能提示 | 没装 Python + Pylance 插件 | 装 Microsoft 官方 Python 插件和 Pylance，右下角选对解释器 |
+| 调试器断点不生效 | 跑成了别的文件 / 用了 `python file.py` 而非调试模式 | 用 `Cmd+Shift+D` 打开调试面板，点「Run and Debug」 |
+| VSCode 里终端是 PowerShell 但命令不认 | PowerShell 和 Bash 语法不同 | 终端右上角下拉切到 `bash` 或 `zsh` |
+| 保存时自动格式化跟预期不一样 | Prettier / ESLint 规则冲突 | 项目根放 `.prettierrc` 和 `eslint.config.js` 统一规则，不要靠个人设置 |
+| 主题太花看不清代码 | 装了花哨主题 | 换回 `Dark+` / `Light+`，花哨主题留给写博客截图用 |
 
 ### VSCode 启动慢
 
@@ -360,4 +390,17 @@ git config --global core.autocrlf input
 - [ ] 不会无脑复制 AI 给的代码
 
 全部打勾 → 你已具备零基础进入正式课程的全部前置条件。
-进入下一章《01 - 编程基础》🚀
+进入下一章《01 - Python 从零到源码》🚀
+
+---
+
+## 📚 参考与延伸阅读
+
+- 🖥️ [VS Code 官方文档 · 界面总览](https://code.visualstudio.com/docs/getstarted/userinterface)——五大区域的权威说明
+- 🐞 [VS Code 调试器文档](https://code.visualstudio.com/docs/editor/debugging)——从断点到 launch.json
+- ⌨️ [VS Code 基础操作](https://code.visualstudio.com/docs/editor/codebasics) / [集成终端](https://code.visualstudio.com/docs/editor/command-line)——最常用的两块
+- 🧩 [写你的第一个 VS Code 扩展](https://code.visualstudio.com/api/get-started/your-first-extension)——想改造工具链时读
+- 🧹 [ESLint](https://eslint.org/) / [Prettier](https://prettier.io/)——代码检查与格式化的事实标准
+- 🤖 [Cursor 官方文档](https://docs.cursor.com/)——AI 编辑器选型参考
+- 🤖 [Claude Code 官方文档](https://code.claude.com/docs/en/overview)——终端里的 AI 结对编程
+- 🌐 [MDN Web Docs（中文）](https://developer.mozilla.org/zh-CN/)——查 Web API 行为的权威出处

@@ -6,7 +6,7 @@ chapter_title: HTML / CSS 现代 Web
 order: 1
 duration: 4 周
 prerequisites:
-  - "[[全栈学习路线/00-学习方法论/00-如何高效学习编程]]"
+  - "[[全栈学习路线/00-学习方法论/00-学习方法论总纲]]"
   - "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]（可并行）"
 tags: [HTML, CSS, 前端]
 prev: "[[全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript]]"

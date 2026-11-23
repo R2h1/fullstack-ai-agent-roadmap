@@ -3,13 +3,16 @@ title: GitHub 项目精选 - 入门导航
 type: github-curation
 chapter: "00"
 chapter_title: 学习方法论
-order: 6
+order: 7
+reading_minutes: 40
 difficulty: 🌱→🌲
+prerequisites:
+  - "[[03-Git与GitHub入门]]"
 tags: [GitHub项目, 资源]
-prev: "[[04-VSCode与AI辅助编程]]"
-next: "[[06-费曼学习法与笔记系统]]"
+prev: "[[05-VSCode与AI辅助编程]]"
+next: "[[07-费曼学习法与笔记系统]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-23
 ---
 
 # GitHub 项目精选 · 入门导航
@@ -17,6 +20,18 @@ updated: 2026-06-19
 > 这一篇不是"项目列表"，而是"学习地图"。每个项目都告诉你**怎么用它学**，而不是单纯告诉你"这是个 awesome 项目，去 star 吧"。
 > 
 > 一个真相：**收藏 ≠ 学会**。下面所有项目，与其 star，不如 fork 一个、改一行、提一个 PR。
+>
+> ⭐ 数据口径：本篇的 star 数量为 **2026-11-23 通过 GitHub API 实测**的快照，只用于判断资源的"大小量级"，不需要对公开追问。star 数随时间流动，你看到时会比这里多。
+
+---
+
+## 🎯 本章目标
+
+- 认得 20+ 个高质量开源项目，知道每一个**具体该拿来学什么**
+- 学会用 GitHub 当学习平台，而不只是代码托管：README、Issues、Discussions、PR 四件套
+- 掌握 7 个"用 GitHub 学习"的技巧，知道怎么从海量仓库里筛出适合自己的
+- 避开 8 个学习者陷阱，尤其是"收藏即学会"和"教程地狱"
+- 给自己定下规矩：**收藏 ≠ 学会，fork + 改一行 + 提一个 PR 才是学会**
 
 ---
 
@@ -24,7 +39,7 @@ updated: 2026-06-19
 
 这些是"地基级"仓库。先把它们 **fork** 到自己账号下（不是 star），随时翻阅。
 
-### **freeCodeCamp/freeCodeCamp** ⭐ ~410k 🌱入门 [英文]
+### **freeCodeCamp/freeCodeCamp** ⭐ ~460k 🌱入门 [英文]
 一句话：全球最大的免费全栈训练营仓库，从 HTML 到机器学习全覆盖。
 
 - GitHub: https://github.com/freeCodeCamp/freeCodeCamp
@@ -36,7 +51,7 @@ updated: 2026-06-19
   4. 卡住时回到本仓库的 issues 搜关键词，95% 的坑别人踩过
 - 推荐理由：唯一一个"做完能拿证书 + 项目集 + 真的学会"的免费训练营。
 
-### **kamranahmedse/developer-roadmap** ⭐ ~310k 🌱入门 [英文]
+### **kamranahmedse/developer-roadmap** ⭐ ~373k 🌱入门 [英文]
 一句话：可视化"我要成为 X 工程师该学什么"的路线图。
 
 - GitHub: https://github.com/kamranahmedse/developer-roadmap
@@ -48,7 +63,7 @@ updated: 2026-06-19
   4. 每月回来重新点亮一次，看进度
 - 推荐理由：把"焦虑"变成"打勾任务"，对付迷茫期最有效。
 
-### **EbookFoundation/free-programming-books** ⭐ ~360k 🌱入门 [中英]
+### **EbookFoundation/free-programming-books** ⭐ ~402k 🌱入门 [中英]
 一句话：人类已知免费编程书的总汇集。
 
 - GitHub: https://github.com/EbookFoundation/free-programming-books
@@ -59,7 +74,7 @@ updated: 2026-06-19
   3. 看完一本写一篇笔记发到博客或 Issues
 - 推荐理由：广度无敌，但深度靠你自己。
 
-### **codecrafters-io/build-your-own-x** ⭐ ~370k 🌿进阶 [英文]
+### **codecrafters-io/build-your-own-x** ⭐ ~565k 🌿进阶 [英文]
 一句话：手写一切——从 git 到 docker 到操作系统。
 
 - GitHub: https://github.com/codecrafters-io/build-your-own-x
@@ -71,7 +86,7 @@ updated: 2026-06-19
   4. 写完后总结一篇"我以前以为 X 是魔法，现在发现它是 Y"
 - 推荐理由：把"用工具"变成"理解工具"，是从初级到中级的跃迁神器。
 
-### **practical-tutorials/project-based-learning** ⭐ ~230k 🌿进阶 [英文]
+### **practical-tutorials/project-based-learning** ⭐ ~290k 🌿进阶 [英文]
 一句话：按语言分类的"做项目学语言"清单。
 
 - GitHub: https://github.com/practical-tutorials/project-based-learning
@@ -82,21 +97,21 @@ updated: 2026-06-19
   3. 抄完不要扔，写 README 介绍"我学到了什么"
 - 推荐理由：和 build-your-own-x 互补，前者重深度后者重广度。
 
-### **sindresorhus/awesome** ⭐ ~410k 🌱入门 [英文]
+### **sindresorhus/awesome** ⭐ ~541k 🌱入门 [英文]
 一句话：所有 awesome-X 列表的根仓库。
 
 - GitHub: https://github.com/sindresorhus/awesome
 - **怎么用它学习**：当作"主题书架"。学 Python 就找 awesome-python，学 Vue 就找 awesome-vue。**不要从头看**，按需检索。
 - 推荐理由：避免"我学习时该看什么"这个问题永远卡住你。
 
-### **trekhleb/javascript-algorithms** ⭐ ~190k 🌿进阶 [中英]
+### **trekhleb/javascript-algorithms** ⭐ ~197k 🌿进阶 [中英]
 一句话：算法 + 数据结构的 JS 实现，README 有中文翻译。
 
 - GitHub: https://github.com/trekhleb/javascript-algorithms
 - **怎么用它学习**：每天读一个算法文件，**先盖住实现自己写**，再对比作者的写法。
 - 推荐理由：算法仓库千千万，这个是注释和测试都写得最贴心的。
 
-### **ossu/computer-science** ⭐ ~180k 🌲源码级 [英文]
+### **ossu/computer-science** ⭐ ~211k 🌲源码级 [英文]
 一句话：用免费课程拼出一个完整 CS 学位。
 
 - GitHub: https://github.com/ossu/computer-science
@@ -112,40 +127,50 @@ updated: 2026-06-19
 
 "Easy-vibe" 风格 = 代码量小、能立刻运行、改一行就有反馈、看完有顿悟。是新手最好的"信心制造机"。
 
-### **microsoft/Web-Dev-For-Beginners** ⭐ ~88k 🌱入门 [中英]
+### **microsoft/Web-Dev-For-Beginners** ⭐ ~97k 🌱入门 [中英]
 一句话：微软出品 24 课时前端入门，每课带小测验。
 
 - GitHub: https://github.com/microsoft/Web-Dev-For-Beginners
 - **怎么用它学习**：每课大概 1.5 小时。**先做 quiz 再看课**——你会发现自己 Quiz 错了哪里，看课时格外专注。
 - 推荐理由：微软课程的特色：测验、作业、Lab 三件套齐全，比纯文档好学。
 
-### **microsoft/AI-For-Beginners** ⭐ ~37k 🌱入门 [英文]
+### **microsoft/AI-For-Beginners** ⭐ ~71k 🌱入门 [英文]
 一句话：12 周 AI 课，从神经网络到 CV/NLP。
 
 - GitHub: https://github.com/microsoft/AI-For-Beginners
 - **怎么用它学习**：搭配 Colab 做完每课 Notebook。**不要装本地环境**，会卡住 80% 的人。
 - 推荐理由：AI 入门最不"忽悠"的免费课。
 
-### **microsoft/generative-ai-for-beginners** ⭐ ~95k 🌱入门 [中英]
+### **microsoft/generative-ai-for-beginners** ⭐ ~124k 🌱入门 [中英]
 一句话：21 课 GenAI 入门，覆盖 Prompt、RAG、Agent。
 
 - GitHub: https://github.com/microsoft/generative-ai-for-beginners
 - **怎么用它学习**：每节课跑一遍代码，再把 prompt 换成你自己的业务场景。
 - 推荐理由：2024 后更新最及时的 GenAI 教程之一，且每章短小。
 
-### **microsoft/ML-For-Beginners** ⭐ ~75k 🌱入门 [中英]
+### **microsoft/ML-For-Beginners** ⭐ ~92k 🌱入门 [中英]
 一句话：12 周经典机器学习课（不是深度学习）。
 
 - GitHub: https://github.com/microsoft/ML-For-Beginners
 - **怎么用它学习**：先学这门再学 AI-For-Beginners，路径更顺。
 - 推荐理由：让你打"传统 ML"的底，不至于一上来只会 import torch。
 
-### **TwoSetAI / 各种小项目仓库** 🌱入门 [英文]
-一句话：YouTube 频道 TwoSetAI 公开的小型 AI 项目代码。
+### **anthropics/claude-cookbooks** ⭐ ~55k 🌱入门 [英文]
+一句话：Anthropic 官方的 Claude 实战配方集，每个是一个能直接跑的 Notebook。
 
-- 思路：在 GitHub 搜 `TwoSetAI` 关键字找最新仓库
-- **怎么用它学习**：每个项目 100~300 行，一晚上跑通。Fork 后**改一个变量看效果**。
-- 推荐理由：体感"AI 项目原来这么短"。
+- GitHub: https://github.com/anthropics/claude-cookbooks
+- 适合阶段：想先看一眼"一个真正的 AI 应用长什么样"的人
+- **怎么用它学习**：选一个你关心的场景（比如文档摘要、数据分析），在 Colab 里跑一遍，**再把 prompt 换成自己的东西**。一个 Notebook 通常不到一个小时。
+- 推荐理由：官方维护、每屏就是可跑的代码，体感"AI 应用原来这么短"。
+- 注：这个仓库旧名是 `anthropic-cookbook`，已改名为 `claude-cookbooks`，旧链接会自动跳转。
+
+### **openai/openai-cookbook** ⭐ ~77k 🌱入门 [英文]
+一句话：OpenAI 官方的调用配方集，包含结构化输出、RAG、代理、评测。
+
+- GitHub: https://github.com/openai/openai-cookbook
+- 适合阶段：已经能写接口调用，想把"会调 API"升级成"会设计 Agent"的人
+- **怎么用它学习**：重点看 "Function calling" 和 "Retrieval" 两章，把里面的代码拆出来改成自己的功能。
+- 推荐理由：部分示例已过时（旧模型名、旧价格表），照着做就行，只把公开官方文档当准。
 
 ---
 
@@ -153,36 +178,40 @@ updated: 2026-06-19
 
 英文资源虽多，但**用母语理解抽象概念**的速度永远快 3 倍。下面是中文圈最值得 fork 的几个。
 
-### **justjavac/free-programming-books-zh_CN** ⭐ ~115k 🌱入门 [中文]
+### **justjavac/free-programming-books-zh_CN** ⭐ ~120k 🌱入门 [中文]
 一句话：上一节英文版的中文姊妹仓库。
 
 - GitHub: https://github.com/justjavac/free-programming-books-zh_CN
 - **怎么用它学习**：先看"入门"分类，挑一本翻译质量高的（比如《SICP》中译、《算法导论》中译）。
 - 推荐理由：所有"我该看什么书"的问题在这里都能找到答案。
 
-### **PKUFlyingPig/cs-self-learning** ⭐ ~62k 🌲源码级 [中文]
+### **PKUFlyingPig/cs-self-learning** ⭐ ~77k 🌲源码级 [中文]
 一句话：北大同学整理的"CS 自学指南"，每门课配中文经验。
 
 - GitHub: https://github.com/PKUFlyingPig/cs-self-learning
 - **怎么用它学习**：选一门课深读，**严格按要求做 lab**。lab 才是 CS 课的灵魂。
 - 推荐理由：比 OSSU 更适合中文读者，且学长学姐踩过的坑都标出来了。
 
-### **datawhalechina/** [中文]
+### **datawhalechina/** ⭐ 组织页 [中文]
 一句话：中文开源学习社区，几十门课程从大模型到深度学习。
 
-- GitHub: https://github.com/datawhalechina
-- 推荐起步：`leedl-tutorial`（李宏毅深度学习中文笔记）、`prompt-engineering-for-developers`、`hands-on-data-analysis`
+- GitHub 组织页：https://github.com/datawhalechina
+- **推荐起步（具体仓库，不要只看组织页）**：
+  - `datawhalechina/leedl-tutorial` ⭐ ~17k —— 李宏毅深度学习中文笔记 https://github.com/datawhalechina/leedl-tutorial
+  - `datawhalechina/prompt-engineering-for-developers` ⭐ ~25k —— 提示词工程实战 https://github.com/datawhalechina/prompt-engineering-for-developers
+  - `datawhalechina/hands-on-data-analysis` ⭐ ~1.6k —— 数据分析实战 https://github.com/datawhalechina/hands-on-data-analysis
 - **怎么用它学习**：报名 Datawhale "组队学习"活动，社群打卡比单干完成率高 3 倍。
 - 推荐理由：中文圈最系统、最活跃的开源学习组织，没有之一。
+- 注：上面三个仓库的更新频率差很大（`leedl-tutorial` 2026-10 还在更新，`hands-on-data-analysis` 停在 2024-05），**先看最近更新的那个**。
 
-### **CyC2018/CS-Notes** ⭐ ~180k 🌿进阶 [中文]
+### **CyC2018/CS-Notes** ⭐ ~187k 🌿进阶 [中文]
 一句话：技术面试"八股文"中文圣经。
 
 - GitHub: https://github.com/CyC2018/CS-Notes
 - **怎么用它学习**：**找工作前**集中刷，平时不要当主教程（容易陷入死记硬背）。
 - 推荐理由：中文求职背诵第一仓库，但**仅当复习用**。
 
-### **doocs/advanced-java** ⭐ ~75k 🌲源码级 [中文]
+### **doocs/advanced-java** ⭐ ~79k 🌲源码级 [中文]
 一句话：Java 后端面试 + 进阶知识总结。
 
 - GitHub: https://github.com/doocs/advanced-java
@@ -195,7 +224,7 @@ updated: 2026-06-19
 
 工具用得熟，比写代码快 5 倍。
 
-### **github/docs** [英文]
+### **github/docs** ⭐ ~22k [英文]
 一句话：GitHub 官方文档源仓库（你看到的 docs.github.com 就是它渲染的）。
 
 - GitHub: https://github.com/github/docs
@@ -209,14 +238,16 @@ updated: 2026-06-19
 - **怎么用它学习**：跟 bot 互发 PR，比看任何视频都直观。30 分钟通关 PR / Issue / Action 基本玩法。
 - 推荐理由：最快上手 PR/Issue 工作流的方式。
 
-### **gitignore.io** [英文]
-一句话：自动生成 .gitignore 文件的网站。
+### **gitignore.io** ⭐ ~176k [英文]
+一句话：自动生成 .gitignore 文件的网站（源码是 `github/gitignore`）。
 
-- 链接: https://www.toptal.com/developers/gitignore
+- 链接：https://gitignore.io
+- 源码仓库：https://github.com/github/gitignore ⭐ ~176k（CC0，适用到不同语言/框架的模板集）
 - **怎么用它学习**：每次新建项目时，输入"Python,VSCode,macOS"一键生成。
 - 推荐理由：避免把 `.DS_Store` `__pycache__` 提交到仓库这种新人常见尴尬。
+- 注：旧版文章把链接指向 `toptal.com/developers/gitignore`，那是 **gitignore.io 的同一业务站的旧域名**；现在的正版入口就是 `https://gitignore.io`。
 
-### **conventional-commits/conventionalcommits.org** [中英]
+### **conventional-commits/conventionalcommits.org** ⭐ ~9k [中英]
 一句话：commit message 标准化规范。
 
 - GitHub: https://github.com/conventional-commits/conventionalcommits.org
@@ -263,7 +294,7 @@ language:python stars:>1000 topic:web-framework
 
 ---
 
-## ⚠️ 学习者陷阱：8 个常见误区
+## 🐛 常见错误：8 个常见误区
 
 > 学过的东西比 star 过的多，才算真正在前进。
 
@@ -275,6 +306,22 @@ language:python stars:>1000 topic:web-framework
 6. **不发 issue / PR**：学了 1 年 GitHub 一个互动都没有，那叫"只读用户"。
 7. **不写 commit message**：提交全是"update""fix"，3 个月后回看自己都不记得改了什么。
 8. **不写 README**：自己 push 的项目没 README，相当于盖了个房子不挂门牌。**每个项目至少写 What/Why/How 三段**。
+
+---
+
+## 📚 参考与延伸阅读
+
+- 📘 [GitHub 官方文档（中文）](https://docs.github.com/zh)——功能疑问的最终权威
+- 🔍 [GitHub 代码搜索](https://docs.github.com/zh/search-github/github-code-search)——用 `language:` `stars:` `repo:` 语法精准找代码
+- 🏥 [如何为你的项目设置健康的贡献流程](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions)——看成熟项目怎么组织 Issues 和 PR 模板
+- 🤝 [Open Source Guides · How to Contribute](https://opensource.guide/how-to-contribute/)——第一次给陌生项目提 PR 前读这篇
+- 🎯 [Good First Issue](https://goodfirstissue.dev/)——专门收集「适合新手认领」的 issue
+- 🐣 [firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions)——一个专门用来练「人生第一个 PR」的仓库
+- 🧑‍🏫 [GitHub Skills](https://skills.github.com/)——官方出的动手教程，把概念直接变成练习
+- 📖 [gitignore.io](https://gitignore.io)——生成 `.gitignore` 模板（源码仓库 [github/gitignore](https://github.com/github/gitignore)，CC0 协议）
+- ✍️ [约定式提交规范（中文）](https://conventionalcommits.org/zh-hans/)——让 commit message 可被机器读
+- 📜 [Choose a License](https://choosealicense.com/)——开源前必须做的许可证选择
+- 👤 [Octocat 的 GitHub 主页](https://octocat.github.io/)——官方账号，用来理解 GitHub 功能区的用法
 
 ---
 

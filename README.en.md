@@ -7,7 +7,7 @@ duration: 12-18 months
 daily_hours: 3-4
 tags: [roadmap, full-stack, ai-agent, entry]
 next: "[[全栈学习路线/README]]"
-total_files: 114
+total_files: 115
 chapters: 10
 created: 2026-06-25
 updated: 2026-11-23
@@ -17,7 +17,7 @@ updated: 2026-11-23
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)
 
-> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **114 Markdown files / ~920,000 characters (149,000 CJK characters) / 1,286 code blocks**, organized with Obsidian.
+> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **115 Markdown files / ~991,000 characters (165,000 CJK characters) / 1,296 code blocks**, organized with Obsidian.
 >
 > Covers **Python · JavaScript · React · FastAPI · Database · LLM · AI Agent · Graduation Project**. Every knowledge point comes with **analogies + complete code + exercises + GitHub project recommendations**.
 
@@ -31,16 +31,16 @@ updated: 2026-11-23
 
 Not a list of links. This is a complete tutorial package for **"from zero → able to independently deliver AI Agent products"**:
 
-- 📘 **114 Markdown files / 920,735 characters / 40,424 lines** —— every new concept is explained with everyday analogies
+- 📘 **115 Markdown files / 991,102 characters / 42,541 lines** —— every new concept is explained with everyday analogies
 - 💻 **Complete runnable code** —— not snippets, but line-by-line comments + expected output + exercise answers
 - 🎯 **66 weekly tasks + 10 chapter capstone projects** —— each chapter requires a verification project; you haven't finished until you've built it
-- ⭐ **328 de-duplicated curated GitHub repositories** (528 references) —— each annotated with "how to use it to learn"
+- ⭐ **328 de-duplicated curated GitHub repositories** (534 references) —— each annotated with "how to use it to learn"
 - 🗺️ **Obsidian Canvas mind maps** —— global view + chapter relationships at a glance
 - 📊 **Companion learning contract / weekly report / milestone templates** —— a forced feedback system
 
 > This tutorial is **designed specifically for zero-foundation learners**: you need no prerequisite knowledge, just 3 hours a day + a determined heart.
 
-> 📊 **How the numbers were measured** (2026-11-22): 114 Markdown files (3 multilingual READMEs + 3 chapter index pages + 108 chapter articles), 920,735 characters, 149,491 CJK characters, 40,424 lines, 1,286 code blocks, 66 weekly tasks, 328 de-duplicated GitHub repositories (528 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
+> 📊 **How the numbers were measured** (2026-11-23): 115 Markdown files (3 multilingual READMEs + 3 chapter index pages + 109 chapter articles), 991,102 characters, 165,055 CJK characters, 42,541 lines, 1,296 code blocks, 66 weekly tasks, 328 de-duplicated GitHub repositories (534 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
 
 ---
 
@@ -102,7 +102,7 @@ Interactive version: `全栈学习路线/🗺️学习路线思维导图.canvas`
 
 | # | Module | Duration | Chapter Verification Project | Tutorials |
 |---|------|------|--------------|----------|
-| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 1 week | Learning dashboard (HTML progress page) + learning contract | 8 |
+| **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 1 week | Learning dashboard (HTML progress page) + learning contract | 9 |
 | **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `pyspider-cli` async crawler + PyPI release | 13 |
 | **02** | [JavaScript from Scratch to Source Code](全栈学习路线/02-JavaScript-从零到源码/) | 10 weeks | `mini-lodash` + online code sandbox | 12 |
 | **03** | [Modern Web with HTML/CSS](全栈学习路线/03-HTML-CSS-现代Web/) | 4 weeks | Pixel-perfect reproduction of 3 real sites (Linear / Stripe / Apple) | 6 |
@@ -128,7 +128,7 @@ Each chapter comes with a **curated GitHub project list** (not just a collection
 
 | Chapter | Curated GitHub Projects |
 |------|----------------|
-| 00 Learning Methodology | [Beginner Navigation](全栈学习路线/00-学习方法论/05-GitHub项目精选-入门导航.md) |
+| 00 Learning Methodology | [Beginner Navigation](全栈学习路线/00-学习方法论/06-GitHub项目精选-入门导航.md) |
 | 01 Python | [Python Projects](全栈学习路线/01-Python-从零到源码/11-GitHub项目精选-Python.md) |
 | 02 JavaScript | [JavaScript Projects](全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript.md) |
 | 03 HTML/CSS | [CSS & Design](全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计.md) |
@@ -156,7 +156,7 @@ This roadmap adheres to 4 principles:
 3. **Feynman Technique** — After each section, write a note teaching it to someone else.
 4. **Reinventing the wheel** — At the source-code stage, you must hand-write mini-react / mini-langchain / mini-agent.
 
-See [`00-学习方法论/`](全栈学习路线/00-学习方法论/) for the full 8-article methodology tutorial.
+See [`00-学习方法论/`](全栈学习路线/00-学习方法论/) for the full 9-article methodology tutorial (1 chapter outline + 7 method guides + 1 curation page).
 
 ---
 

@@ -7,7 +7,7 @@ duration: 12-18 months
 daily_hours: 3-4
 tags: [roadmap, full-stack, ai-agent, entry]
 next: "[[全栈学习路线/README]]"
-total_files: 115
+total_files: 116
 chapters: 10
 created: 2026-06-25
 updated: 2026-11-23
@@ -17,7 +17,7 @@ updated: 2026-11-23
 
 **English** | [简体中文](README.md) | [日本語](README.ja.md)
 
-> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **115 Markdown files / ~991,000 characters (165,000 CJK characters) / 1,296 code blocks**, organized with Obsidian.
+> **From scratch to an AI-era Full-Stack Engineer** —— A systematically organized learning roadmap with **116 Markdown files / ~1,000,000 characters (167,000 CJK characters) / 1,309 code blocks**, organized with Obsidian.
 >
 > Covers **Python · JavaScript · React · FastAPI · Database · LLM · AI Agent · Graduation Project**. Every knowledge point comes with **analogies + complete code + exercises + GitHub project recommendations**.
 
@@ -31,16 +31,16 @@ updated: 2026-11-23
 
 Not a list of links. This is a complete tutorial package for **"from zero → able to independently deliver AI Agent products"**:
 
-- 📘 **115 Markdown files / 991,102 characters / 42,541 lines** —— every new concept is explained with everyday analogies
+- 📘 **116 Markdown files / 1,000,959 characters / 42,998 lines** —— every new concept is explained with everyday analogies
 - 💻 **Complete runnable code** —— not snippets, but line-by-line comments + expected output + exercise answers
 - 🎯 **66 weekly tasks + 10 chapter capstone projects** —— each chapter requires a verification project; you haven't finished until you've built it
-- ⭐ **328 de-duplicated curated GitHub repositories** (534 references) —— each annotated with "how to use it to learn"
+- ⭐ **334 de-duplicated curated GitHub repositories** (590 references) —— each annotated with "how to use it to learn"
 - 🗺️ **Obsidian Canvas mind maps** —— global view + chapter relationships at a glance
 - 📊 **Companion learning contract / weekly report / milestone templates** —— a forced feedback system
 
 > This tutorial is **designed specifically for zero-foundation learners**: you need no prerequisite knowledge, just 3 hours a day + a determined heart.
 
-> 📊 **How the numbers were measured** (2026-11-23): 115 Markdown files (3 multilingual READMEs + 3 chapter index pages + 109 chapter articles), 991,102 characters, 165,055 CJK characters, 42,541 lines, 1,296 code blocks, 66 weekly tasks, 328 de-duplicated GitHub repositories (534 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
+> 📊 **How the numbers were measured** (2026-11-23): 116 Markdown files (109 chapter articles + 6 navigation pages + 1 contributing guide), 1,000,959 characters, 167,475 CJK characters, 42,998 lines, 1,309 code blocks, 66 weekly tasks, 334 de-duplicated GitHub repositories (590 links). Method: read every file from `git ls-files "*.md"`, count code blocks as paired ``` fences, dedupe repositories by `github.com/owner/repo` (site utility pages and placeholders removed).
 
 ---
 
@@ -49,7 +49,7 @@ Not a list of links. This is a complete tutorial package for **"from zero → ab
 ### Option 1: Open with Obsidian (Recommended ⭐)
 
 1. **Download** [Obsidian](https://obsidian.md/) (free)
-2. `git clone https://github.com/Karovia/fullstack-ai-agent-roadmap.git`
+2. `git clone https://github.com/R2h1/fullstack-ai-agent-roadmap.git`
 3. Open the downloaded folder in Obsidian (Open folder as vault)
 4. **First open** `全栈学习路线/🗺️学习路线思维导图.canvas` for the global view
 5. Then start learning from `全栈学习路线/README.md`
@@ -188,10 +188,13 @@ After completing this roadmap, you should be able to:
 
 ## 🤝 Contributing & Feedback
 
-- 🐛 **Found an error?** [Open an Issue](https://github.com/Karovia/fullstack-ai-agent-roadmap/issues)
-- 💡 **Have a suggestion?** [Start a Discussion](https://github.com/Karovia/fullstack-ai-agent-roadmap/discussions)
+- 🐛 **Found an error?** [Open an Issue](https://github.com/R2h1/fullstack-ai-agent-roadmap/issues)
+- 💡 **Have a suggestion?** [Start a Discussion](https://github.com/R2h1/fullstack-ai-agent-roadmap/discussions)
+- 🛠️ **Want to contribute?** Read the [Contributing guide](CONTRIBUTING.md) first (naming rules / frontmatter schema / pre-commit checks)
 - ⭐ **Found it useful?** Give it a Star so more people see it
 - 🔄 **Want to share?** Feel free to Fork and repost (please retain original author info)
+
+> 📌 This repo is continuously maintained from the original [Karovia/fullstack-ai-agent-roadmap](https://github.com/Karovia/fullstack-ai-agent-roadmap). See [License](#-license) below.
 
 ---
 

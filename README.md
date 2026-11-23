@@ -7,7 +7,7 @@ duration: 12-18 个月
 daily_hours: 3-4
 tags: [学习路线, 全栈, AI-Agent, 入口]
 next: "[[全栈学习路线/README]]"
-total_files: 115
+total_files: 116
 chapters: 10
 created: 2026-06-19
 updated: 2026-11-23
@@ -17,7 +17,7 @@ updated: 2026-11-23
 
 **简体中文** | [English](README.en.md) | [日本語](README.ja.md)
 
-> **从零基础到 AI 时代全栈工程师** —— 一份用 Obsidian 组织的、**115 个 Markdown 文件 / 约 99 万字符（16.5 万汉字）/ 1,296 个代码块**的系统化学习路线。
+> **从零基础到 AI 时代全栈工程师** —— 一份用 Obsidian 组织的、**116 个 Markdown 文件 / 约 100 万字符（16.7 万汉字）/ 1,309 个代码块**的系统化学习路线。
 >
 > 涵盖 **Python · JavaScript · React · FastAPI · 数据库 · LLM · AI Agent · 毕业项目**，每个知识点都附**类比解释 + 完整代码 + 练习题 + GitHub 项目推荐**。
 
@@ -31,16 +31,16 @@ updated: 2026-11-23
 
 不是一份链接清单。这是一套 **"零基础 → 能独立交付 AI Agent 产品"** 的完整教程包：
 
-- 📘 **115 个 Markdown 文件 / 991,102 字符 / 42,541 行** —— 每个新概念都用日常类比讲清楚
+- 📘 **116 个 Markdown 文件 / 1,000,959 字符 / 42,998 行** —— 每个新概念都用日常类比讲清楚
 - 💻 **完整可运行代码** —— 不是片段，是逐行注释 + 预期输出 + 练习答案
 - 🎯 **66 个周任务 + 10 个章节验收项目** —— 每章必做一个验收项目，没做完不算学完
-- ⭐ **328 个去重的精选 GitHub 仓库**（全库 534 处引用）—— 每个都标注"该怎么用它学"
+- ⭐ **334 个去重的精选 GitHub 仓库**（全库 590 处引用）—— 每个都标注"该怎么用它学"
 - 🗺️ **Obsidian Canvas 思维导图** —— 全局视图 + 章节关系一目了然
 - 📊 **配套学习契约 / 周报 / 里程碑模板** —— 强制反馈系统
 
 > 这份教程**专门为零基础学习者设计**：你不需要任何前置知识，只需要每天 3 小时 + 一颗坚持的心。
 
-> 📊 **统计口径**（实测于 2026-11-23）：115 个 Markdown 文件（3 个多语言 README + 3 个章节目录页 + 109 篇章节正文）、991,102 字符、汉字 165,055 个、42,541 行、1,296 个代码块、66 个周任务、328 个去重 GitHub 仓库（534 处链接）。统计方式：`git ls-files "*.md"` 逐文件读取，代码块按成对 ``` 围栏计数，仓库按 `github.com/owner/repo` 去重（剔除站点功能页与占位符）。
+> 📊 **统计口径**（实测于 2026-11-23）：116 个 Markdown 文件（109 篇章节正文 + 6 个导航页 + 1 份贡献指南）、1,000,959 字符、汉字 167,475 个、42,998 行、1,309 个代码块、66 个周任务、334 个去重 GitHub 仓库（590 处链接）。统计方式：`git ls-files "*.md"` 逐文件读取，代码块按成对 ``` 围栏计数，仓库按 `github.com/owner/repo` 去重（剔除站点功能页与占位符）。
 
 ---
 
@@ -49,7 +49,7 @@ updated: 2026-11-23
 ### 方式 1：用 Obsidian 打开（推荐 ⭐）
 
 1. **下载** [Obsidian](https://obsidian.md/)（免费）
-2. `git clone https://github.com/Karovia/fullstack-ai-agent-roadmap.git`
+2. `git clone https://github.com/R2h1/fullstack-ai-agent-roadmap.git`
 3. 在 Obsidian 中打开下载的文件夹（Open folder as vault）
 4. **首先打开** `全栈学习路线/🗺️学习路线思维导图.canvas` 看全局
 5. 然后从 `全栈学习路线/README.md` 开始学
@@ -188,10 +188,13 @@ updated: 2026-11-23
 
 ## 🤝 贡献与反馈
 
-- 🐛 **发现错误？** [提 Issue](https://github.com/Karovia/fullstack-ai-agent-roadmap/issues)
-- 💡 **有改进建议？** [发起 Discussion](https://github.com/Karovia/fullstack-ai-agent-roadmap/discussions)
+- 🐛 **发现错误？** [提 Issue](https://github.com/R2h1/fullstack-ai-agent-roadmap/issues)
+- 💡 **有改进建议？** [发起 Discussion](https://github.com/R2h1/fullstack-ai-agent-roadmap/discussions)
+- 🛠️ **想改内容？** 先读 [贡献指南](CONTRIBUTING.md)（命名体例 / frontmatter 规范 / 提交前校验）
 - ⭐ **觉得有用？** 给个 Star 让更多人看到
 - 🔄 **想分享？** 欢迎 Fork、转载（请保留原作者信息）
+
+> 📌 本仓库基于原作者 [Karovia/fullstack-ai-agent-roadmap](https://github.com/Karovia/fullstack-ai-agent-roadmap) 持续维护。内容协议见下方 [License](#-license)。
 
 ---
 

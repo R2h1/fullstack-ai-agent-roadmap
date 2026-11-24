@@ -103,7 +103,7 @@ updated: 2026-11-23
 | # | 模块 | 周期 | 章节验收项目 | 详细教程数 |
 |---|------|------|--------------|----------|
 | **00** | [学习方法论](全栈学习路线/00-学习方法论/) | 2-3 周 | 学习仪表盘（HTML 进度页）+ 学习契约 + 8 项考核 | 9 |
-| **01** | [Python 从零到源码](全栈学习路线/01-Python-从零到源码/) | 10 周 | `pyspider-cli` 异步爬虫 + PyPI 发布 | 13 |
+| **01** | [Python 从零到源码](全栈学习路线/01-Python-从零到源码/) | 10 周 | `my-spider-cli` 异步爬虫 + PyPI 发布 | 13 |
 | **02** | [JavaScript 从零到源码](全栈学习路线/02-JavaScript-从零到源码/) | 10 周 | `mini-lodash` + 在线代码沙盒 | 12 |
 | **03** | [HTML/CSS 现代 Web](全栈学习路线/03-HTML-CSS-现代Web/) | 4 周 | 像素级还原 3 个真实站点（Linear / Stripe / Apple） | 6 |
 | **04** | [React 从使用到源码](全栈学习路线/04-前端框架-React/) | 10 周 | 在线协作白板 + 手写 mini-react（Fiber + Hooks） | 12 |
@@ -129,7 +129,7 @@ updated: 2026-11-23
 | 章节 | GitHub 项目精选 |
 |------|----------------|
 | 00 学习方法论 | [入门导航](全栈学习路线/00-学习方法论/06-GitHub项目精选-入门导航.md) |
-| 01 Python | [Python 项目精选](全栈学习路线/01-Python-从零到源码/11-GitHub项目精选-Python.md) |
+| 01 Python | [Python 项目精选](全栈学习路线/01-Python-从零到源码/12-GitHub项目精选-Python.md) |
 | 02 JavaScript | [JavaScript 项目精选](全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript.md) |
 | 03 HTML/CSS | [CSS 与设计](全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计.md) |
 | 04 React | [React 生态](全栈学习路线/04-前端框架-React/11-GitHub项目精选-React生态.md) |

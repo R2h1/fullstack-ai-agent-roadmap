@@ -6,7 +6,7 @@ chapter_title: JavaScript 从零到源码
 order: 12
 difficulty: 🌱→🌲
 tags: [GitHub项目, 资源]
-prev: "[[W10-V8引擎与性能优化]]"
+prev: "[[10-V8引擎与性能优化]]"
 next: "[[全栈学习路线/03-HTML-CSS-现代Web/03-HTML-CSS总纲]]"
 created: 2026-06-19
 updated: 2026-06-19

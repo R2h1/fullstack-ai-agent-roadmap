@@ -103,7 +103,7 @@ Interactive version: `全栈学习路线/🗺️学习路线思维导图.canvas`
 | # | Module | Duration | Chapter Verification Project | Tutorials |
 |---|------|------|--------------|----------|
 | **00** | [Learning Methodology](全栈学习路线/00-学习方法论/) | 2-3 weeks | Learning dashboard (HTML progress page) + learning contract + 8 tasks | 9 |
-| **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `pyspider-cli` async crawler + PyPI release | 13 |
+| **01** | [Python from Scratch to Source Code](全栈学习路线/01-Python-从零到源码/) | 10 weeks | `my-spider-cli` async crawler + PyPI release | 13 |
 | **02** | [JavaScript from Scratch to Source Code](全栈学习路线/02-JavaScript-从零到源码/) | 10 weeks | `mini-lodash` + online code sandbox | 12 |
 | **03** | [Modern Web with HTML/CSS](全栈学习路线/03-HTML-CSS-现代Web/) | 4 weeks | Pixel-perfect reproduction of 3 real sites (Linear / Stripe / Apple) | 6 |
 | **04** | [React from Usage to Source Code](全栈学习路线/04-前端框架-React/) | 10 weeks | Online collaborative whiteboard + handwritten mini-react (Fiber + Hooks) | 12 |
@@ -129,7 +129,7 @@ Each chapter comes with a **curated GitHub project list** (not just a collection
 | Chapter | Curated GitHub Projects |
 |------|----------------|
 | 00 Learning Methodology | [Beginner Navigation](全栈学习路线/00-学习方法论/06-GitHub项目精选-入门导航.md) |
-| 01 Python | [Python Projects](全栈学习路线/01-Python-从零到源码/11-GitHub项目精选-Python.md) |
+| 01 Python | [Python Projects](全栈学习路线/01-Python-从零到源码/12-GitHub项目精选-Python.md) |
 | 02 JavaScript | [JavaScript Projects](全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript.md) |
 | 03 HTML/CSS | [CSS & Design](全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计.md) |
 | 04 React | [React Ecosystem](全栈学习路线/04-前端框架-React/11-GitHub项目精选-React生态.md) |

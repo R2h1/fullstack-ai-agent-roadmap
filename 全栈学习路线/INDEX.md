@@ -54,14 +54,14 @@ updated: 2026-11-23
 | # | 章节 | 周期 | 总纲 | 周任务 | 章节项目 |
 |---|------|------|------|--------|----------|
 | 00 | 学习方法论 | 2-3 周 | [[00-学习方法论/00-学习方法论总纲]] | 1 篇总纲 + 7 篇方法论 + 1 篇精选导航 | 学习仪表盘 + [[_我的进度追踪/学习契约\|学习契约]] |
-| 01 | Python 从零到源码 | 10 周 | [[01-Python-从零到源码/01-Python总纲]] | W01-W10 | `pyspider-cli` 异步爬虫 + PyPI 发布 |
-| 02 | JavaScript 从零到源码 | 10 周 | [[02-JavaScript-从零到源码/02-JavaScript总纲]] | W01-W10 | `mini-lodash` + 在线代码沙盒 |
-| 03 | HTML/CSS 现代 Web | 4 周 | [[03-HTML-CSS-现代Web/03-HTML-CSS总纲]] | W01-W04 | 像素级还原 3 个真实站点（Linear / Stripe / Apple） |
-| 04 | React 从使用到源码 | 10 周 | [[04-前端框架-React/04-React总纲]] | W01-W10 | 在线协作白板 + 手写 mini-react（Fiber + Hooks） |
-| 05 | 后端 FastAPI + Node | 8 周 | [[05-后端开发-FastAPI-Node/05-后端总纲]] | W01-W08 | RealWorld Conduit 后端 + 实时聊天 |
-| 06 | 数据库 + 工程化 | 6 周 | [[06-数据库与工程化/06-数据库工程化总纲]] | W01-W06 | `mini-twitter` 高并发短文社区 |
-| 07 | AI 基础：Prompt + LLM | 6 周 | [[07-AI基础-Prompt与LLM/07-AI基础总纲]] | W01-W06 | `AskMyDocs` 文档问答 + 从零实现 GPT |
-| 08 | AI Agent 框架与源码 ⭐ | 12 周 | [[08-AI-Agent-框架与源码/08-Agent总纲]] | W01-W12 | `mini-agent-sdk` + 自建 MCP Server |
+| 01 | Python 从零到源码 | 10 周 | [[01-Python-从零到源码/01-Python总纲]] | 第 01-10 篇 + 2 篇延伸 | `my-spider-cli` 异步爬虫 + PyPI 发布 |
+| 02 | JavaScript 从零到源码 | 10 周 | [[02-JavaScript-从零到源码/02-JavaScript总纲]] | 第 01~10 篇 | `mini-lodash` + 在线代码沙盒 |
+| 03 | HTML/CSS 现代 Web | 4 周 | [[03-HTML-CSS-现代Web/03-HTML-CSS总纲]] | 第 01~04 篇 | 像素级还原 3 个真实站点（Linear / Stripe / Apple） |
+| 04 | React 从使用到源码 | 10 周 | [[04-前端框架-React/04-React总纲]] | 第 01~10 篇 | 在线协作白板 + 手写 mini-react（Fiber + Hooks） |
+| 05 | 后端 FastAPI + Node | 8 周 | [[05-后端开发-FastAPI-Node/05-后端总纲]] | 第 01~08 篇 | RealWorld Conduit 后端 + 实时聊天 |
+| 06 | 数据库 + 工程化 | 6 周 | [[06-数据库与工程化/06-数据库工程化总纲]] | 第 01~06 篇 | `mini-twitter` 高并发短文社区 |
+| 07 | AI 基础：Prompt + LLM | 6 周 | [[07-AI基础-Prompt与LLM/07-AI基础总纲]] | 第 01~06 篇 | `AskMyDocs` 文档问答 + 从零实现 GPT |
+| 08 | AI Agent 框架与源码 ⭐ | 12 周 | [[08-AI-Agent-框架与源码/08-Agent总纲]] | 第 01~12 篇 | `mini-agent-sdk` + 自建 MCP Server |
 | 09 | 综合实战 · 毕业项目 | 8-12 周 | [[09-综合实战-毕业项目/09-毕业项目总纲]] | 6 个阶段文档 | **能上线、能赚钱、能写进简历的产品** |
 
 > 依赖关系：01 与 02 可并行；03 只要有 00 就能开始；04 需要 03 + 02；05 需要 01 **或** 02；**06 与 07 是并列的两条支线**，都汇入 08 —— 07 需要 01（06 可选，RAG 会用到 pgvector），06 需要 01 + 05；08 需要 07 + 做过后端（05）；09 需要 04 / 05 / 08 任一。
@@ -87,131 +87,131 @@ updated: 2026-11-23
 
 ## 01 · Python 从零到源码（10 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | 语法基础 | [[01-Python-从零到源码/W01-语法基础]] |
-| W02 | 数据结构 | [[01-Python-从零到源码/W02-数据结构]] |
-| W03 | 函数与模块 | [[01-Python-从零到源码/W03-函数与模块]] |
-| W04 | 面向对象 | [[01-Python-从零到源码/W04-面向对象]] |
-| W05 | 装饰器与上下文管理器 | [[01-Python-从零到源码/W05-装饰器与上下文]] |
-| W06 | 迭代器与生成器 | [[01-Python-从零到源码/W06-迭代器与生成器]] |
-| W07 | 并发与异步 | [[01-Python-从零到源码/W07-并发与异步]] |
-| W08 | 类型系统与 Pydantic | [[01-Python-从零到源码/W08-类型系统与Pydantic]] |
-| W09 | 工程化与发布 | [[01-Python-从零到源码/W09-工程化与发布]] |
-| W10 | CPython 源码导读 | [[01-Python-从零到源码/W10-CPython源码导读]] |
-| 旁支 | MRO 与 C3 线性化（读源码前置） | [[01-Python-从零到源码/MRO 与 C3 线性化]] |
-| — | GitHub 项目精选 · Python | [[01-Python-从零到源码/11-GitHub项目精选-Python]] |
+| 01 | 语法基础 | [[01-Python-从零到源码/01-语法基础]] |
+| 02 | 数据结构 | [[01-Python-从零到源码/02-数据结构]] |
+| 03 | 函数与模块 | [[01-Python-从零到源码/03-函数与模块]] |
+| 04 | 面向对象 | [[01-Python-从零到源码/04-面向对象]] |
+| 05 | 装饰器与上下文管理器 | [[01-Python-从零到源码/05-装饰器与上下文]] |
+| 06 | 迭代器与生成器 | [[01-Python-从零到源码/06-迭代器与生成器]] |
+| 07 | 并发与异步 | [[01-Python-从零到源码/07-并发与异步]] |
+| 08 | 类型系统与 Pydantic | [[01-Python-从零到源码/08-类型系统与Pydantic]] |
+| 09 | 工程化与发布 | [[01-Python-从零到源码/09-工程化与发布]] |
+| 10 | CPython 源码导读 | [[01-Python-从零到源码/10-CPython源码导读]] |
+| 11 | MRO 与 C3 线性化（读源码前置） | [[01-Python-从零到源码/11-MRO与C3线性化]] |
+| 12 | GitHub 项目精选 · Python | [[01-Python-从零到源码/12-GitHub项目精选-Python]] |
 
 ---
 
 ## 02 · JavaScript 从零到源码（10 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | 语法与类型 | [[02-JavaScript-从零到源码/W01-语法与类型]] |
-| W02 | 函数与 this | [[02-JavaScript-从零到源码/W02-函数与this]] |
-| W03 | 闭包与作用域 | [[02-JavaScript-从零到源码/W03-闭包与作用域]] |
-| W04 | 原型与继承 | [[02-JavaScript-从零到源码/W04-原型与继承]] |
-| W05 | 异步与事件循环 | [[02-JavaScript-从零到源码/W05-异步与事件循环]] |
-| W06 | DOM 与事件 | [[02-JavaScript-从零到源码/W06-DOM与事件]] |
-| W07 | ES6 进阶特性 | [[02-JavaScript-从零到源码/W07-ES6进阶特性]] |
-| W08 | 模块系统与工程化 | [[02-JavaScript-从零到源码/W08-模块系统与工程化]] |
-| W09 | TypeScript 完全指南 | [[02-JavaScript-从零到源码/W09-TypeScript完全指南]] |
-| W10 | V8 引擎与性能优化 | [[02-JavaScript-从零到源码/W10-V8引擎与性能优化]] |
+| 第 01 篇 | 语法与类型 | [[02-JavaScript-从零到源码/01-语法与类型]] |
+| 第 02 篇 | 函数与 this | [[02-JavaScript-从零到源码/02-函数与this]] |
+| 第 03 篇 | 闭包与作用域 | [[02-JavaScript-从零到源码/03-闭包与作用域]] |
+| 第 04 篇 | 原型与继承 | [[02-JavaScript-从零到源码/04-原型与继承]] |
+| 第 05 篇 | 异步与事件循环 | [[02-JavaScript-从零到源码/05-异步与事件循环]] |
+| 第 06 篇 | DOM 与事件 | [[02-JavaScript-从零到源码/06-DOM与事件]] |
+| 第 07 篇 | ES6 进阶特性 | [[02-JavaScript-从零到源码/07-ES6进阶特性]] |
+| 第 08 篇 | 模块系统与工程化 | [[02-JavaScript-从零到源码/08-模块系统与工程化]] |
+| 第 09 篇 | TypeScript 完全指南 | [[02-JavaScript-从零到源码/09-TypeScript完全指南]] |
+| 第 10 篇 | V8 引擎与性能优化 | [[02-JavaScript-从零到源码/10-V8引擎与性能优化]] |
 | — | GitHub 项目精选 · JavaScript | [[02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript]] |
 
 ---
 
 ## 03 · HTML/CSS 现代 Web（4 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | HTML5 与可访问性 | [[03-HTML-CSS-现代Web/W01-HTML5与可访问性]] |
-| W02 | CSS 基础与 Flex/Grid | [[03-HTML-CSS-现代Web/W02-CSS基础与Flex-Grid]] |
-| W03 | CSS 进阶与动画 | [[03-HTML-CSS-现代Web/W03-CSS进阶与动画]] |
-| W04 | Tailwind 与渲染原理 | [[03-HTML-CSS-现代Web/W04-Tailwind与渲染原理]] |
+| 第 01 篇 | HTML5 与可访问性 | [[03-HTML-CSS-现代Web/01-HTML5与可访问性]] |
+| 第 02 篇 | CSS 基础与 Flex/Grid | [[03-HTML-CSS-现代Web/02-CSS基础与Flex-Grid]] |
+| 第 03 篇 | CSS 进阶与动画 | [[03-HTML-CSS-现代Web/03-CSS进阶与动画]] |
+| 第 04 篇 | Tailwind 与渲染原理 | [[03-HTML-CSS-现代Web/04-Tailwind与渲染原理]] |
 | — | GitHub 项目精选 · CSS 与设计 | [[03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]] |
 
 ---
 
 ## 04 · React 从使用到源码（10 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | React 入门与 JSX | [[04-前端框架-React/W01-React入门与JSX]] |
-| W02 | Hooks 全集 | [[04-前端框架-React/W02-Hooks全集]] |
-| W03 | 自定义 Hook 与 Context | [[04-前端框架-React/W03-自定义Hook与Context]] |
-| W04 | 状态管理与数据获取 | [[04-前端框架-React/W04-状态管理与数据获取]] |
-| W05 | 路由与表单 | [[04-前端框架-React/W05-路由与表单]] |
-| W06 | Next.js 全栈 | [[04-前端框架-React/W06-Next.js全栈]] |
-| W07 | 测试与质量 | [[04-前端框架-React/W07-测试与质量]] |
-| W08 | 性能优化 | [[04-前端框架-React/W08-性能优化]] |
-| W09 | 手写 mini-react v1 | [[04-前端框架-React/W09-手写mini-react-v1]] |
-| W10 | 手写 mini-react v2 | [[04-前端框架-React/W10-手写mini-react-v2]] |
+| 第 01 篇 | React 入门与 JSX | [[04-前端框架-React/01-React入门与JSX]] |
+| 第 02 篇 | Hooks 全集 | [[04-前端框架-React/02-Hooks全集]] |
+| 第 03 篇 | 自定义 Hook 与 Context | [[04-前端框架-React/03-自定义Hook与Context]] |
+| 第 04 篇 | 状态管理与数据获取 | [[04-前端框架-React/04-状态管理与数据获取]] |
+| 第 05 篇 | 路由与表单 | [[04-前端框架-React/05-路由与表单]] |
+| 第 06 篇 | Next.js 全栈 | [[04-前端框架-React/06-Next.js全栈]] |
+| 第 07 篇 | 测试与质量 | [[04-前端框架-React/07-测试与质量]] |
+| 第 08 篇 | 性能优化 | [[04-前端框架-React/08-性能优化]] |
+| 第 09 篇 | 手写 mini-react v1 | [[04-前端框架-React/09-手写mini-react-v1]] |
+| 第 10 篇 | 手写 mini-react v2 | [[04-前端框架-React/10-手写mini-react-v2]] |
 | — | GitHub 项目精选 · React 生态 | [[04-前端框架-React/11-GitHub项目精选-React生态]] |
 
 ---
 
 ## 05 · 后端 FastAPI + Node（8 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | HTTP 与 REST | [[05-后端开发-FastAPI-Node/W01-HTTP与REST]] |
-| W02 | FastAPI 入门 | [[05-后端开发-FastAPI-Node/W02-FastAPI入门]] |
-| W03 | 认证授权 | [[05-后端开发-FastAPI-Node/W03-认证授权]] |
-| W04 | WebSocket 与 SSE | [[05-后端开发-FastAPI-Node/W04-WebSocket与SSE]] |
-| W05 | Node 与 Hono | [[05-后端开发-FastAPI-Node/W05-Node与Hono]] |
-| W06 | 限流 / 缓存 / 日志 | [[05-后端开发-FastAPI-Node/W06-限流缓存日志]] |
-| W07 | 测试 | [[05-后端开发-FastAPI-Node/W07-测试]] |
-| W08 | Docker 部署 | [[05-后端开发-FastAPI-Node/W08-Docker部署]] |
+| 第 01 篇 | HTTP 与 REST | [[05-后端开发-FastAPI-Node/01-HTTP与REST]] |
+| 第 02 篇 | FastAPI 入门 | [[05-后端开发-FastAPI-Node/02-FastAPI入门]] |
+| 第 03 篇 | 认证授权 | [[05-后端开发-FastAPI-Node/03-认证授权]] |
+| 第 04 篇 | WebSocket 与 SSE | [[05-后端开发-FastAPI-Node/04-WebSocket与SSE]] |
+| 第 05 篇 | Node 与 Hono | [[05-后端开发-FastAPI-Node/05-Node与Hono]] |
+| 第 06 篇 | 限流 / 缓存 / 日志 | [[05-后端开发-FastAPI-Node/06-限流缓存日志]] |
+| 第 07 篇 | 测试 | [[05-后端开发-FastAPI-Node/07-测试]] |
+| 第 08 篇 | Docker 部署 | [[05-后端开发-FastAPI-Node/08-Docker部署]] |
 | — | GitHub 项目精选 · 后端实战 | [[05-后端开发-FastAPI-Node/09-GitHub项目精选-后端实战]] |
 
 ---
 
 ## 06 · 数据库与工程化（6 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | SQL 与 PostgreSQL | [[06-数据库与工程化/W01-SQL与PostgreSQL]] |
-| W02 | 索引 / 事务 / 锁 | [[06-数据库与工程化/W02-索引事务锁]] |
-| W03 | Redis 全集 | [[06-数据库与工程化/W03-Redis全集]] |
-| W04 | ORM 与迁移 | [[06-数据库与工程化/W04-ORM与迁移]] |
-| W05 | 向量数据库与全文搜索 | [[06-数据库与工程化/W05-向量数据库与全文搜索]] |
-| W06 | K8s 与监控 | [[06-数据库与工程化/W06-K8s与监控]] |
+| 第 01 篇 | SQL 与 PostgreSQL | [[06-数据库与工程化/01-SQL与PostgreSQL]] |
+| 第 02 篇 | 索引 / 事务 / 锁 | [[06-数据库与工程化/02-索引事务锁]] |
+| 第 03 篇 | Redis 全集 | [[06-数据库与工程化/03-Redis全集]] |
+| 第 04 篇 | ORM 与迁移 | [[06-数据库与工程化/04-ORM与迁移]] |
+| 第 05 篇 | 向量数据库与全文搜索 | [[06-数据库与工程化/05-向量数据库与全文搜索]] |
+| 第 06 篇 | K8s 与监控 | [[06-数据库与工程化/06-K8s与监控]] |
 | — | GitHub 项目精选 · 数据库 DevOps | [[06-数据库与工程化/07-GitHub项目精选-数据库DevOps]] |
 
 ---
 
 ## 07 · AI 基础：Prompt + LLM（6 周）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | LLM 全景与 API | [[07-AI基础-Prompt与LLM/W01-LLM全景与API]] |
-| W02 | Prompt 工程进阶 | [[07-AI基础-Prompt与LLM/W02-Prompt工程进阶]] |
-| W03 | Function Calling 与 Tool Use | [[07-AI基础-Prompt与LLM/W03-Function-Calling与Tool-Use]] |
-| W04 | RAG 完整实现 | [[07-AI基础-Prompt与LLM/W04-RAG完整实现]] |
-| W05 | 评测与 LLM-as-Judge | [[07-AI基础-Prompt与LLM/W05-评测与LLM-as-Judge]] |
-| W06 | 从零实现 GPT | [[07-AI基础-Prompt与LLM/W06-从零实现GPT]] |
+| 第 01 篇 | LLM 全景与 API | [[07-AI基础-Prompt与LLM/01-LLM全景与API]] |
+| 第 02 篇 | Prompt 工程进阶 | [[07-AI基础-Prompt与LLM/02-Prompt工程进阶]] |
+| 第 03 篇 | Function Calling 与 Tool Use | [[07-AI基础-Prompt与LLM/03-Function-Calling与Tool-Use]] |
+| 第 04 篇 | RAG 完整实现 | [[07-AI基础-Prompt与LLM/04-RAG完整实现]] |
+| 第 05 篇 | 评测与 LLM-as-Judge | [[07-AI基础-Prompt与LLM/05-评测与LLM-as-Judge]] |
+| 第 06 篇 | 从零实现 GPT | [[07-AI基础-Prompt与LLM/06-从零实现GPT]] |
 | — | GitHub 项目精选 · LLM 学习 | [[07-AI基础-Prompt与LLM/07-GitHub项目精选-LLM学习]] |
 
 ---
 
 ## 08 · AI Agent 框架与源码（12 周 ⭐）
 
-| 周 | 主题 | 链接 |
+| # | 主题 | 链接 |
 |---|------|------|
-| W01 | Agent 全景与 5 模式 | [[08-AI-Agent-框架与源码/W01-Agent全景与5模式]] |
-| W02 | 手写 Agent（不用框架） | [[08-AI-Agent-框架与源码/W02-手写Agent不用框架]] |
-| W03 | LangGraph 入门 | [[08-AI-Agent-框架与源码/W03-LangGraph入门]] |
-| W04 | LangGraph 进阶 | [[08-AI-Agent-框架与源码/W04-LangGraph进阶]] |
-| W05 | MCP 协议详解 | [[08-AI-Agent-框架与源码/W05-MCP协议详解]] |
-| W06 | Claude / OpenAI Agent SDK | [[08-AI-Agent-框架与源码/W06-Claude与OpenAI-Agent-SDK]] |
-| W07 | 多 Agent 协作 | [[08-AI-Agent-框架与源码/W07-多Agent协作]] |
-| W08 | 浏览器与 Computer Use | [[08-AI-Agent-框架与源码/W08-浏览器与Computer-Use]] |
-| W09 | Agent 评测 | [[08-AI-Agent-框架与源码/W09-Agent评测]] |
-| W10 | 可观测性 | [[08-AI-Agent-框架与源码/W10-可观测性]] |
-| W11 | LangGraph 源码导读 | [[08-AI-Agent-框架与源码/W11-LangGraph源码导读]] |
-| W12 | 写 mini-agent-sdk | [[08-AI-Agent-框架与源码/W12-写mini-agent-sdk]] |
+| 第 01 篇 | Agent 全景与 5 模式 | [[08-AI-Agent-框架与源码/01-Agent全景与5模式]] |
+| 第 02 篇 | 手写 Agent（不用框架） | [[08-AI-Agent-框架与源码/02-手写Agent不用框架]] |
+| 第 03 篇 | LangGraph 入门 | [[08-AI-Agent-框架与源码/03-LangGraph入门]] |
+| 第 04 篇 | LangGraph 进阶 | [[08-AI-Agent-框架与源码/04-LangGraph进阶]] |
+| 第 05 篇 | MCP 协议详解 | [[08-AI-Agent-框架与源码/05-MCP协议详解]] |
+| 第 06 篇 | Claude / OpenAI Agent SDK | [[08-AI-Agent-框架与源码/06-Claude与OpenAI-Agent-SDK]] |
+| 第 07 篇 | 多 Agent 协作 | [[08-AI-Agent-框架与源码/07-多Agent协作]] |
+| 第 08 篇 | 浏览器与 Computer Use | [[08-AI-Agent-框架与源码/08-浏览器与Computer-Use]] |
+| 第 09 篇 | Agent 评测 | [[08-AI-Agent-框架与源码/09-Agent评测]] |
+| 第 10 篇 | 可观测性 | [[08-AI-Agent-框架与源码/10-可观测性]] |
+| 第 11 篇 | LangGraph 源码导读 | [[08-AI-Agent-框架与源码/11-LangGraph源码导读]] |
+| 第 12 篇 | 写 mini-agent-sdk | [[08-AI-Agent-框架与源码/12-写mini-agent-sdk]] |
 | — | GitHub 项目精选 · Agent 全景 | [[08-AI-Agent-框架与源码/13-GitHub项目精选-Agent全景]] |
 
 ---
@@ -272,7 +272,7 @@ updated: 2026-11-23
 完全可以。本路线代码 90% 是模型无关的，换 API key 就好。Claude 是因为长文本 + 工具调用 + 编码能力最强而首选。
 
 ### Q5：我没有数学背景，能学 AI 吗？
-能。本路线是 **AI 应用层**（API + RAG + Agent），不是 **AI 算法层**（炼模型）。前者只需高中数学；只有 07-W06「从零实现 GPT」会用到一点微积分和矩阵。
+能。本路线是 **AI 应用层**（API + RAG + Agent），不是 **AI 算法层**（炼模型）。前者只需高中数学；只有第 07 章的第 06 篇「从零实现 GPT」会用到一点微积分和矩阵。
 
 ### Q6：我电脑配置很差，能跑动吗？
 能。全部用云端 API + 云端部署，本地只跑 Node + Python，4GB 内存够用（06 章 K8s 部分建议用云上免费额度）。

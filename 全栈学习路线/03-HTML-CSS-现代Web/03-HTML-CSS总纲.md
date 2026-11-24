@@ -10,7 +10,7 @@ prerequisites:
   - "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]（可并行）"
 tags: [HTML, CSS, 前端]
 prev: "[[全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript]]"
-next: "[[W01-HTML5与可访问性]]"
+next: "[[01-HTML5与可访问性]]"
 created: 2026-06-19
 updated: 2026-06-19
 ---
@@ -30,23 +30,23 @@ updated: 2026-06-19
 
 ## 📅 周计划
 
-| 周 | 主题 | 关键产出 |
+| # | 主题 | 关键产出 |
 |---|------|----------|
-| W1 | HTML5 语义化 + 可访问性 + SEO + Web APIs | 个人简历页 |
-| W2 | CSS 基础 + Flex + Grid + 响应式 | 仿 GitHub 主页 |
-| W3 | CSS 进阶：变量 / 动画 / 滤镜 / 暗黑模式 / 容器查询 | 仿 Apple 产品页 |
-| W4 | Tailwind CSS + 渲染原理 + 性能 | 仿 Linear / Stripe 落地页 |
+| 第 01 篇 | HTML5 语义化 + 可访问性 + SEO + Web APIs | 个人简历页 |
+| 第 02 篇 | CSS 基础 + Flex + Grid + 响应式 | 仿 GitHub 主页 |
+| 第 03 篇 | CSS 进阶：变量 / 动画 / 滤镜 / 暗黑模式 / 容器查询 | 仿 Apple 产品页 |
+| 第 04 篇 | Tailwind CSS + 渲染原理 + 性能 | 仿 Linear / Stripe 落地页 |
 
 ## 📖 详细内容
 
-### W1 - HTML5
+### 第 01 篇 - HTML5
 - 语义化标签（header/nav/main/article/section/aside/footer）
 - 表单 + 校验（required/pattern/type）
 - 可访问性 ARIA 属性 + 键盘导航
 - Open Graph / Twitter Card / JSON-LD（SEO）
 - 现代 Web APIs：Intersection Observer / ResizeObserver / Web Storage / Clipboard / Web Share
 
-### W2 - CSS 基础与布局
+### 第 02 篇 - CSS 基础与布局
 - 选择器优先级 + 继承
 - 盒模型 + box-sizing
 - 定位（static/relative/absolute/fixed/sticky）
@@ -54,7 +54,7 @@ updated: 2026-06-19
 - **Grid 完全指南**（[CSS-Tricks Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)）
 - 媒体查询 + 移动优先
 
-### W3 - CSS 进阶
+### 第 03 篇 - CSS 进阶
 - CSS 变量 + 主题切换（暗黑模式）
 - 动画：transition / @keyframes / animation
 - transform 3D + will-change（性能）
@@ -63,7 +63,7 @@ updated: 2026-06-19
 - Logical Properties（margin-inline 等）
 - 必读：张鑫旭《CSS 世界》《CSS 选择器世界》《CSS 新世界》
 
-### W4 - Tailwind + 性能
+### 第 04 篇 - Tailwind + 性能
 - Tailwind CSS 思路 + 配置 + 最佳实践
 - shadcn/ui（基于 Tailwind 的组件方案）
 - 渲染管线：Parse → Style → Layout → Paint → Composite

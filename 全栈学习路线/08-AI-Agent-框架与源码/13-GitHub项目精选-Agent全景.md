@@ -6,7 +6,7 @@ chapter_title: AI Agent 框架与源码
 order: 14
 difficulty: 🌱→🌲
 tags: [github, ai-agent, mcp, claude, langchain, langgraph, autogen, browser-use, computer-use, coding-agent]
-prev: "[[W12-写mini-agent-sdk]]"
+prev: "[[12-写mini-agent-sdk]]"
 next: "[[全栈学习路线/09-综合实战-毕业项目/09-毕业项目总纲]]"
 created: 2026-06-19
 updated: 2026-11-23

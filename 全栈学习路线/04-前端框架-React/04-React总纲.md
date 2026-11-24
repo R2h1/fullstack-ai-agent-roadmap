@@ -9,7 +9,7 @@ prerequisites:
   - "[[全栈学习路线/03-HTML-CSS-现代Web/03-HTML-CSS总纲]]"
 tags: [React, 前端, 源码级]
 prev: "[[全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]]"
-next: "[[W01-React入门与JSX]]"
+next: "[[01-React入门与JSX]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---
@@ -30,29 +30,29 @@ updated: 2026-11-23
 
 ## 📅 周计划
 
-| 周 | 主题 | 难度 | 产出 |
+| # | 主题 | 难度 | 产出 |
 |---|------|------|------|
-| W1 | JSX + 组件 + Props + 列表/条件渲染 | 入门 | 计算器 + Todo |
-| W2 | Hooks 全集：useState/useEffect/useRef/useMemo/useCallback | 入门→进阶 | 数据看板 |
-| W3 | 自定义 Hook + Context + useReducer | 进阶 | 主题/i18n/Auth Hook |
-| W4 | 状态管理：Zustand + TanStack Query | 进阶 | 真实 API 应用 |
-| W5 | 路由 + 表单：React Router / RHF + Zod | 进阶 | 后台管理系统 |
-| W6 | Next.js App Router + RSC + Server Action | 进阶 | 全栈博客 |
-| W7 | 测试：Vitest + Testing Library + Playwright | 进阶 | 测试套件 |
-| W8 | 性能优化：React DevTools / Profiler / 虚拟列表 | 进阶 | 性能报告 |
-| W9 | 手写 mini-react v1：JSX → Fiber → Render | 源码级 | mini-react |
-| W10 | 手写 mini-react v2：Hooks + Diff + 调度器 | 源码级 | 完整 mini-react |
+| 第 01 篇 | JSX + 组件 + Props + 列表/条件渲染 | 入门 | 计算器 + Todo |
+| 第 02 篇 | Hooks 全集：useState/useEffect/useRef/useMemo/useCallback | 入门→进阶 | 数据看板 |
+| 第 03 篇 | 自定义 Hook + Context + useReducer | 进阶 | 主题/i18n/Auth Hook |
+| 第 04 篇 | 状态管理：Zustand + TanStack Query | 进阶 | 真实 API 应用 |
+| 第 05 篇 | 路由 + 表单：React Router / RHF + Zod | 进阶 | 后台管理系统 |
+| 第 06 篇 | Next.js App Router + RSC + Server Action | 进阶 | 全栈博客 |
+| 第 07 篇 | 测试：Vitest + Testing Library + Playwright | 进阶 | 测试套件 |
+| 第 08 篇 | 性能优化：React DevTools / Profiler / 虚拟列表 | 进阶 | 性能报告 |
+| 第 09 篇 | 手写 mini-react v1：JSX → Fiber → Render | 源码级 | mini-react |
+| 第 10 篇 | 手写 mini-react v2：Hooks + Diff + 调度器 | 源码级 | 完整 mini-react |
 
 ## 📖 详细内容
 
-### W1 - JSX 与组件基础
+### 第 01 篇 - JSX 与组件基础
 - React 19 心智模型
 - JSX 编译产物（React.createElement）
 - 函数组件 vs 类组件（类组件只读不写）
 - Props + Children + key
 - 条件 / 列表渲染最佳实践
 
-### W2 - Hooks 全集
+### 第 02 篇 - Hooks 全集
 - useState（函数式更新、惰性初始化）
 - useEffect（依赖数组、清理函数、闭包陷阱）
 - useRef（DOM 引用 + 可变值）
@@ -60,26 +60,26 @@ updated: 2026-11-23
 - useTransition / useDeferredValue（并发特性，React 18 引入）
 - use Hook（React 19 新增）
 
-### W3 - 自定义 Hook + Context
+### 第 03 篇 - 自定义 Hook + Context
 - Context + useContext
 - useReducer（复杂状态用）
 - 自定义 Hook 设计原则（命名 use*、不破坏 hook 规则）
 - 经典 Hook：useLocalStorage / useDebounce / useFetch / useEventListener
 
-### W4 - 状态管理 + 数据获取
+### 第 04 篇 - 状态管理 + 数据获取
 - Zustand（最轻量，2026 主流）
 - Jotai（原子化）
 - TanStack Query（服务端状态）
 - SWR
 - 何时用 Context、何时用 Zustand、何时用 Query
 
-### W5 - 路由 + 表单
+### 第 05 篇 - 路由 + 表单
 - React Router v6/v7（loader / action）
 - React Hook Form（性能最佳）
 - Zod（schema 校验）
 - 文件上传 / 富文本编辑器（Tiptap）
 
-### W6 - Next.js
+### 第 06 篇 - Next.js
 - App Router 架构
 - Server Components vs Client Components
 - Server Actions
@@ -87,24 +87,24 @@ updated: 2026-11-23
 - 数据获取（fetch + cache）
 - 部署到 Vercel
 
-### W7 - 测试
+### 第 07 篇 - 测试
 - Vitest 单元测试
 - React Testing Library（行为驱动）
 - Mock：MSW（API 拦截）
 - E2E：Playwright
 
-### W8 - 性能优化
+### 第 08 篇 - 性能优化
 - React DevTools Profiler 用法
 - React.memo / useMemo / useCallback 三剑客（不要滥用）
 - 虚拟列表：TanStack Virtual
 - Code splitting + lazy + Suspense
 - 编译器优化：React Compiler（自动 memo）
 
-### W9-10 - 手写 mini-react（核心！）
+### 第 09~10 篇 - 手写 mini-react（核心！）
 
 跟着卡颂 [big-react](https://github.com/BetaSu/big-react) 一步步实现：
-- W9 v1：JSX 转换 → Element Tree → Fiber Tree → Commit DOM
-- W10 v2：调度器（lane 模型）+ Diff 算法 + Hooks 实现 + 并发渲染
+- 第 09 篇 v1：JSX 转换 → Element Tree → Fiber Tree → Commit DOM
+- 第 10 篇 v2：调度器（lane 模型）+ Diff 算法 + Hooks 实现 + 并发渲染
 
 **必看**：[React 技术揭秘 - 卡颂](https://react.iamkasong.com/)
 
@@ -140,7 +140,7 @@ updated: 2026-11-23
 - TanStack Query（服务端状态）
 - Tailwind + shadcn/ui
 - Konva.js / fabric.js（Canvas 库，二选一）
-- 后端用 Node.js + Hono（W5 章节会学）
+- 后端用 Node.js + Hono（第 05 章《后端开发》会学）
 - 部署：前端 Vercel，后端 Railway/Fly.io
 
 ### 验收标准

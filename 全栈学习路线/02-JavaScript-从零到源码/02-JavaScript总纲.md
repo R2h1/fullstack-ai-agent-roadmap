@@ -8,8 +8,8 @@ duration: 10 周
 prerequisites:
   - "[[全栈学习路线/01-Python-从零到源码/01-Python总纲]]"
 tags: [JavaScript, 前端, 源码级]
-prev: "[[全栈学习路线/01-Python-从零到源码/11-GitHub项目精选-Python]]"
-next: "[[W01-语法与类型]]"
+prev: "[[全栈学习路线/01-Python-从零到源码/12-GitHub项目精选-Python]]"
+next: "[[01-语法与类型]]"
 created: 2026-06-19
 updated: 2026-06-19
 ---
@@ -26,42 +26,42 @@ updated: 2026-06-19
 
 ## 📅 周计划
 
-| 周 | 主题 | 难度 | 关键产出 |
+| # | 主题 | 难度 | 关键产出 |
 |---|------|------|----------|
-| W1 | 语法 + 类型系统（值类型 vs 引用类型） | 入门 | 80 道基础题 |
-| W2 | 函数：声明 vs 表达式、this、call/apply/bind | 入门→进阶 | 手写 bind |
-| W3 | 闭包 + 作用域 + 执行上下文 | 进阶 | 闭包面试 10 题 |
-| W4 | 原型链 + 继承（6 种方式 + class） | 进阶 | 手写 new / instanceof |
-| W5 | 事件循环 + 异步：callback / Promise / async-await | 进阶 | 手写 Promise A+ |
-| W6 | DOM + BOM + 事件机制 | 入门→进阶 | 手写事件委托/拖拽 |
-| W7 | ES6+ 全特性：解构/Symbol/Iterator/Generator/Proxy | 进阶 | mini-lodash |
-| W8 | 模块系统：CJS / ESM / UMD + 工程化 | 进阶 | 手写 require |
-| W9 | TypeScript 完全指南 | 进阶 | 类型体操 30 题 |
-| W10 | V8 引擎导读 + 性能优化 | 源码级 | V8 笔记 |
+| 第 01 篇 | 语法 + 类型系统（值类型 vs 引用类型） | 入门 | 80 道基础题 |
+| 第 02 篇 | 函数：声明 vs 表达式、this、call/apply/bind | 入门→进阶 | 手写 bind |
+| 第 03 篇 | 闭包 + 作用域 + 执行上下文 | 进阶 | 闭包面试 10 题 |
+| 第 04 篇 | 原型链 + 继承（6 种方式 + class） | 进阶 | 手写 new / instanceof |
+| 第 05 篇 | 事件循环 + 异步：callback / Promise / async-await | 进阶 | 手写 Promise A+ |
+| 第 06 篇 | DOM + BOM + 事件机制 | 入门→进阶 | 手写事件委托/拖拽 |
+| 第 07 篇 | ES6+ 全特性：解构/Symbol/Iterator/Generator/Proxy | 进阶 | mini-lodash |
+| 第 08 篇 | 模块系统：CJS / ESM / UMD + 工程化 | 进阶 | 手写 require |
+| 第 09 篇 | TypeScript 完全指南 | 进阶 | 类型体操 30 题 |
+| 第 10 篇 | V8 引擎导读 + 性能优化 | 源码级 | V8 笔记 |
 
 ## 📖 详细内容大纲
 
-### W1 - 语法与类型系统
+### 第 01 篇 - 语法与类型系统
 - 7 种基本类型 + 1 种对象类型
 - 类型判断：typeof / instanceof / Object.prototype.toString
 - 类型转换（隐式 vs 显式）+ 经典坑题（`[] == ![]`）
 - 严格模式 'use strict'
 - **必看**：[现代 JS 教程 - JavaScript 基础](https://zh.javascript.info/first-steps)
 
-### W2 - 函数
+### 第 02 篇 - 函数
 - 函数声明 vs 函数表达式 vs 箭头函数
 - 参数：默认值、剩余参数、解构
 - this 的 5 种绑定规则
 - call / apply / bind 区别 + 手写
 - **必读**：YDKJS - this & Object Prototypes
 
-### W3 - 闭包与作用域
+### 第 03 篇 - 闭包与作用域
 - 词法作用域 vs 动态作用域
 - 执行上下文 + 作用域链
 - 闭包定义 + 经典面试题（for-loop var/let）
 - 内存泄漏与闭包
 
-### W4 - 原型与继承
+### 第 04 篇 - 原型与继承
 - `__proto__` vs `prototype`
 - new 操作符做了什么 - 手写实现
 - instanceof 原理 - 手写实现
@@ -69,7 +69,7 @@ updated: 2026-06-19
 - ES6 class 实质（Babel 编译产物）
 - **必读**：YDKJS - this & Object Prototypes
 
-### W5 - 异步与事件循环
+### 第 05 篇 - 异步与事件循环
 - 浏览器 vs Node 事件循环差异
 - 宏任务 vs 微任务（必背）
 - Promise 状态机 + 链式调用
@@ -77,14 +77,14 @@ updated: 2026-06-19
 - async/await 是 Generator + Promise 的语法糖
 - **必看**：[JavaScript Visualized: Event Loop](https://www.youtube.com/watch?v=eiC58R16hb8)
 
-### W6 - DOM/BOM/事件
+### 第 06 篇 - DOM/BOM/事件
 - DOM 增删改查（querySelector / classList / dataset）
 - 事件捕获/冒泡/委托
 - 事件循环与渲染（requestAnimationFrame）
 - 防抖 / 节流 - 手写
 - 拖拽 / 滚动加载 - 手写
 
-### W7 - ES6+ 全特性
+### 第 07 篇 - ES6+ 全特性
 - 解构、扩展、模板字符串
 - Symbol（迭代器协议）
 - Iterator + Generator + for...of
@@ -92,13 +92,13 @@ updated: 2026-06-19
 - WeakMap / WeakSet / WeakRef
 - **必读**：[阮一峰 ES6 入门](https://es6.ruanyifeng.com/)
 
-### W8 - 模块系统
+### 第 08 篇 - 模块系统
 - IIFE → AMD/CMD → CommonJS → ES Modules
 - 手写 require（含循环依赖处理）
 - import / export + tree-shaking 原理
 - 包管理：npm / pnpm / 工作空间
 
-### W9 - TypeScript
+### 第 09 篇 - TypeScript
 - 基本类型 + 联合 + 交叉
 - 泛型（核心！）
 - 条件类型 + infer + 分布式
@@ -106,7 +106,7 @@ updated: 2026-06-19
 - 装饰器（实验性）+ 元数据
 - **必做**：[type-challenges](https://github.com/type-challenges/type-challenges) easy 全部
 
-### W10 - V8 与性能
+### 第 10 篇 - V8 与性能
 - V8 整体架构（Parser → Ignition → TurboFan / Maglev）
 - 隐藏类 (Hidden Class) + 内联缓存 (IC)
 - 垃圾回收（标记清除 + 分代）
@@ -115,16 +115,16 @@ updated: 2026-06-19
 
 ## 📝 考核任务
 
-- [ ] **T1（W1-2）**：80 道基础题（用 [JavaScript-Questions](https://github.com/lydiahallie/javascript-questions)）
-- [ ] **T2（W2）**：手写 `Function.prototype.bind`，通过 5 个测试用例
-- [ ] **T3（W3）**：解决 [闭包面试 10 题](https://github.com/Advanced-Frontend/Daily-Interview-Question)
-- [ ] **T4（W4）**：手写 `new` / `instanceof` / `Object.create`
-- [ ] **T5（W5）**：**手写 Promise，过完整的 [Promises/A+ 测试套件](https://github.com/promises-aplus/promises-tests)**
-- [ ] **T6（W6）**：手写防抖 + 节流 + 拖拽 + 长列表虚拟滚动
-- [ ] **T7（W7）**：手写 `mini-lodash`（10 个常用函数：cloneDeep/debounce/throttle/curry/flatten/get/set/merge/pick/omit）
-- [ ] **T8（W8）**：手写 `require`，能加载本地 CJS 模块（含循环依赖）
-- [ ] **T9（W9）**：完成 type-challenges easy 全部 + medium 至少 10 题
-- [ ] **T10（W10）**：写一篇博客《V8 是如何把 JS 跑快的》（≥ 3000 字，配图）
+- [ ] **T1（第 01~02 篇）**：80 道基础题（用 [JavaScript-Questions](https://github.com/lydiahallie/javascript-questions)）
+- [ ] **T2（第 02 篇）**：手写 `Function.prototype.bind`，通过 5 个测试用例
+- [ ] **T3（第 03 篇）**：解决 [闭包面试 10 题](https://github.com/Advanced-Frontend/Daily-Interview-Question)
+- [ ] **T4（第 04 篇）**：手写 `new` / `instanceof` / `Object.create`
+- [ ] **T5（第 05 篇）**：**手写 Promise，过完整的 [Promises/A+ 测试套件](https://github.com/promises-aplus/promises-tests)**
+- [ ] **T6（第 06 篇）**：手写防抖 + 节流 + 拖拽 + 长列表虚拟滚动
+- [ ] **T7（第 07 篇）**：手写 `mini-lodash`（10 个常用函数：cloneDeep/debounce/throttle/curry/flatten/get/set/merge/pick/omit）
+- [ ] **T8（第 08 篇）**：手写 `require`，能加载本地 CJS 模块（含循环依赖）
+- [ ] **T9（第 09 篇）**：完成 type-challenges easy 全部 + medium 至少 10 题
+- [ ] **T10（第 10 篇）**：写一篇博客《V8 是如何把 JS 跑快的》（≥ 3000 字，配图）
 
 ## 🚀 章节大项目：`mini-lodash` + 在线代码沙盒
 

@@ -9,7 +9,7 @@ prerequisites:
   - "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
 tags: [AI-Agent, MCP, LangGraph, 源码级]
 prev: "[[全栈学习路线/07-AI基础-Prompt与LLM/07-GitHub项目精选-LLM学习]]"
-next: "[[W01-Agent全景与5模式]]"
+next: "[[01-Agent全景与5模式]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---
@@ -31,24 +31,24 @@ updated: 2026-11-23
 
 ## 📅 周计划
 
-| 周 | 主题 | 产出 |
+| # | 主题 | 产出 |
 |---|------|------|
-| W1 | Agent 总览 + Anthropic 5 模式 | 5 个 demo |
-| W2 | 手写 Agent（不用框架，纯 while loop） | mini-agent |
-| W3 | LangChain + LangGraph 入门 | LangGraph 基础 |
-| W4 | LangGraph 进阶：StateGraph / 子图 / 并行 / 持久化 | 客服 Agent |
-| W5 | MCP 协议详解 + 写第一个 MCP Server | 自定义 MCP server |
-| W6 | Claude Agent SDK + OpenAI Agents SDK | 双框架 demo |
-| W7 | 多 Agent 协作：CrewAI / AutoGen / LangGraph 多 Agent | 模拟公司 |
-| W8 | 浏览器/电脑控制 Agent：Computer Use / browser-use | 自动化助手 |
-| W9 | Agent 评测：AgentBench / SWE-bench / 自建 | 评测系统 |
-| W10 | 可观测性：LangSmith / Langfuse / OpenTelemetry | 全链路追踪 |
-| W11 | 源码级 1：LangGraph 源码导读 | 源码注释 |
-| W12 | 源码级 2：Claude Agent SDK / Code 源码 + 写 mini 版 | mini-agent-sdk |
+| 第 01 篇 | Agent 总览 + Anthropic 5 模式 | 5 个 demo |
+| 第 02 篇 | 手写 Agent（不用框架，纯 while loop） | mini-agent |
+| 第 03 篇 | LangChain + LangGraph 入门 | LangGraph 基础 |
+| 第 04 篇 | LangGraph 进阶：StateGraph / 子图 / 并行 / 持久化 | 客服 Agent |
+| 第 05 篇 | MCP 协议详解 + 写第一个 MCP Server | 自定义 MCP server |
+| 第 06 篇 | Claude Agent SDK + OpenAI Agents SDK | 双框架 demo |
+| 第 07 篇 | 多 Agent 协作：CrewAI / AutoGen / LangGraph 多 Agent | 模拟公司 |
+| 第 08 篇 | 浏览器/电脑控制 Agent：Computer Use / browser-use | 自动化助手 |
+| 第 09 篇 | Agent 评测：AgentBench / SWE-bench / 自建 | 评测系统 |
+| 第 10 篇 | 可观测性：LangSmith / Langfuse / OpenTelemetry | 全链路追踪 |
+| 第 11 篇 | 源码级 1：LangGraph 源码导读 | 源码注释 |
+| 第 12 篇 | 源码级 2：Claude Agent SDK / Code 源码 + 写 mini 版 | mini-agent-sdk |
 
 ## 📖 详细内容
 
-### W1 - Agent 全景
+### 第 01 篇 - Agent 全景
 
 **Anthropic 5 大模式（Building Effective Agents）：**
 1. **Augmented LLM** - LLM + 检索 + 工具
@@ -64,7 +64,7 @@ updated: 2026-11-23
 
 **必读**：[Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)
 
-### W2 - 手写 Agent（关键！）
+### 第 02 篇 - 手写 Agent（关键！）
 不依赖任何框架，从零实现一个 Agent：
 
 ```python
@@ -81,13 +81,13 @@ while True:
 
 参考 Anthropic Cookbook 的 [agents](https://github.com/anthropics/anthropic-cookbook/tree/main/patterns/agents) 目录。
 
-### W3 - LangChain + LangGraph 入门
+### 第 03 篇 - LangChain + LangGraph 入门
 - LangChain 现状（2026：核心已稳定，重心转向 LangGraph）
 - LCEL（LangChain Expression Language）
 - LangGraph 核心概念：State / Node / Edge / Conditional Edge
 - 第一个 Graph：单节点 → 多节点 → 条件分支
 
-### W4 - LangGraph 进阶
+### 第 04 篇 - LangGraph 进阶
 - StateGraph（带状态的图）
 - 子图（subgraph）
 - 并行节点（fan-out / fan-in）
@@ -95,7 +95,7 @@ while True:
 - Streaming + 中断恢复
 - LangGraph Studio 可视化调试
 
-### W5 - MCP 协议（重点！）
+### 第 05 篇 - MCP 协议（重点！）
 **MCP = Model Context Protocol**，Anthropic 2024 推出，2025 已成跨厂商事实标准（OpenAI / Google / Cursor / Claude Code 全部支持）。
 
 - 协议三要素：**Tools**（执行）/ **Resources**（数据）/ **Prompts**（模板）
@@ -105,42 +105,42 @@ while True:
 
 **实战**：写一个 "Obsidian Vault MCP Server"，暴露 Tools：list_notes / read_note / create_note / search。
 
-### W6 - 官方 Agent SDK
+### 第 06 篇 - 官方 Agent SDK
 - **Claude Agent SDK** - Anthropic 官方
 - **OpenAI Agents SDK** - OpenAI 官方（2025）
 - 对比：handoff / guardrail / tracing 设计
 
-### W7 - 多 Agent 协作
+### 第 07 篇 - 多 Agent 协作
 - **CrewAI** - 角色化（Researcher / Writer / Critic）
 - **AutoGen** - Microsoft，对话驱动
 - **LangGraph 多 Agent** - 最灵活
 - Supervisor 模式 vs Hierarchical 模式 vs Network 模式
 
-### W8 - 浏览器 / 电脑控制 Agent
+### 第 08 篇 - 浏览器 / 电脑控制 Agent
 - **Computer Use** (Anthropic) - 真实操作鼠标键盘
 - **browser-use** - 浏览器专用，更稳
 - **Playwright** + LLM 自定义实现
 - 安全沙箱：Docker + VNC
 
-### W9 - Agent 评测
+### 第 09 篇 - Agent 评测
 - 任务级：SWE-bench / AgentBench / GAIA / WebArena
 - 自建 eval：用真实业务任务集
 - 多轮对话评测：[Agent-as-a-Judge](https://arxiv.org/abs/2410.10934)
 - 失败分类：工具调用错 / 推理错 / 上下文超长 / 幻觉
 
-### W10 - 可观测性
+### 第 10 篇 - 可观测性
 - LangSmith（LangChain 出品，最完整）
 - Langfuse（开源自托管）
 - OpenTelemetry + Phoenix
 - 必看 6 项指标：成功率 / 平均轮数 / token 成本 / 延迟 / 工具失败率 / 用户满意度
 
-### W11 - LangGraph 源码导读
+### 第 11 篇 - LangGraph 源码导读
 - `langgraph/graph/state.py` - StateGraph
 - `langgraph/pregel/` - Pregel 引擎（图执行内核）
 - `langgraph/checkpoint/` - 持久化
 - 写 100+ 行源码注释
 
-### W12 - Claude Agent SDK 源码 + 写 mini 版
+### 第 12 篇 - Claude Agent SDK 源码 + 写 mini 版
 - 阅读 [`anthropic-quickstarts/agents`](https://github.com/anthropics/anthropic-quickstarts) 和 Claude Agent SDK
 - 用 < 500 行 Python 写一个 mini-agent-sdk，含：
   - Agent 定义

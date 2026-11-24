@@ -51,7 +51,7 @@ graph TD
 | # | 模块 | 周期 | 章节项目 | 状态 |
 |---|------|------|----------|------|
 | 00 | [[00-学习方法论/00-学习方法论总纲\|学习方法论]] | 2-3 周 | 学习仪表盘（HTML 进度页）+ 学习契约 | ⬜ |
-| 01 | [[01-Python-从零到源码/01-Python总纲\|Python 从零到源码]] | 10 周 | `pyspider-cli` 异步爬虫 + PyPI 发布 | ⬜ |
+| 01 | [[01-Python-从零到源码/01-Python总纲\|Python 从零到源码]] | 10 周 | `my-spider-cli` 异步爬虫 + PyPI 发布 | ⬜ |
 | 02 | [[02-JavaScript-从零到源码/02-JavaScript总纲\|JavaScript 从零到源码]] | 10 周 | 手写 Promise / 实现 mini-lodash | ⬜ |
 | 03 | [[03-HTML-CSS-现代Web/03-HTML-CSS总纲\|HTML/CSS 现代 Web]] | 4 周 | 像素级还原 3 个真实站点 | ⬜ |
 | 04 | [[04-前端框架-React/04-React总纲\|React 从使用到源码]] | 10 周 | 在线协作白板 + 手写 mini-react | ⬜ |

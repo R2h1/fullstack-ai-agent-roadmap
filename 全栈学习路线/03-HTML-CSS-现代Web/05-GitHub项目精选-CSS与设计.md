@@ -6,7 +6,7 @@ chapter_title: HTML / CSS 现代 Web
 order: 6
 difficulty: 🌱→🌲
 tags: [github, html, css, tailwind, shadcn, design-system, 项目精选]
-prev: "[[W04-Tailwind与渲染原理]]"
+prev: "[[04-Tailwind与渲染原理]]"
 next: "[[全栈学习路线/04-前端框架-React/04-React总纲]]"
 created: 2026-06-19
 updated: 2026-06-19

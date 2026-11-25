@@ -18,7 +18,7 @@ tags: [python, 类型注解, typing, mypy, pydantic, 工程化]
 prev: "[[07-并发与异步]]"
 next: "[[09-工程化与发布]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-24
 ---
 
 # 第 08 篇 · 类型系统与 Pydantic 📐
@@ -410,12 +410,30 @@ print(u2)
 第 03 篇的 todo 是一个 list of dict，没校验，乱传值会出各种问题。我们用 Pydantic 重写：
 
 ```python
-# todo.py
-from pydantic import BaseModel, Field
+# todo.py —— 第 03 篇 cli-todo 的 Pydantic 重写版
+# 用法（和第 03 篇完全一致）：
+#   python todo.py add "写代码"
+#   python todo.py list
+#   python todo.py done 1
+#   python todo.py remove 2
+from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
 from pathlib import Path
 from typing import Literal
-import json
+import sys
+
+# ── 异常体系：兑现第 03 篇的承诺 —— 不再裸抛 ValueError，定义自己的分层 ──
+class TodoError(Exception):
+    """本工具所有错误的基类。调用方 except TodoError 就能接住全部业务错误。"""
+
+class TaskNotFound(TodoError, ValueError):
+    """任务不存在。
+
+    同时继承 TodoError 和 ValueError 是有意为之：
+    - 老代码写 except ValueError 的，照样能接住（向后兼容，不破坏第 03 篇的 main）；
+    - 新代码可以 except TaskNotFound 精确处理。
+    成熟库（requests、sqlalchemy）都这么设计异常树 —— 这就是"异常体系"的样子。
+    """
 
 class Task(BaseModel):
     id: int
@@ -435,12 +453,17 @@ class TaskList(BaseModel):
 
     def add(self, title: str) -> Task:
         # max(..., default=0) + 1：空列表时第一个 id 是 1。
-        # ⚠️ 这个策略在「有删除功能」时会重用 id —— 当前没有删除，暂时安全。
+        # ⚠️ 现在 remove 有了：删掉尾部任务再加，会复用旧 id。
+        #    彻底避免要维护 next_id 字段 —— 见练习 8.3。
         # ⚠️ 并发调用 add 会撞 id（max 和 append 之间有间隙）—— 单线程无所谓。
         new_id = max((t.id for t in self.tasks), default=0) + 1
         t = Task(id=new_id, title=title)
         self.tasks.append(t)
         return t
+
+    def list(self) -> list[Task]:
+        # 对应第 03 篇的 cmd_list：返回模型列表，格式化交给调用方 —— 数据与展示分离。
+        return self.tasks
 
     def done(self, tid: int) -> None:
         # 遍历 O(n)。任务量小无所谓；上千个任务应改成 dict 索引。
@@ -451,14 +474,22 @@ class TaskList(BaseModel):
                 # 但 t.status = "invalid" 也不会报错，直到下次序列化/反序列化才炸。
                 t.status = "done"
                 return
-        # 抛 ValueError 而不是自定义异常 —— 调用方不好精确捕获。
-        # 小项目无所谓；库里应定义 TaskNotFound(Exception)。
-        raise ValueError(f"任务不存在 id={tid}")
+        raise TaskNotFound(f"任务不存在 id={tid}")
+        # ⚠️ 类型注解 int 不做运行时检查：done("1") 不会 TypeError，
+        #    只会因为 "1" != 1 走到这里抛 TaskNotFound。
+        #    想拦住非法类型要么显式 isinstance，要么交给 CLI 层 int() 转换。
+
+    def remove(self, tid: int) -> None:
+        # 对应第 03 篇的 cmd_remove：用新列表重建，不能在遍历时删原列表。
+        remaining = [t for t in self.tasks if t.id != tid]
+        if len(remaining) == len(self.tasks):
+            raise TaskNotFound(f"任务不存在 id={tid}")
+        self.tasks = remaining
 
     def save(self, path: Path) -> None:
         # model_dump_json 是 v2 的 API（v1 是 .json()）。
         # 默认 ensure_ascii=False —— 中文「写第 08 篇教程」直接原样写入，不转 \uXXXX。
-        # ⚠️ 没有原子写 —— 写到一半崩溃会损坏原文件。生产环境用 safe_writer。
+        # ⚠️ 没有原子写 —— 写到一半崩溃会损坏原文件。生产环境用 safe_writer（第 05 篇）。
         path.write_text(self.model_dump_json(indent=2), encoding="utf-8")
 
     @classmethod
@@ -469,22 +500,76 @@ class TaskList(BaseModel):
         if not path.exists():
             return cls()                # 首次运行，没有文件 → 空列表
         # ⚠️ 文件存在但 JSON 损坏 / 字段不合法时，这里会抛
-        #    JSONDecodeError 或 ValidationError，程序直接崩。
+        #    ValidationError（或 json 层的 JSONDecodeError），程序直接崩。
         #    生产环境应 catch 后备份坏文件、返回空 TaskList。
         return cls.model_validate_json(path.read_text(encoding="utf-8"))
 
-# 主程序
+# ── CLI 层：和第 03 篇一样的四个命令，异常处理换成接 TaskNotFound ──
+def main(argv: list[str]) -> int:
+    db = Path("todos.json")             # 文件名沿用第 03 篇；⚠️ 但顶层结构从「数组」
+    # 升级成了 {"tasks": [...]}，旧文件直接 load 会抛 ValidationError。
+    # 迁移很简单：json.loads 读出旧 list → TaskList(tasks=旧列表) → save 一次即可。
+    if len(argv) < 2:
+        print("用法：python todo.py <add|list|done|remove> [参数]")
+        return 1
+    action = argv[1]
+    try:
+        tl = TaskList.load(db)
+        if action == "add":
+            t = tl.add(argv[2])
+            tl.save(db)
+            print(f"已添加 #{t.id}: {t.title}")
+        elif action == "list":
+            tasks = tl.list()
+            if not tasks:
+                print("还没有任务，先用 add 加一条")
+            for t in tasks:
+                mark = "x" if t.status == "done" else " "
+                print(f"[{mark}] {t.id}. {t.title}")
+        elif action == "done":
+            tl.done(int(argv[2]))       # int() 转换失败抛 ValueError，下面统一接
+            tl.save(db)
+            print(f"已完成 #{argv[2]}")
+        elif action == "remove":
+            tl.remove(int(argv[2]))
+            tl.save(db)
+            print(f"已删除 #{argv[2]}")
+        else:
+            print(f"未知命令：{action}")
+            return 1
+    except TaskNotFound as e:
+        print(e)
+        return 1
+    except ValidationError as e:
+        # Pydantic 校验错误兜底：空标题、超长标题等都会走到这。
+        print(f"数据校验失败：{e.errors()[0]['msg']}")
+        return 1
+    except (ValueError, IndexError):
+        print("参数不对：done/remove 需要一个数字 id，add 需要一个标题")
+        return 1
+    return 0
+
 if __name__ == "__main__":
-    db = Path("tasks.json")
-    tl = TaskList.load(db)              # 首次为空，再次加载已有任务
-    tl.add("写第 08 篇教程")               # id=1
-    tl.add("学 Pydantic")               # id=2
-    tl.done(1)                           # 把 id=1 标记为 done
-    tl.save(db)
-    print(tl.model_dump_json(indent=2))
+    sys.exit(main(sys.argv))
 ```
 
-**运行结果**（`tasks.json`）：
+**运行示例**：
+
+```
+$ python todo.py add "写第 08 篇教程"
+已添加 #1: 写第 08 篇教程
+$ python todo.py add "学 Pydantic"
+已添加 #2: 学 Pydantic
+$ python todo.py done 1
+已完成 #1
+$ python todo.py list
+[x] 1. 写第 08 篇教程
+[ ] 2. 学 Pydantic
+$ python todo.py done 99
+任务不存在 id=99
+```
+
+数据文件 `todos.json`（沿用第 03 篇的文件名，结构升级为嵌套模型）：
 ```json
 {
   "tasks": [
@@ -493,6 +578,11 @@ if __name__ == "__main__":
   ]
 }
 ```
+
+> 💡 **对照第 03 篇，这次重写升级了什么**（T8 的完整答案）：
+> 1. `list[dict]` → `TaskList` 嵌套模型：字段有类型、有约束（title 长度、status 只能是三个值），脏数据在 add 当场被拒，而不是写进文件下次读才炸；
+> 2. 裸 `ValueError` → `TodoError`/`TaskNotFound` 异常体系，调用方能精确捕获（同时兼容 `except ValueError` 的老写法）；
+> 3. 第 03 篇的 **add / list / done / remove 四个命令全部保留** —— 重写不是阉割，功能必须对齐 T3。
 
 ### 🎯 动手练习 8.2
 给 `Task` 增加字段 `priority: Literal["low", "mid", "high"] = "mid"` 和 `due: datetime | None = None`，并加一个校验器：截止时间不能早于创建时间。
@@ -518,6 +608,27 @@ class Task(BaseModel):
 ```
 </details>
 
+### 🎯 动手练习 8.3
+正文 `add` 的注释提到：删掉尾部任务后再 add 会**复用旧 id**。给 `TaskList` 加一个 `next_id: int = 1` 字段，`add` 用它分配 id 并递增，让 id 永不复用。想想：为什么 `next_id` 要存进文件而不是每次 `max()+1` 现算？
+
+<details>
+<summary>👀 参考答案</summary>
+
+```python
+class TaskList(BaseModel):
+    tasks: list[Task] = []
+    next_id: int = 1          # 持久化的"发号器"，随 save 一起写进 JSON
+
+    def add(self, title: str) -> Task:
+        t = Task(id=self.next_id, title=title)
+        self.next_id += 1     # 发号后立刻递增，删除任务不影响它
+        self.tasks.append(t)
+        return t
+```
+
+为什么存文件：`max()+1` 是**从现存数据反推**，删掉最大 id 后计数器就"退回"了，新任务会复用旧 id —— 如果别处（日志、外键、分享链接）还引用着旧 id，数据就串了。`next_id` 是**单调发号器**，状态独立于数据本身，这正是数据库自增序列的原理。
+</details>
+
 
 ---
 
@@ -530,7 +641,7 @@ class Task(BaseModel):
 - [ ] 写过一个 `Protocol` 接口
 - [ ] 在项目里跑过 mypy 和 ruff
 - [ ] 用 Pydantic 写过一个 `BaseModel` 并触发过校验错误
-- [ ] 把第 03 篇的 cli-todo 用 Pydantic 重构了
+- [ ] 把第 03 篇的 cli-todo 用 Pydantic 重构了（**add/list/done/remove 四个命令都在**，并定义了 `TodoError`/`TaskNotFound` 异常体系）
 
 ## 🐛 常见错误集合
 

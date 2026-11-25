@@ -11,7 +11,7 @@ tags: [Python, 后端, 源码级]
 prev: "[[全栈学习路线/00-学习方法论/08-反向工程别人的代码]]"
 next: "[[01-语法基础]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-24
 ---
 
 # 第 01 章 · Python 从零到源码（10 周）
@@ -146,11 +146,13 @@ updated: 2026-11-23
 - [ ] **T5（第 05 篇）**：手写 5 个装饰器：`@timer`、`@retry`、`@cache`、`@deprecated`、`@validate_args`
 - [ ] **T6（第 06 篇）**：手写一个生成器版的 `range / enumerate / zip / chain`
 - [ ] **T7（第 07 篇）**：写一个异步爬虫，并发数设为 10。**验收标准用可复现的基准**：对 `httpbin.org/delay/1`（每个请求固定延迟 1 秒）发 10 个请求，总耗时 ≤ 2 秒（同步写法约 10 秒）。抓豆瓣 Top 250 只作练习用 —— 它有反爬、有随机延迟，别拿它的耗时当指标
-- [ ] **T8（第 08 篇）**：用 Pydantic + typing 重写 T3 的 cli-todo，引入数据校验
+- [ ] **T8（第 08 篇）**：用 Pydantic + typing 重写 T3 的 cli-todo，引入数据校验（add/list/done/remove 四个命令都要保留，并定义 `TodoError`/`TaskNotFound` 异常体系）
 - [ ] **T9（第 09 篇）**：将 T8 打包发布到 PyPI（可用 testpypi），别人能 `pip install mytodo` 安装（包名以第 09 篇 `pyproject.toml` 里的 `name = "mytodo"` 为准）
 - [ ] **T10（第 10 篇）**：阅读 `Objects/listobject.c`，画一张 PyListObject 内存布局图，写一篇 2000 字博客解析
 
 ## 🚀 章节大项目：`my-spider-cli` —— 异步并发爬虫工具
+
+> 📌 **构建路径见第 07 篇 §11「章项目集成」**：本篇给出最小可用版（输入→并发抓→解析→输出）与逐步升级路线——第 05 篇补重试、第 08 篇补配置校验、第 09 篇补 CLI 打包与测试 CI。**学完第 07 篇即可动工，不要等全章学完。**
 
 > 📌 **为什么叫 `my-spider-cli` 而不是 `pyspider-cli`**：PyPI 上已经有一个同名的 `pyspider-cli`（别人的包）。PyPI 的包名全局唯一，起名撞车会导致 `pip install` 装到别人的东西、或者根本发布不上去。**给自己的项目起名，习惯带上 `my-` 前缀。**
 

@@ -20,7 +20,7 @@ tags: [python, cpython, 源码, 字节码, 内存管理, gil]
 prev: "[[09-工程化与发布]]"
 next: "[[11-MRO与C3线性化]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-25
 ---
 
 # 第 10 篇 · CPython 源码导读 🔬
@@ -384,6 +384,53 @@ gc.collect()                  # 手动触发
 
 ---
 
+## 10.5 Modules/ 速览：你早就算用过的两个 C 实现 🧩
+
+章目标说"读 Objects/、**Modules/**"。Modules/ 存的是标准库的 C 实现——其中两个恰好是你第 06、07 篇天天用的：
+
+**`Modules/itertoolsmodule.c`** —— 第 06 篇手写过的 `chain`/`islice` 的本尊。先看 Python 侧再对源码：
+
+```bash
+python -c "import itertools; print(itertools.chain)"
+# <class 'itertools.chain'>  ← 不是函数，是 C 里定义的 type！
+```
+
+```c
+// 极度简化：chain 对象就两个字段——当前迭代器 + 后续迭代器元组
+typedef struct {
+    PyObject_HEAD
+    PyObject *it;        /* 正在吐值的迭代器 */
+    PyObject *active;    /* 还没轮到的迭代器元组 */
+} chainobject;
+
+// tp_iternext（即 next() 的底层）：从 it 拿值；
+// it 耗尽 → 从 active 换下一个；全换完 → 抛 StopIteration
+```
+
+> 💡 第 06 篇你写的 `my_chain` 是双重 for + yield；C 版没有帧对象开销，**next 一次就是一次函数指针调用**——这就是 `itertools` 比手写生成器快数倍的原因：省掉的是"每次 yield 都要保存/恢复栈帧"的钱。
+
+**`Modules/_asynciomodule.c`** —— 第 07 篇 `asyncio.Task`/`Future` 的状态机本体。验证给你看：
+
+```bash
+python -c "import asyncio, asyncio._asyncio_cimpl" 2>/dev/null || \
+python -c "import asyncio.tasks; print(asyncio.tasks._PyTask)"
+# <class 'asyncio.tasks._PyTask'>  ← 纯 Python 参照版；C 版是 Task 的默认实现
+```
+
+```c
+// Task 的核心字段（简化）—— 眼熟吗？就是第 07 篇事件循环课的图：
+typedef struct {
+    PyObject_HEAD
+    PyObject *task_coro;   // 包着的协程
+    PyObject *task_state;  // pending / running / done —— 状态机
+    PyObject *task_weakreflist;  // done 回调走弱引用，防循环引用（§10 的 GC 呼应）
+} asynciotask_object;
+```
+
+> 💡 读法建议：**别通读**（这俩文件各 5000+ 行）。带着一个问题去 grep——"chain 的 next 在哪？"（搜 `chain_next`）、"Task 状态有哪几种？"（搜 `TASK_PENDING`）——找到函数、读 30 行、回 Python 里验证行为。一次 20 分钟，Modules/ 就从"目录表里的一行"变成"读过的源码"。
+
+---
+
 ## 11. 实战：写一篇博客《Python list 的扩容策略与时间复杂度》📝
 
 **任务**：2000 字 + 内存布局图。
@@ -432,6 +479,7 @@ gc.collect()                  # 手动触发
 - [ ] 知道 dict 怎么保持插入顺序（双层结构）
 - [ ] 能解释引用计数 vs 分代 GC 的分工
 - [ ] 知道 GIL 在 `ceval_gil.c`
+- [ ] 按 §10.5 带问题 grep 过 `itertoolsmodule.c` 或 `_asynciomodule.c` 各一次
 - [ ] 写完了 list 扩容博客 ≥ 2000 字
 
 ## 🐛 常见误区
@@ -455,7 +503,9 @@ gc.collect()                  # 手动触发
 
 ---
 
-## 🎓 第 01 章总结
+## 🎓 第 01 章总结（全章收官）
+
+> 📌 第 05 篇末尾有一个"阶段小结"（第 01~05 篇）；这里是**全章 10 篇**的最终回顾。
 
 恭喜你！你已经走过：
 

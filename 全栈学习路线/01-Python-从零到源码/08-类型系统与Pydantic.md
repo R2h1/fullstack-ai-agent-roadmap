@@ -18,7 +18,7 @@ tags: [python, 类型注解, typing, mypy, pydantic, 工程化]
 prev: "[[07-并发与异步]]"
 next: "[[09-工程化与发布]]"
 created: 2026-06-19
-updated: 2026-11-24
+updated: 2026-11-25
 ---
 
 # 第 08 篇 · 类型系统与 Pydantic 📐
@@ -264,7 +264,7 @@ Found 1 error in 1 file
 
 ```toml
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.13"
 strict = true                  # 全部最严格
 disallow_untyped_defs = true   # 函数必须写注解
 ```
@@ -286,7 +286,7 @@ ruff format .         # 自动格式化
 ```toml
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]  # 错误/未用/import 排序/升级语法/bugbear/简化

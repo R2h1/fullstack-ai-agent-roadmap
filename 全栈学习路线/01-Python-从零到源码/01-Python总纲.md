@@ -11,7 +11,7 @@ tags: [Python, 后端, 源码级]
 prev: "[[全栈学习路线/00-学习方法论/08-反向工程别人的代码]]"
 next: "[[01-语法基础]]"
 created: 2026-06-19
-updated: 2026-11-24
+updated: 2026-11-25
 ---
 
 # 第 01 章 · Python 从零到源码（10 周）
@@ -44,7 +44,7 @@ updated: 2026-11-24
 > - **第 04~07 篇（约 45 小时）**：Python 的「进阶四件套」—— 类、装饰器、生成器、并发。这四篇是分水岭：写得出 vs 写得好，差别就在这里。
 > - **第 08~09 篇（约 20 小时）**：类型与工程化。让代码能被机器检查、被别人安装、被 CI 反复验证。
 > - **第 10 篇（约 15 小时起）**：读源码。**这是最容易被低估的一段** —— 它的产出（架构图 + 博客）按「每 2 小时一个小节」推进，别指望一个周末读完。
-> - **旁支 2 篇（第 11~12 篇）**：MRO 与 C3 线性化（第 10 篇的前置，建议先做）；GitHub 项目精选（全程随时查，不占整块时间）。
+> - **旁支 2 篇（第 11~12 篇）**：MRO 与 C3 线性化（第 04 篇 MRO 一节的纵深，编排上排在第 10 篇之后；**建议学完第 04 篇就先做掉**，它是读源码前的好热身）；GitHub 项目精选（全程随时查，不占整块时间）。
 
 ## 📖 详细内容大纲
 
@@ -93,7 +93,7 @@ updated: 2026-11-24
 - 生成器（yield）
 - 协程基础（send/throw/close）
 - yield from
-- 实现 itertools 的 chain/islice/groupby
+- 实现 itertools 的 range/enumerate/zip/chain（与 T6 口径一致；islice/groupby 讲用法）
 
 ### 第 07 篇 - 并发
 - threading + GIL 原理
@@ -121,9 +121,10 @@ updated: 2026-11-24
 - `Objects/listobject.c` - list 实现
 - `Objects/dictobject.c` - dict 实现（hash 冲突解决）
 - `Python/ceval.c` - 字节码执行循环
+- `Modules/` 速览：_asynciomodule / itertoolsmodule（呼应第 06/07 篇）
 - 必读：《CPython Internals》（Anthony Shaw）
 
-### 第 11 篇 · MRO 与 C3 线性化（读源码前置）
+### 第 11 篇 · MRO 与 C3 线性化（第 04 篇的纵深，读源码的好热身）
 - MRO 是什么：唯一线性列表，查找属性时沿它逐个类查
 - 三条约束：子类先于父类 / 声明顺序 / 单调性
 - C3 公式：`L[C] = [C] + merge(L[B1], ..., L[Bn], [B1, ..., Bn])`
@@ -143,7 +144,7 @@ updated: 2026-11-24
 - [ ] **T2（第 02 篇）**：LeetCode 简单 20 题用 Python 通过
 - [ ] **T3（第 03 篇）**：实现一个 `cli-todo` 命令行待办，支持 add/list/done/remove → 见第 03 篇「实战 4：命令行待办 cli-todo」
 - [ ] **T4（第 04 篇）**：实现一个简易 `Vector` 类（支持 +、-、*、==、`__repr__`），通过《Fluent Python》第一章的所有测试
-- [ ] **T5（第 05 篇）**：手写 5 个装饰器：`@timer`、`@retry`、`@cache`、`@deprecated`、`@validate_args`
+- [ ] **T5（第 05 篇）**：手写 5 个装饰器：`@timer`、`@retry`、`@cache`、`@deprecated`、`@validate`（参数校验，见第 05 篇实战 1）
 - [ ] **T6（第 06 篇）**：手写一个生成器版的 `range / enumerate / zip / chain`
 - [ ] **T7（第 07 篇）**：写一个异步爬虫，并发数设为 10。**验收标准用可复现的基准**：对 `httpbin.org/delay/1`（每个请求固定延迟 1 秒）发 10 个请求，总耗时 ≤ 2 秒（同步写法约 10 秒）。抓豆瓣 Top 250 只作练习用 —— 它有反爬、有随机延迟，别拿它的耗时当指标
 - [ ] **T8（第 08 篇）**：用 Pydantic + typing 重写 T3 的 cli-todo，引入数据校验（add/list/done/remove 四个命令都要保留，并定义 `TodoError`/`TaskNotFound` 异常体系）

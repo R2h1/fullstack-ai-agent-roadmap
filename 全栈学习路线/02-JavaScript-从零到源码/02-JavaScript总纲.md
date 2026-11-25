@@ -11,7 +11,7 @@ tags: [JavaScript, 前端, 源码级]
 prev: "[[全栈学习路线/01-Python-从零到源码/12-GitHub项目精选-Python]]"
 next: "[[01-语法与类型]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-25
 ---
 
 # 第 02 章 · JavaScript 从零到源码（10 周）
@@ -119,9 +119,9 @@ updated: 2026-06-19
 - [ ] **T2（第 02 篇）**：手写 `Function.prototype.bind`，通过 5 个测试用例
 - [ ] **T3（第 03 篇）**：解决 [闭包面试 10 题](https://github.com/Advanced-Frontend/Daily-Interview-Question)
 - [ ] **T4（第 04 篇）**：手写 `new` / `instanceof` / `Object.create`
-- [ ] **T5（第 05 篇）**：**手写 Promise，过完整的 [Promises/A+ 测试套件](https://github.com/promises-aplus/promises-tests)**
+- [ ] **T5（第 05 篇）**：**手写 Promise，过完整的 [Promises/A+ 测试套件](https://github.com/promises-aplus/promises-tests)**——从 §9 简化版出发，按「诚实时刻」差距清单逐步补到 512 spec 全绿（练习 4）
 - [ ] **T6（第 06 篇）**：手写防抖 + 节流 + 拖拽 + 长列表虚拟滚动
-- [ ] **T7（第 07 篇）**：手写 `mini-lodash`（10 个常用函数：cloneDeep/debounce/throttle/curry/flatten/get/set/merge/pick/omit）
+- [ ] **T7（第 07 篇）**：手写 `mini-lodash` 必修档 10 函数（cloneDeep/debounce/throttle/curry/flatten/get/set/merge/pick/omit）；挑战档补到 30 函数（见子项目 A）
 - [ ] **T8（第 08 篇）**：手写 `require`，能加载本地 CJS 模块（含循环依赖）
 - [ ] **T9（第 09 篇）**：完成 type-challenges easy 全部 + medium 至少 10 题
 - [ ] **T10（第 10 篇）**：写一篇博客《V8 是如何把 JS 跑快的》（≥ 3000 字，配图）
@@ -130,15 +130,17 @@ updated: 2026-06-19
 
 ### 子项目 A：mini-lodash（npm 包）
 
-实现一个 30 函数的工具库，要求：
+实现一个工具库：**必修档 = 10 函数**（即 T7 清单），**挑战档 = 30 函数**（从 lodash 文档自选 20 个补齐）。要求：
 - TypeScript 全量类型 + 完整 JSDoc
-- ESM + CJS 双格式输出（用 tsup）
-- Vitest 测试覆盖率 ≥ 90%
+- ESM + CJS 双格式输出（用 tsup，第 08 篇 §八）
+- Vitest 测试覆盖率 ≥ 90%（Vitest 入门在第 08 篇 §十一）
 - Tree-shakable（每个函数独立导出）
-- 发布到 npm，能 `pnpm i @yourname/mini-lodash`
-- 文档站点（用 VitePress）
+- 发布到 npm，能 `pnpm i @yourname/mini-lodash`（发布流程照第 01 章 mytodo 的 TestPyPI 五步走，npm 侧只差 token）
+- 文档站点（用 VitePress，5 分钟起步见第 08 篇 §十一）
 
 ### 子项目 B：在线代码沙盒
+
+> 📌 **构建路径见第 06 篇 §十一「章项目集成」**：Monaco 接入、iframe 沙箱（`srcdoc` + `sandbox`）、postMessage、lz-string URL 分享、localStorage 历史、Web Components 六块积木全部在那一节给出最小实现——**学完第 06 篇即可动工**，边学后续篇章边打磨（第 10 篇的性能指标正好用于验收调优）。
 
 做一个简化版 [CodePen](https://codepen.io/)：
 - 三栏布局：HTML / CSS / JS 编辑器 + 实时预览

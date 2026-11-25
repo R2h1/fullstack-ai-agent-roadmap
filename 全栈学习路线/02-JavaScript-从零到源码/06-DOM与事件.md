@@ -11,7 +11,7 @@ prerequisites:
   - 第 05 篇
 outputs:
   - 手写事件委托/拖拽
-tags: [JavaScript, DOM, BOM, 事件, 防抖, 节流, 事件委托]
+tags: [JavaScript, DOM, BOM, 事件, 防抖, 节流, 事件委托, 沙盒, iframe, Monaco]
 prev: "[[05-异步与事件循环]]"
 next: "[[07-ES6进阶特性]]"
 created: 2026-06-19
@@ -373,6 +373,107 @@ list.addEventListener('click', (e) => {
 
 ---
 
+## 🧪 十一、章项目集成：在线代码沙盒 📦
+
+> 📌 总纲子项目 B「在线代码沙盒」（简化版 CodePen）需要的**全部新积木**都在这一节：Monaco、iframe 沙箱、URL 分享、localStorage、Web Components。三栏布局、防抖即时预览、事件绑定是本篇和前几篇的常规应用——**学完本节即可动工**。
+
+### 11.1 Monaco Editor：CDN 三行接入
+
+Monaco 就是 VS Code 的编辑器内核，用官方 AMD loader 接入最快：
+
+```html
+<div id="editor" style="height: 300px"></div>
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52/min/vs/loader.js"></script>
+<script>
+  require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52/min/vs' } });
+  require(['vs/editor/editor.main'], () => {
+    window.editor = monaco.editor.create(document.getElementById('editor'), {
+      value: 'console.log("hello sandbox")',
+      language: 'javascript',
+      theme: 'vs-dark',
+      automaticLayout: true,          // 容器尺寸变化自动重排（三栏可拖拽时必备）
+    });
+  });
+</script>
+```
+
+取代码 `editor.getValue()`；监听变化 `editor.onDidChangeModelContent(...)`——把它接到 §七 的 debounce，就是「输入即时预览」。
+
+### 11.2 iframe：沙箱的本体
+
+用户代码必须关进 iframe——改 document、alert 轰炸都炸不到外层：
+
+```javascript
+function run({ html, css, js }) {
+  const doc = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}
+    <script>
+      const send = (m) => parent.postMessage({ fromSandbox: m }, '*');
+      console.log = (...a) => send(a.join(' '));   // 预览区日志转发到外层控制台
+      try { ${js} } catch (e) { send('❌ ' + e.message); }
+    <\/script></body></html>`;
+  frame.srcdoc = doc;        // 每次整体重建 = 干净运行环境（简单且正确）
+}
+```
+
+```html
+<iframe id="preview" sandbox="allow-scripts"></iframe>
+```
+
+> ⚠️ **安全红线**：`sandbox="allow-scripts allow-same-origin"` 同时给 = 沙箱形同虚设——帧内脚本能拿到同源权限、删掉自己的 sandbox 属性。**只给 allow-scripts**：srcdoc 就是 opaque origin，碰不到父页面。
+> 跨帧通信只有一个新 API：父页面 `window.addEventListener('message', e => ...)` 收 `postMessage`（校验 `e.data.fromSandbox` 结构再用，别信任意来源）。
+
+### 11.3 URL 分享：lz-string 压进 hash
+
+三份代码轻松超过 URL 长度上限，用 `lz-string`——它的 `compressToEncodedURIComponent` 直接产出 URL 安全字符集：
+
+```javascript
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
+
+const share = (state) => { location.hash = compressToEncodedURIComponent(JSON.stringify(state)); };
+const load  = () => location.hash && JSON.parse(decompressFromEncodedURIComponent(location.hash.slice(1)));
+```
+
+### 11.4 localStorage：历史版本
+
+```javascript
+const save = (state) => {
+  const hist = JSON.parse(localStorage.getItem('sandbox-hist') ?? '[]');
+  hist.unshift({ at: Date.now(), state });
+  localStorage.setItem('sandbox-hist', JSON.stringify(hist.slice(0, 20)));  // 只留最近 20 版
+};
+```
+
+> 💡 localStorage 是同步 API、只存字符串——对象必须过 JSON；配额约 5MB。历史列表的渲染就是 §二 + §三 的 createElement 循环。
+
+### 11.5 Web Components：十分钟入门
+
+总纲要求「纯原生 + Web Components」，核心就两个 API：
+
+```javascript
+class CodePane extends HTMLElement {
+  connectedCallback() {                                   // 元素插入 DOM 时触发
+    const root = this.attachShadow({ mode: 'open' });     // shadow DOM：样式隔离
+    root.innerHTML = `<textarea part="input" style="width:100%;height:100%"></textarea>`;
+  }
+}
+customElements.define('code-pane', CodePane);
+// 使用：<code-pane></code-pane> —— 浏览器把它当原生标签
+```
+
+三栏就是三个 `<code-pane lang="html|css|js">` + 一个预览区——组件自己管自己，外层只做组装。
+
+### 11.6 组装与验收
+
+最小骨架（约 150 行）：三栏布局 + 11.5 组件 + 11.1 Monaco + 11.2 `run()`（防抖 300ms）+ 11.3 分享按钮 + 11.4 历史面板。部署：`npx vercel --prod`，或把文件夹拖进 [Netlify Drop](https://app.netlify.com/drop)。
+
+> 🎯 **对照总纲验收自查**：
+> - [ ] 公网 URL 可访问（vercel / netlify 任一）
+> - [ ] 打开 < 1s：Monaco 走 CDN + `<link rel="preconnect">`；首屏先渲染三栏骨架，编辑器异步替换占位
+> - [ ] Lighthouse ≥ 90：用第 10 篇 §七 的 Web Vitals 定位短板（多半是 LCP——预览 iframe 别在首屏抢资源）
+> - [ ] 恶意代码不伤外层：JS 栏写 `document.body.innerHTML='hacked'` → 只改 iframe 内部 ✅。再试 `while(1);` → **会冻结整个标签页**（iframe 与父页面共享主线程）——这是简化版的已知边界，CodePen 的解法是把用户 JS 放进 **Web Worker**（独立线程），留作你的进阶挑战
+
+---
+
 ## 📝 本周练习
 
 1. 实现 `debounce` + `throttle`，并写出"前缘 + 后缘"两种触发模式。
@@ -415,6 +516,7 @@ function throttle(fn, delay, { leading = true, trailing = true } = {}) {
 - [ ] 手写防抖、节流
 - [ ] 知道 `innerHTML` 的 XSS 风险
 - [ ] 用过 IntersectionObserver
+- [ ] **§十一 沙盒最小骨架跑通**：Monaco 三行接入、iframe `srcdoc + sandbox` 运行、postMessage 转发日志、URL 分享、恶意代码不伤外层
 
 ---
 

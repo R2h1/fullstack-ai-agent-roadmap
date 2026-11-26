@@ -13,7 +13,7 @@ goals:
 outputs:
   - Prompt 库
 tags: [llm, anthropic, api, ollama, tokenizer]
-prev: "[[07-AI基础总纲]]"
+prev: "[[00-AI基础总纲]]"
 next: "[[02-Prompt工程进阶]]"
 created: 2026-06-19
 updated: 2026-11-23

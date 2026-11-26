@@ -8,7 +8,7 @@ reading_minutes: 40
 difficulty: 🌱→🌲
 tags: [GitHub项目, 资源]
 prev: "[[11-MRO与C3线性化]]"
-next: "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]"
+next: "[[全栈学习路线/02-JavaScript-从零到源码/00-JavaScript总纲]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---

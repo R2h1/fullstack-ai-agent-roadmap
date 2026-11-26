@@ -516,6 +516,6 @@ typedef struct {
 
 10 周下来，你不再是"用 Python 写脚本的人"，而是"理解 Python 怎么跑"的人。
 
-> **下一站**：[[02-JavaScript-从零到源码/02-JavaScript总纲|02 JavaScript]] —— 把能力延伸到浏览器，让世界看到你写的东西。
+> **下一站**：[[02-JavaScript-从零到源码/00-JavaScript总纲|02 JavaScript]] —— 把能力延伸到浏览器，让世界看到你写的东西。
 
 🐍 **Python，到此为止。但你只是刚刚开始。**

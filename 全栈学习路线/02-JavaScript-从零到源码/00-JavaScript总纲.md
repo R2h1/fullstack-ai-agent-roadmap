@@ -6,12 +6,12 @@ chapter_title: JavaScript 从零到源码
 order: 1
 duration: 10 周
 prerequisites:
-  - "[[全栈学习路线/01-Python-从零到源码/01-Python总纲]]"
+  - "[[全栈学习路线/01-Python-从零到源码/00-Python总纲]]"
 tags: [JavaScript, 前端, 源码级]
 prev: "[[全栈学习路线/01-Python-从零到源码/12-GitHub项目精选-Python]]"
 next: "[[01-语法与类型]]"
 created: 2026-06-19
-updated: 2026-11-25
+updated: 2026-11-26
 ---
 
 # 第 02 章 · JavaScript 从零到源码（10 周）
@@ -36,7 +36,7 @@ updated: 2026-11-25
 | 第 06 篇 | DOM + BOM + 事件机制 | 入门→进阶 | 手写事件委托/拖拽 |
 | 第 07 篇 | ES6+ 全特性：解构/Symbol/Iterator/Generator/Proxy | 进阶 | mini-lodash |
 | 第 08 篇 | 模块系统：CJS / ESM / UMD + 工程化 | 进阶 | 手写 require |
-| 第 09 篇 | TypeScript 完全指南 | 进阶 | 类型体操 30 题 |
+| 第 09 篇 | TypeScript 完全指南 | 进阶 | 类型体操（easy 全部 + medium ≥10，见 T9） |
 | 第 10 篇 | V8 引擎导读 + 性能优化 | 源码级 | V8 笔记 |
 
 ## 📖 详细内容大纲
@@ -184,4 +184,4 @@ updated: 2026-11-25
 
 ---
 
-✅ 完成项目 → 进入 [[03-HTML-CSS-现代Web/03-HTML-CSS总纲]]
+✅ 完成项目 → 进入 [[03-HTML-CSS-现代Web/00-HTML-CSS总纲]]

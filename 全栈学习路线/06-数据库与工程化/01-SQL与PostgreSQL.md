@@ -12,7 +12,7 @@ prerequisites:
 outputs:
   - 50 道 SQL 题
 tags: [database, sql, postgresql, psql, joins, jsonb, window-function]
-prev: "[[06-数据库工程化总纲]]"
+prev: "[[00-数据库工程化总纲]]"
 next: "[[02-索引事务锁]]"
 created: 2026-06-19
 updated: 2026-11-23

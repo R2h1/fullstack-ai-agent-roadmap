@@ -16,7 +16,7 @@ goals:
   - 用 curl/HTTPie 调试任意 REST API
 outputs:
   - 第一个 API
-prev: "[[05-后端总纲]]"
+prev: "[[00-后端总纲]]"
 next: "[[02-FastAPI入门]]"
 created: 2026-06-19
 updated: 2026-06-19

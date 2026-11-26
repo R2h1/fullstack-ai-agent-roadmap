@@ -11,7 +11,7 @@ prerequisites: []
 outputs:
   - 计算器 + Todo
 tags: [react, jsx, vite, typescript, components, props]
-prev: "[[04-React总纲]]"
+prev: "[[00-React总纲]]"
 next: "[[02-Hooks全集]]"
 created: 2026-06-19
 updated: 2026-11-23

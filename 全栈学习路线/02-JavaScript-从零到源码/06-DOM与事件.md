@@ -357,8 +357,16 @@ const input = document.querySelector('#input');
 
 document.querySelector('#add').addEventListener('click', () => {
   if (!input.value.trim()) return;
+  // ⚠️ 别写 li.innerHTML = `<span>${input.value}</span>` ——
+  //    这正是 §三 刚禁止的「用户输入直接进 innerHTML」XSS 反模式。
+  //    结构用 createElement 搭，文本一律走 textContent：
   const li = document.createElement('li');
-  li.innerHTML = `<span>${input.value}</span> <button class="del">删除</button>`;
+  const span = document.createElement('span');
+  span.textContent = input.value;            // 尖括号、<script> 都只是普通文字
+  const btn = document.createElement('button');
+  btn.className = 'del';
+  btn.textContent = '删除';
+  li.append(span, ' ', btn);
   list.append(li);
   input.value = '';
 });
@@ -505,6 +513,49 @@ function throttle(fn, delay, { leading = true, trailing = true } = {}) {
   };
 }
 ```
+
+### 参考答案（练习 4：虚拟滚动，约 30 行）
+
+原理一句话：**容器总高撑出完整滚动条，可视区只渲染 `slice(start, end)` 几行，再用 `transform: translateY` 把这几行推到正确位置**——DOM 里永远只有十几二十个节点。
+
+```javascript
+function virtualList(container, items, rowH = 30, buffer = 5) {
+  container.style.overflow = 'auto';
+  container.innerHTML = `<div class="phantom" style="height:${items.length * rowH}px;position:relative"></div>`;
+  const phantom = container.firstElementChild;
+
+  function render() {
+    const top = container.scrollTop;
+    const viewH = container.clientHeight;
+    const start = Math.max(0, Math.floor(top / rowH) - buffer);
+    const end = Math.min(items.length, Math.ceil((top + viewH) / rowH) + buffer);
+
+    let list = phantom.querySelector('.list');
+    if (!list) { list = document.createElement('div'); list.className = 'list';
+                 list.style.cssText = 'position:absolute;left:0;right:0;top:0'; phantom.append(list); }
+    list.style.transform = `translateY(${start * rowH}px)`;   // 把切片推到可视位置
+
+    list.textContent = '';                                    // 清掉滚出可视区的行
+    const frag = document.createDocumentFragment();           // §三 的批量插入姿势
+    for (let i = start; i < end; i++) {
+      const row = document.createElement('div');
+      row.style.height = rowH + 'px';
+      row.textContent = items[i];
+      frag.append(row);
+    }
+    list.append(frag);
+  }
+
+  container.addEventListener('scroll', throttle(render, 16));  // ≈每帧一次（§七的节流）
+  render();
+}
+
+// 1 万条数据实测只存在 ~30 个行节点
+virtualList(document.querySelector('#box'),
+            Array.from({ length: 10000 }, (_, i) => `item ${i}`));
+```
+
+> 💡 三个易错点：① **phantom（幽灵 div）必须先撑总高**，否则滚动条长度不对、scrollTop 没有意义；② buffer 防"快速滚动露白"；③ 行高必须固定（不定高要按索引段缓存实测高度，是另一门学问——react-window 的 VariableSizeList 就是这么做的）。想少写代码，看 11 篇里的 `virtual-scroll` 类小项目对照。
 
 ---
 

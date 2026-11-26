@@ -7,7 +7,7 @@ order: 12
 difficulty: 🌱→🌲
 tags: [github, react, nextjs, zustand, tanstack, react-hook-form, 项目精选]
 prev: "[[10-手写mini-react-v2]]"
-next: "[[全栈学习路线/05-后端开发-FastAPI-Node/05-后端总纲]]"
+next: "[[全栈学习路线/05-后端开发-FastAPI-Node/00-后端总纲]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---

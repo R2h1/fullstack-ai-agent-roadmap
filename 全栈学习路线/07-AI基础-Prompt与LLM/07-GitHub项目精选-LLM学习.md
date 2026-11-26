@@ -7,7 +7,7 @@ order: 8
 difficulty: 🌱→🌲
 tags: [github, llm, prompt-engineering, rag, fine-tuning, multimodal, evaluation]
 prev: "[[06-从零实现GPT]]"
-next: "[[全栈学习路线/08-AI-Agent-框架与源码/08-Agent总纲]]"
+next: "[[全栈学习路线/08-AI-Agent-框架与源码/00-Agent总纲]]"
 created: 2026-06-19
 updated: 2026-11-23
 ---

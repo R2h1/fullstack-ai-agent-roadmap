@@ -51,15 +51,15 @@ graph TD
 | # | 模块 | 周期 | 章节项目 | 状态 |
 |---|------|------|----------|------|
 | 00 | [[00-学习方法论/00-学习方法论总纲\|学习方法论]] | 2-3 周 | 学习仪表盘（HTML 进度页）+ 学习契约 | ⬜ |
-| 01 | [[01-Python-从零到源码/01-Python总纲\|Python 从零到源码]] | 10 周 | `my-spider-cli` 异步爬虫 + PyPI 发布 | ⬜ |
-| 02 | [[02-JavaScript-从零到源码/02-JavaScript总纲\|JavaScript 从零到源码]] | 10 周 | 手写 Promise / 实现 mini-lodash | ⬜ |
-| 03 | [[03-HTML-CSS-现代Web/03-HTML-CSS总纲\|HTML/CSS 现代 Web]] | 4 周 | 像素级还原 3 个真实站点 | ⬜ |
-| 04 | [[04-前端框架-React/04-React总纲\|React 从使用到源码]] | 10 周 | 在线协作白板 + 手写 mini-react | ⬜ |
-| 05 | [[05-后端开发-FastAPI-Node/05-后端总纲\|FastAPI + Node 后端]] | 8 周 | 完整 RESTful API + JWT + 测试 | ⬜ |
-| 06 | [[06-数据库与工程化/06-数据库工程化总纲\|数据库 + 工程化]] | 6 周 | `mini-twitter` 高并发短文社区 | ⬜ |
-| 07 | [[07-AI基础-Prompt与LLM/07-AI基础总纲\|AI 基础：Prompt + LLM]] | 6 周 | 从零实现 GPT（rasbt 课）+ `AskMyDocs` | ⬜ |
-| 08 | [[08-AI-Agent-框架与源码/08-Agent总纲\|AI Agent 框架与源码]] | 12 周 | `mini-agent-sdk` + 自建 MCP Server | ⬜ |
-| 09 | [[09-综合实战-毕业项目/09-毕业项目总纲\|毕业项目]] | 8-12 周 | 一个能上线、能赚钱、能写进简历的产品 | ⬜ |
+| 01 | [[01-Python-从零到源码/00-Python总纲\|Python 从零到源码]] | 10 周 | `my-spider-cli` 异步爬虫 + PyPI 发布 | ⬜ |
+| 02 | [[02-JavaScript-从零到源码/00-JavaScript总纲\|JavaScript 从零到源码]] | 10 周 | 手写 Promise / 实现 mini-lodash | ⬜ |
+| 03 | [[03-HTML-CSS-现代Web/00-HTML-CSS总纲\|HTML/CSS 现代 Web]] | 4 周 | 像素级还原 3 个真实站点 | ⬜ |
+| 04 | [[04-前端框架-React/00-React总纲\|React 从使用到源码]] | 10 周 | 在线协作白板 + 手写 mini-react | ⬜ |
+| 05 | [[05-后端开发-FastAPI-Node/00-后端总纲\|FastAPI + Node 后端]] | 8 周 | 完整 RESTful API + JWT + 测试 | ⬜ |
+| 06 | [[06-数据库与工程化/00-数据库工程化总纲\|数据库 + 工程化]] | 6 周 | `mini-twitter` 高并发短文社区 | ⬜ |
+| 07 | [[07-AI基础-Prompt与LLM/00-AI基础总纲\|AI 基础：Prompt + LLM]] | 6 周 | 从零实现 GPT（rasbt 课）+ `AskMyDocs` | ⬜ |
+| 08 | [[08-AI-Agent-框架与源码/00-Agent总纲\|AI Agent 框架与源码]] | 12 周 | `mini-agent-sdk` + 自建 MCP Server | ⬜ |
+| 09 | [[09-综合实战-毕业项目/00-毕业项目总纲\|毕业项目]] | 8-12 周 | 一个能上线、能赚钱、能写进简历的产品 | ⬜ |
 
 > 周期以各章实际周文件数量为准（00 为 1 周方法论章，09 为 6 个阶段文档 / 8-12 周）。
 

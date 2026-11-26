@@ -8,11 +8,11 @@ week: 1
 estimated_hours: 14
 difficulty: ⭐⭐⭐
 prerequisites:
-  - "[[全栈学习路线/07-AI基础-Prompt与LLM/07-AI基础总纲]]"
+  - "[[全栈学习路线/07-AI基础-Prompt与LLM/00-AI基础总纲]]"
 outputs:
   - 5 个 demo
 tags: [agent, anthropic, building-effective-agents, 全景]
-prev: "[[08-Agent总纲]]"
+prev: "[[00-Agent总纲]]"
 next: "[[02-手写Agent不用框架]]"
 created: 2026-06-19
 updated: 2026-11-23

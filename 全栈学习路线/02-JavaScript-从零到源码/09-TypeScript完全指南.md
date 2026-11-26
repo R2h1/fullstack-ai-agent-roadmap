@@ -10,12 +10,12 @@ difficulty: ⭐⭐⭐⭐⭐
 prerequisites:
   - 第 08 篇
 outputs:
-  - 类型体操 30 题
+  - 类型体操（easy 全部 + medium ≥10，见 T9）
 tags: [TypeScript, 类型系统, 泛型, 类型体操]
 prev: "[[08-模块系统与工程化]]"
 next: "[[10-V8引擎与性能优化]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-25
 ---
 
 # 第 09 篇 · TypeScript 完全指南 🛡️
@@ -294,14 +294,24 @@ const g: Greet = 'Hello, World!';
 // 大小写转换
 type Upper = Uppercase<'abc'>;       // 'ABC'
 
-// 路由参数提取
-type ExtractParam<T> = T extends `/:${infer P}/${infer R}`
-  ? P | ExtractParam<`/${R}`>
-  : T extends `/:${infer P}` ? P : never;
+// 路由参数提取：先按 '/' 拆段，再过滤 ':' 前缀
+type Split<S extends string, Sep extends string> =
+  S extends `${infer H}${Sep}${infer R}` ? [H, ...Split<R, Sep>] : [S];
+
+type ExtractParam<T extends string> =
+  Split<T, '/'>[number] extends infer Seg
+    ? Seg extends `:${infer P}` ? P : never
+    : never;
 
 type Params = ExtractParam<'/:userId/post/:postId'>;
-// 'userId' | 'postId'
+// 'userId' | 'postId'   ✅（已用 tsc 断言验证）
 ```
+
+> ⚠️ **一个真实的踩坑示范**：网上教程常见的递归写法
+> ```typescript
+> type Bad<T> = T extends `/:${infer P}/${infer R}` ? P | Bad<`/${R}`> : T extends `/:${infer P}` ? P : never;
+> ```
+> 对 `'/:userId/post/:postId'` 首轮抽出 `userId` 后，递归输入变成 `'/post/:postId'`——两个模板都不匹配，直接 `never`，**最终只得 `'userId'`**，第二个参数丢了。原因：`/${R}` 重新拼接后，剩余段不再以 `/:` 开头，而模式 `/:${infer P}/${infer R}` 只认"开头即参数"。分段版没有这个陷阱——**模板字面量做"多匹配收集"时，先 Split 再过滤比递归尾巴更稳**。
 
 ---
 
@@ -363,7 +373,7 @@ class Api {
 
 ## 🏋️ 十四、综合实战
 
-1. 完成 [type-challenges](https://github.com/type-challenges/type-challenges) easy 全部（13 题）+ medium 5 题
+1. 完成 [type-challenges](https://github.com/type-challenges/type-challenges) **easy 全部（13 题）+ medium 至少 10 题**（与总纲 T9 同口径；题数截至 2026-11，easy 实测 13、medium 104）
 2. 把第 08 篇的 mini-lodash 全量类型化（10 个函数都要类型安全）
 3. 写一个类型安全的 `pick(obj, ['a','b'])` —— 只能传 obj 里存在的 key
 
@@ -404,7 +414,7 @@ type DeepReadonly<T> = {
 - [ ] 写得出泛型函数 + 约束
 - [ ] 用 infer 抓返回值类型
 - [ ] 解释分布式条件类型
-- [ ] 至少做完 type-challenges easy
+- [ ] 至少做完 type-challenges easy 全部（13 题）+ medium 10 题（T9）
 
 ---
 

@@ -6,12 +6,12 @@ chapter_title: React 从使用到源码
 order: 1
 duration: 10 周
 prerequisites:
-  - "[[全栈学习路线/03-HTML-CSS-现代Web/03-HTML-CSS总纲]]"
+  - "[[全栈学习路线/03-HTML-CSS-现代Web/00-HTML-CSS总纲]]"
 tags: [React, 前端, 源码级]
 prev: "[[全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]]"
 next: "[[01-React入门与JSX]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-26
 ---
 
 # 第 04 章 · React 从使用到源码（10 周）
@@ -182,4 +182,4 @@ updated: 2026-11-23
 
 ---
 
-✅ 完成项目 → 进入 [[05-后端开发-FastAPI-Node/05-后端总纲]]
+✅ 完成项目 → 进入 [[05-后端开发-FastAPI-Node/00-后端总纲]]

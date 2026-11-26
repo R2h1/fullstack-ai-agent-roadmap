@@ -7,12 +7,12 @@ order: 1
 duration: 4 周
 prerequisites:
   - "[[全栈学习路线/00-学习方法论/00-学习方法论总纲]]"
-  - "[[全栈学习路线/02-JavaScript-从零到源码/02-JavaScript总纲]]（可并行）"
+  - "[[全栈学习路线/02-JavaScript-从零到源码/00-JavaScript总纲]]（可并行）"
 tags: [HTML, CSS, 前端]
 prev: "[[全栈学习路线/02-JavaScript-从零到源码/11-GitHub项目精选-JavaScript]]"
 next: "[[01-HTML5与可访问性]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-26
 ---
 
 # 第 03 章 · HTML / CSS 现代 Web（4 周）
@@ -142,4 +142,4 @@ updated: 2026-06-19
 
 ---
 
-✅ 三个站点像素级还原 → 进入 [[04-前端框架-React/04-React总纲]]
+✅ 三个站点像素级还原 → 进入 [[04-前端框架-React/00-React总纲]]

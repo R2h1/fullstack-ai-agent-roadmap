@@ -90,7 +90,7 @@ git merge upstream/main    # 合并上游更新（有冲突就解完再提交）
 ### 3.1 章节与文件命名
 
 - **章**：顶层目录，`00-学习方法论` 到 `09-综合实战-毕业项目`，共 10 章。
-- **章节总纲**：文件名带章号，如 `01-Python总纲.md`、`09-毕业项目总纲.md`。
+- **章节总纲**：固定占 **`00-` 槽位**，如 `00-Python总纲.md`、`00-毕业项目总纲.md`（目录名已带章号，总纲不再重复章号，避免与内容篇 `01-` 撞号）。
 - **章内内容篇**：从 `01-` 排到 `NN-`，**篇号必须与总纲正文里的「第 0N 篇」一一对应**。
   - 例：`00-学习方法论/00-学习方法论总纲.md` + `01-如何高效学习编程.md` … `08-反向工程别人的代码.md`
 - **改名时必须同步三处**：`wikilink`、frontmatter 的 `prev` / `next`、总纲正文里的篇号引用。漏改一处，校验器就会报断链。
@@ -144,7 +144,7 @@ title → type → description → target → chapter → chapter_title → orde
 
 ### 3.4 链接
 
-- **仓库内部文件**用 Obsidian wikilink：`[[01-Python总纲]]`，带目录前缀也行：`[[全栈学习路线/01-Python-从零到源码/01-Python总纲]]`。
+- **仓库内部文件**用 Obsidian wikilink：`[[00-Python总纲]]`，带目录前缀也行：`[[全栈学习路线/01-Python-从零到源码/00-Python总纲]]`。
 - **外部网址一律用普通 Markdown 链接**：`[fastapi.tiangolo.com](https://fastapi.tiangolo.com/)`。
   - ⚠️ 不要把 GitHub 仓库写成 wikilink（`[[owner/repo]]`），校验器会判成断链。
 - **正文里的示例占位链接**（比如 `[[相关概念 A]]`）加进 `.github/scripts/wikilink-ignore.txt`，一行一条。

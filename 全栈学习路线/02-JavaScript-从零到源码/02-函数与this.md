@@ -19,7 +19,7 @@ tags: [JavaScript, 函数, this, 箭头函数, 高阶函数]
 prev: "[[01-语法与类型]]"
 next: "[[03-闭包与作用域]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-25
 ---
 
 # 第 02 篇 · 函数与 this
@@ -190,7 +190,36 @@ obj.fn2();      // undefined  fn2 的外层是全局，没有 name
 
 ### 优先级：new > 显式 > 隐式 > 默认
 
-## 7. 手写 `myBind`（面试高频）
+## 7. 手写 `myBind` / `myCall` / `myApply`（面试高频）
+
+### 7.1 先写 myCall / myApply（思路：把函数挂到 ctx 上调用，再删掉）
+
+```javascript
+Function.prototype.myCall = function(ctx, ...args) {
+  ctx = ctx ?? globalThis;
+  const key = Symbol();               // Symbol 防与 ctx 已有属性撞名
+  ctx[key] = this;                    // this 就是被调用的那个函数
+  const result = ctx[key](...args);   // 通过 ctx 调用 → this 自然指向 ctx
+  delete ctx[key];                    // 用完擦掉，别在 ctx 上留垃圾
+  return result;
+};
+
+// myApply 只差一行：参数是「数组」而不是逐个传
+Function.prototype.myApply = function(ctx, argsArr = []) {
+  ctx = ctx ?? globalThis;
+  const key = Symbol();
+  ctx[key] = this;
+  const result = ctx[key](...argsArr);   // ← 唯一的区别：展开传入的数组
+  delete ctx[key];
+  return result;
+};
+
+function sum(a, b) { return this.base + a + b; }
+sum.myCall({ base: 100 }, 1, 2);      // 103
+sum.myApply({ base: 100 }, [1, 2]);   // 103 —— 结果同，传参形态不同
+```
+
+### 7.2 myBind 基础版
 
 ```javascript
 Function.prototype.myBind = function(ctx, ...preArgs) {
@@ -207,18 +236,48 @@ const bound = intro.myBind({ name: 'Tom' }, '北京');
 bound('写代码');   // 'Tom@北京-写代码'
 ```
 
-`myCall / myApply` 类似（思路：把函数挂到 ctx 上调用，再删掉）：
+### 7.3 ⚠️ 基础版过不了第 5 个测试：`new` 绑定优先级
+
+原生 `bind` 有条规则：**bind 后的函数若被 `new` 调用，ctx 会被忽略，this 指向新实例**（这正是 §6 里 `new > 显式绑定` 优先级的体现）。上面的基础版做不到——它永远绑死 ctx。规范版要加判断分支：
 
 ```javascript
-Function.prototype.myCall = function(ctx, ...args) {
-  ctx = ctx ?? globalThis;
-  const key = Symbol();
-  ctx[key] = this;
-  const result = ctx[key](...args);
-  delete ctx[key];
-  return result;
+Function.prototype.myBind = function(ctx, ...preArgs) {
+  const fn = this;
+  function bound(...laterArgs) {
+    // new bound() 时，函数里的 this 是新实例；普通调用时是 undefined/全局
+    const wasNewCall = this instanceof bound;
+    return fn.apply(wasNewCall ? this : ctx, [...preArgs, ...laterArgs]);
+  }
+  bound.prototype = Object.create(fn.prototype);  // 让 new bound() 继承原函数原型
+  return bound;
 };
 ```
+
+### 🎯 T2 验收：5 个测试用例
+
+写完拿这 5 条打勾（第 5 条是基础版的照妖镜）：
+
+```javascript
+function intro(city, hobby) { return `${this.name}@${city}-${hobby}`; }
+const obj = { name: 'Tom' };
+
+// ① 预置参数 + 后续参数拼接
+console.log(intro.myBind(obj, '北京')('写代码'));    // 'Tom@北京-写代码'
+// ② 不预置，全在调用时给
+console.log(intro.myBind(obj)('上海', '摸鱼'));      // 'Tom@上海-摸鱼'
+// ③ 多次调用 this 稳定（bind 返回的函数共享 ctx）
+const b = intro.myBind(obj);
+console.log(b('广州', 'a') === 'Tom@广州-a');        // true
+// ④ 原函数不受影响（bind 不改变 intro 本身）
+console.log(intro.myCall({ name: 'Jerry' }, 'X', 'Y'));  // 'Jerry@X-Y'
+// ⑤ new 调用时忽略 ctx，this 指向新实例（7.2 基础版会挂在这里）
+function Foo() { this.tag = 'from-new'; }
+const Bound = Foo.myBind({ name: 'ignored' });
+const inst = new Bound();
+console.log(inst.tag);                              // 'from-new'
+```
+
+> 💡 想彻底对齐规范，看冴羽《JavaScript 深入系列》的 bind 篇——`bind` 还涉及 `length`/`name` 透传、边界行为等，面试问到再说。
 
 ## 8. 立即执行函数 IIFE
 

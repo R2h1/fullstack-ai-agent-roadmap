@@ -5,17 +5,20 @@ chapter: "02"
 chapter_title: JavaScript 从零到源码
 order: 10
 week: 9
-estimated_hours: 18
+duration: 7 天
+daily_hours: 2-3
 difficulty: ⭐⭐⭐⭐⭐
 prerequisites:
   - 第 08 篇
+goals:
+  - 从"会写 JS"升级到"写有类型的 JS"。掌握泛型、条件类型 + infer、模板字面量类型与工具类型手写，能把 mini-lodash 全量类型化，并通过 type-challenges 验收。
 outputs:
   - 类型体操（easy 全部 + medium ≥10，见 T9）
 tags: [TypeScript, 类型系统, 泛型, 类型体操]
 prev: "[[08-模块系统与工程化]]"
 next: "[[10-V8引擎与性能优化]]"
 created: 2026-06-19
-updated: 2026-11-25
+updated: 2026-11-26
 ---
 
 # 第 09 篇 · TypeScript 完全指南 🛡️
@@ -368,6 +371,26 @@ class Api {
 ```
 
 > ⚠️ 旧装饰器需要 `experimentalDecorators: true`；TS 5+ 的新版规范不需要，但语法略有差异。
+
+### 装饰器的黄金搭档：reflect-metadata（一行体验）
+
+NestJS / TypeORM 的依赖注入全靠"装饰器 + 元数据"：装饰器负责标记，元数据负责把标记**存起来供运行时查询**：
+
+```typescript
+import 'reflect-metadata';
+
+function Injectable(): ClassDecorator {
+  return (target) => Reflect.defineMetadata('injectable', true, target);
+}
+
+@Injectable()
+class UserService {}
+
+console.log(Reflect.getMetadata('injectable', UserService));  // true
+// NestJS 的容器启动时就是这样扫：谁带 'injectable' 标记 → 能进 DI 容器
+```
+
+> 💡 一句话理解：**装饰器写元数据，Reflect API 读元数据**——框架的"约定优于配置"就是这两句。装包 `npm i reflect-metadata`，顶部 import 一次即可。
 
 ---
 

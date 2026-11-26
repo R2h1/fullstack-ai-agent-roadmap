@@ -74,7 +74,7 @@ updated: 2026-11-26
 - 宏任务 vs 微任务（必背）
 - Promise 状态机 + 链式调用
 - **手写 Promise（符合 A+ 规范，过 Promises/A+ 测试套件）**
-- async/await 是 Generator + Promise 的语法糖
+- async/await 是 Promise 的语法糖（"Generator + Promise"的更深一层见第 07 篇 §三）
 - **必看**：[JavaScript Visualized: Event Loop](https://www.youtube.com/watch?v=eiC58R16hb8)
 
 ### 第 06 篇 - DOM/BOM/事件
@@ -85,11 +85,11 @@ updated: 2026-11-26
 - 拖拽 / 滚动加载 - 手写
 
 ### 第 07 篇 - ES6+ 全特性
-- 解构、扩展、模板字符串
 - Symbol（迭代器协议）
 - Iterator + Generator + for...of
 - Proxy + Reflect（Vue 3 响应式核心）
 - WeakMap / WeakSet / WeakRef
+- （解构在 02 篇 §4、模板字符串在 01 篇 §6.3 已讲，本篇不重复）
 - **必读**：[阮一峰 ES6 入门](https://es6.ruanyifeng.com/)
 
 ### 第 08 篇 - 模块系统
@@ -103,7 +103,7 @@ updated: 2026-11-26
 - 泛型（核心！）
 - 条件类型 + infer + 分布式
 - 内置工具类型（Partial/Required/Pick/Omit/ReturnType）
-- 装饰器（实验性）+ 元数据
+- 装饰器（旧写法 vs TS 5 新规范）+ reflect-metadata 一行体验
 - **必做**：[type-challenges](https://github.com/type-challenges/type-challenges) easy 全部
 
 ### 第 10 篇 - V8 与性能

@@ -9,7 +9,7 @@ tags: [GitHub项目, 资源]
 prev: "[[10-V8引擎与性能优化]]"
 next: "[[全栈学习路线/03-HTML-CSS-现代Web/00-HTML-CSS总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-26
 ---
 
 # GitHub 项目精选 · JavaScript
@@ -18,6 +18,8 @@ updated: 2026-06-19
 > 而 GitHub 上的 JS 仓库密度，可能是所有语言里最高的。
 > 
 > 这一篇按"入门 → 源码 → 引擎级 → 工具链 → TS → 实战项目"分层，并在末尾给出**"读 lodash 源码 7 天计划"**作为示范。
+>
+> 📊 **口径说明**：文中 `~NNk` 的 star 数是**近似快照**（截至 2026-11，通过 GitHub API 抽查），只用来表达"这个项目有多主流"，不必较真具体数字——仓库热度会漂移，判断"值不值得读"看下面的"怎么用它学习"。
 
 ---
 
@@ -182,7 +184,7 @@ updated: 2026-06-19
 一句话：Rust 写的 Rollup 替代品，Vite 下一代基础。
 
 - GitHub: https://github.com/rolldown-rs/rolldown
-- **怎么用它学习**：关注就行，2025 年它会成为新主流。
+- **怎么用它学习**：现在就能用——装 `rolldown-vite` 是 Vite 官方提供的替代品（drop-in），Vite 后续版本将以 rolldown 为默认打包器；读它的 benchmark 看 Rust 工具链怎么碾压 JS 工具链。
 - 推荐理由：站在工具链历史拐点。
 
 ### **biomejs/biome** ⭐ ~16k 🌿进阶 [英文]
@@ -273,7 +275,7 @@ updated: 2026-06-19
 ### **30-seconds/30-seconds-of-code** ⭐ ~123k 🌱入门 [英文]
 一句话：30 秒就能读懂的 JS 短代码合集。
 
-- GitHub: https://github.com/Chalarangelo/30-seconds-of-code
+- GitHub: https://github.com/30-seconds/30-seconds-of-code
 - **怎么用它学习**：每天读 3 个，**抄一个用到自己代码里**。
 - 推荐理由：积累 JS 习惯用法的金矿。
 

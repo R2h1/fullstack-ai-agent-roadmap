@@ -5,17 +5,20 @@ chapter: "02"
 chapter_title: JavaScript 从零到源码
 order: 7
 week: 6
-estimated_hours: 14
+duration: 7 天
+daily_hours: 2
 difficulty: ⭐⭐⭐
 prerequisites:
   - 第 05 篇
+goals:
+  - 让 JavaScript 真正能"操控网页"——点按钮、改文字、加元素、监听用户行为。结束时能手写事件委托、拖拽、防抖节流工程版，并用原生 DOM 做出 TodoList 与沙盒最小骨架。
 outputs:
   - 手写事件委托/拖拽
 tags: [JavaScript, DOM, BOM, 事件, 防抖, 节流, 事件委托, 沙盒, iframe, Monaco]
 prev: "[[05-异步与事件循环]]"
 next: "[[07-ES6进阶特性]]"
 created: 2026-06-19
-updated: 2026-11-25
+updated: 2026-11-26
 ---
 
 # 第 06 篇 · DOM 与事件 🌳

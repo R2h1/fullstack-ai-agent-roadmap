@@ -6,16 +6,21 @@ chapter_title: React 从使用到源码
 order: 10
 week: 9
 duration: 7 天
+daily_hours: 3-4
 difficulty: ⭐⭐⭐⭐⭐
 prerequisites:
   - 第 08 篇
+goals:
+  - 从零实现 mini-react v1：createElement → Element Tree → Fiber 链表（三指针）→ requestIdleCallback 可中断 workLoop → 双缓冲 → commit 挂载。
+  - 能在白板上画出任意 JSX 的 Fiber 树与 workLoop 访问顺序；理解「为什么递归 render 会卡」。
+  - 周末交付：mini-react v1 仓库（~300 行），首屏渲染正确，并亲眼观察「v1 点 +1 叠 DOM」现象留给 v2 修。
 outputs:
   - mini-react
 tags: [react, fiber, mini-react, jsx, reconciler, scheduler, requestIdleCallback]
 prev: "[[08-性能优化]]"
 next: "[[10-手写mini-react-v2]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-28
 ---
 
 # 第 09 篇 · 手写 mini-react v1（Fiber 核心）
@@ -30,6 +35,11 @@ updated: 2026-06-19
 - 面试常问"React 怎么不卡"——背答案没用，写过才能答得自然。
 - 看官方源码（几十万行）会劝退；先写**乞丐版**，再去看源码就像看注释。
 - 真正吃透三件事：**JSX、Fiber、调度**。
+
+> **路线说明**：本篇和第 10 篇走的是 **didact 路线**（pomb.us 的 ~300 行教学实现，见文末资源）——
+> 最短路径把 Fiber 核心概念写出来。卡颂的 **big-react** 是真实 React 的镜像架构
+> （FiberRoot / beginWork / lane 位运算 / Hook 链表），**与本篇代码不通用**，留到第 10 篇
+> 写完后的「源码对照」阶段二刷。两条路线别混着抄。
 
 ---
 
@@ -150,7 +160,8 @@ console.log(el)
 ## 四、第 2 步：Element → DOM（递归版，演示问题）
 
 ```ts
-function render(el: Element, container: HTMLElement) {
+// 起名 renderRecursive：§十 的对外 API 也叫 render，同名会撞车——先给递归版让路
+function renderRecursive(el: Element, container: HTMLElement) {
   const dom: any = el.type === 'TEXT_ELEMENT'
     ? document.createTextNode('')
     : document.createElement(el.type as string)
@@ -164,7 +175,7 @@ function render(el: Element, container: HTMLElement) {
     }
   })
 
-  el.props.children.forEach(c => render(c, dom))
+  el.props.children.forEach(c => renderRecursive(c, dom))
   container.appendChild(dom)
 }
 ```
@@ -214,6 +225,13 @@ type Fiber = {
   //   - 同一个位置，old fiber 和 new fiber 的 type 相同 → 复用 DOM，打 UPDATE
   //   - type 不同 → 删旧的，建新的，打 PLACEMENT
   // 根 Fiber 的 alternate 是「上一次的根」，这是「哪棵树是当前树」的锚点。
+
+  // ─── v2 会启用的两个槽（v1 先声明好，第 10 篇直接用）───
+  hooks?: any[]
+  // 第 10 篇：这个组件fiber 的 useState/useEffect 数组，下标=调用顺序。
+
+  effects?: any[]
+  // 第 10 篇：本次 commit 后要跑的 effect。
 
   // ─── 本次渲染要对这个节点做什么 ───
   effectTag?: 'PLACEMENT' | 'UPDATE' | 'DELETION'
@@ -275,6 +293,12 @@ let wipRoot: Fiber | null = null
 // 和屏幕上当前的树（currentRoot）并存，构建完才一次性切换（双缓冲）。
 // 它同时是「是否还有未提交的树」的标志：非 null 说明有活要干/要提交。
 
+let currentRoot: Fiber | null = null
+// 「屏幕上现在这棵树」的根。v1 暂时用不到；第 10 篇的 setState / diff 全靠它锚定。
+// （v1 阶段 commitRoot 不写它，所以 09 篇里它一直是 null——正常。）
+
+let deletions: Fiber[] = []
+// 第 10 篇：diff 判出来「要删掉」的旧 Fiber 队列，commit 时统一处理。
 
 function workLoop(deadline: IdleDeadline) {
   let shouldYield = false
@@ -332,8 +356,30 @@ function createDom(fiber: Fiber) {
   const dom: any = fiber.type === 'TEXT_ELEMENT'
     ? document.createTextNode('')
     : document.createElement(fiber.type as string)
-  updateDom(dom, { children: [] }, fiber.props)
+  updateDom(dom, { children: [] }, fiber.props)   // 空 prev → 全走「新增」分支
   return dom
+}
+
+// createDom 依赖它，所以必须在这里就定义（第 10 篇的 UPDATE 分支复用同一个函数）
+function updateDom(dom: any, prev: Props, next: Props) {
+  const isEvent = (k: string) => k.startsWith('on')
+  const isProp = (k: string) => !isEvent(k) && k !== 'children' && k !== 'key'
+  //  ↑ key 是 diff 用的标记，绝不能漏到 DOM 上
+
+  // 1. 摘旧事件、删没了的属性
+  Object.keys(prev).filter(isEvent).forEach(n => {
+    dom.removeEventListener(n.toLowerCase().slice(2), prev[n])
+  })
+  Object.keys(prev).filter(isProp).forEach(n => {
+    if (!(n in next)) dom[n] = ''
+  })
+  // 2. 挂新事件、写新属性（值没变就跳过）
+  Object.keys(next).filter(isEvent).forEach(n => {
+    dom.addEventListener(n.toLowerCase().slice(2), next[n])
+  })
+  Object.keys(next).filter(isProp).forEach(n => {
+    if (dom[n] !== next[n]) dom[n] = next[n]
+  })
 }
 
 function reconcileChildren(wipFiber: Fiber, children: Element[]) {
@@ -424,7 +470,13 @@ function rerender() {
 rerender()
 ```
 
-打开浏览器，点按钮——成了。**你写出了一个能跑的 React。**
+首屏渲染正确——**你写出了一个能跑（渲染）的 React**。
+
+> ⚠️ **现在点 +1，你会看到计数「叠加」而不是「更新」**：页面上多出一整块新的 `<div>`。
+> 这不是你抄错了，是 v1 的**必然结果**：`reconcileChildren` 一律打 `PLACEMENT`（上面 §八 最后一行），
+> `commitWork` 只有 `appendChild`（§九 里 UPDATE/DELETION 留白）——每次 rerender 都当全新节点往页面上贴。
+> 这正是第 10 篇要修的：diff 认出「同一个位置 type 没变」→ 打 `UPDATE` → 复用 DOM 只改属性。
+> 先截图存下这个「叠 DOM」现象，学完 v2 对比，你会真正理解 diff 存在的意义。
 
 ---
 
@@ -449,13 +501,13 @@ rerender()
 ## 周末 Checklist
 
 - [ ] 自己实现的 `createElement` 输出对的 Element Tree
-- [ ] 跑通递归版 `render`
+- [ ] 跑通递归版 `renderRecursive`
 - [ ] 能口头解释为什么递归 render 会卡
 - [ ] 能在白板上画 Fiber 三指针
 - [ ] 能写出 `performUnitOfWork` 的"child / sibling / parent" 三档返回
 - [ ] 能解释双缓冲（current vs wip）
 - [ ] commit 阶段一次性挂载 DOM 跑通
-- [ ] 计数器 demo 能跑
+- [ ] 计数器 demo 首屏渲染正确；点 +1 会叠 DOM（预期，见 §十 的 ⚠️，v2 修复）
 
 ## 常见错误
 

@@ -6,16 +6,21 @@ chapter_title: React 从使用到源码
 order: 7
 week: 6
 duration: 7 天
+daily_hours: 2-3
 difficulty: ⭐⭐⭐⭐
 prerequisites:
   - 第 05 篇
+goals:
+  - 掌握 Next.js 16 App Router：RSC vs Client 边界、Server Actions、Streaming/Suspense、fetch 缓存语义（Next 15+ 默认 no-store）、proxy.ts 鉴权。
+  - 能讲清五种渲染模式的取舍，并完成 Vercel 部署。
+  - 周末交付：Markdown 博客 + SQLite 评论（即 T5），列表/详情页代码齐备可照跑。
 outputs:
   - 全栈博客
 tags: [react, nextjs, ssr, ssg, rsc, app-router, server-actions, vercel]
 prev: "[[05-路由与表单]]"
 next: "[[07-测试与质量]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-28
 ---
 
 # 第 06 篇 · Next.js 全栈
@@ -144,7 +149,7 @@ export default async function Page({ params }: Props) {
 import Counter from './Counter'
 import { db } from '@/lib/db'
 export default async function Home() {
-  const posts = await db.post.findMany()      // 直接查数据库！
+  const posts = await db.post.findMany()      // 直接查数据库！（db 是示意数据层，实战见 §十三 的 lib/db.ts）
   return (
     <main>
       <h1>共 {posts.length} 篇</h1>
@@ -168,12 +173,16 @@ export default function Counter() {
 
 Next 给原生 `fetch` 加了**缓存语义**：
 
-```tsx
-// 1. SSG（默认 force-cache）：构建时取一次，永远复用
-const res = await fetch('https://api.example.com/posts')
+> ⚠️ **Next 15 起默认值变了**：`fetch` 默认**不缓存**（等价 `no-store`），每次请求都重取。
+> Next 13/14 时代「默认 force-cache」的说法在旧教程里仍大量流传——别被带偏。
+> 想要缓存必须**显式声明**（route 本身是纯静态、没用动态 API 时，仍会在构建期预渲染）。
 
-// 2. SSR：每次请求都重取
-const res = await fetch(url, { cache: 'no-store' })
+```tsx
+// 1. 动态取数（Next 15+ 的默认行为）：每次请求都重取
+const res = await fetch(url)                       // 等价 cache: 'no-store'
+
+// 2. SSG 式缓存：构建时取一次，永远复用——要显式写
+const res = await fetch('https://api.example.com/posts', { cache: 'force-cache' })
 
 // 3. ISR：60 秒后重新生成
 const res = await fetch(url, { next: { revalidate: 60 } })
@@ -218,13 +227,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 ```tsx
 // app/blog/[slug]/Comment.tsx
-import { db } from '@/lib/db'
+import { comment } from '@/lib/db'                    // §十三 实战实现的 better-sqlite3 封装
 import { revalidatePath } from 'next/cache'
 
 async function addComment(formData: FormData) {
   "use server"                                         // ← 关键
   const text = formData.get('text') as string
-  await db.comment.create({ data: { text } })
+  comment.create({ slug: formData.get('slug') as string, text })   // 同步库，不用 await
   revalidatePath(`/blog/${formData.get('slug')}`)      // 失效缓存，页面立刻更新
 }
 
@@ -239,7 +248,7 @@ export default function CommentForm({ slug }: { slug: string }) {
 }
 ```
 
-无需写 `/api/comment` 接口，无需 `fetch`，无需 `useState` 处理 loading——全部由框架处理。
+无需写 `/api/comment` 接口，无需 `fetch`——接线由框架完成。提交态用 React 19 的 `useActionState` / `useFormStatus`（02 篇 §8.5/§8.7 教过）拿 `isPending`，不要手写 useState loading。
 
 ---
 
@@ -413,6 +422,78 @@ export async function renderMd(md: string) {
 }
 ```
 
+`lib/db.ts`（§七 Server Action 用的就是它）：
+
+```ts
+import Database from 'better-sqlite3'
+
+const db = new Database('blog.db')
+db.exec(`create table if not exists comments (
+  id integer primary key autoincrement,
+  slug text not null,
+  text text not null,
+  created text default (datetime('now'))
+)`)
+
+export const comment = {
+  create: ({ slug, text }: { slug: string; text: string }) =>
+    db.prepare('insert into comments (slug, text) values (?, ?)').run(slug, text),
+  list: (slug: string) =>
+    db.prepare('select * from comments where slug = ? order by id').all(slug) as
+      { id: number; slug: string; text: string }[],
+}
+```
+
+**列表页 / 详情页（T5 的最后一公里，照抄即可跑）**：
+
+```tsx
+// app/page.tsx —— 列表（SSG）
+import Link from 'next/link'
+import { getAllPosts } from '@/lib/posts'
+
+export default async function Home() {
+  const posts = await getAllPosts()
+  return (
+    <ul>
+      {posts.map(p => (
+        <li key={p.slug}><Link href={`/blog/${p.slug}`}>{p.title}</Link></li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```tsx
+// app/blog/[slug]/page.tsx —— 详情（SSG + ISR 60s）+ 评论
+import { notFound } from 'next/navigation'
+import { getAllPosts, renderMd } from '@/lib/posts'
+import { comment } from '@/lib/db'
+import CommentForm from './Comment'
+
+export async function generateStaticParams() {
+  return (await getAllPosts()).map(p => ({ slug: p.slug }))
+}
+export const revalidate = 60
+
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = (await getAllPosts()).find(p => p.slug === slug)
+  if (!post) notFound()
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: await renderMd(post.content) }} />
+      <hr />
+      {comment.list(slug).map(c => <p key={c.id}>💬 {c.text}</p>)}
+      <CommentForm slug={slug} />
+    </article>
+  )
+}
+```
+
+`Comment.tsx` 就是 §七 那个 `CommentForm`（Server Action 版）。跑通标志：`pnpm build` 后
+`out/` 里能看到预渲染的 `/blog/hello/index.html`，dev 模式发条评论立刻上屏。
+
 ---
 
 ## 周末 Checklist
@@ -435,7 +516,7 @@ export async function renderMd(md: string) {
 | `Functions cannot be passed directly to Client Components` | 把 server 函数当 prop 传给 client | 包成 Server Action 或挪到 client |
 | `Hydration failed` | 服务端 HTML ≠ 客户端首渲染 | 检查 `Date.now()`、随机数、`window` |
 | `params should be awaited` | Next 15 起 params 是 Promise，Next 16 起同步访问被移除 | `const { slug } = await params` |
-| `fetch 一直返回旧数据` | 默认 force-cache | 加 `cache: 'no-store'` 或 `revalidate` |
+| `fetch 每次都重发` | Next 15+ 默认就是 no-store（旧教程说默认 force-cache 已过时） | 要缓存就显式 `cache: 'force-cache'` 或 `next: { revalidate }` |
 
 ## 资源
 - 官方教程：https://nextjs.org/learn （强烈建议从头打一遍）

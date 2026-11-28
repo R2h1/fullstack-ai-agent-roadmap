@@ -4,12 +4,19 @@ type: github-curation
 chapter: "04"
 chapter_title: React 从使用到源码
 order: 12
-difficulty: 🌱→🌲
+duration: 3 天
+daily_hours: 1-2
+difficulty: ⭐⭐（清单型，无手写压力）
+goals:
+  - 按「入门→进阶→源码级」浏览 React 生态标杆项目，至少 clone 精读 1 个中大型项目（推荐 zustand，附 1 周计划）。
+  - 把「做 excalidraw 简版 4 周路线」作为章大项目 Phase 1 项目周的自学指南走一遍。
+outputs:
+  - 至少 clone 精读 1 个中大型项目
 tags: [github, react, nextjs, zustand, tanstack, react-hook-form, 项目精选]
 prev: "[[10-手写mini-react-v2]]"
 next: "[[全栈学习路线/05-后端开发-FastAPI-Node/00-后端总纲]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-28
 ---
 
 # 📦 GitHub 项目精选：React 生态
@@ -18,14 +25,14 @@ updated: 2026-11-23
 > 这份清单按 **入门 → 进阶 → 源码级** 的顺序，带你看 React 生态各个层次的标杆项目。
 >
 > 难度：🌱 入门 / 🌿 进阶 / 🌲 高阶。
-> Star 数为 **2026 年 6 月估值**。
+> Star 数：2026 年 6 月估值为主，标 ✦ 的为 **2026-11-28 GitHub API 实测**。
 
 ---
 
 ## 🌱 入门 - React 起步
 
-### `facebook/create-react-app` · ~103k ⭐ （已弃用，但值得当历史读）
-- **链接**：<https://github.com/facebook/create-react-app>
+### `react/create-react-app` · ~103k ⭐ ✦（已弃用，但值得当历史读）
+- **链接**：<https://github.com/react/create-react-app>（CRA 已移出 facebook 组织）
 - **是什么**：React 官方脚手架，2023 起官方不再维护。
 - **为什么仍要看**：理解 webpack + babel 的"老 React 工具链"长什么样，对你看历史代码极有帮助。
 
@@ -54,7 +61,7 @@ updated: 2026-11-23
 - **是什么**：React 服务端框架的事实标准（SSR / RSC / Middleware 全都它定义的）。
 - **必读子目录**：`packages/next/src/server`（理解 RSC 是怎么序列化的）。
 
-### `shadcn-ui/taxonomy` · ~17k ⭐
+### `shadcn-ui/taxonomy` · ~19k ⭐ ✦
 - **链接**：<https://github.com/shadcn-ui/taxonomy>
 - **是什么**：shadcn 作者本人写的 Next.js 13+ 完整产品级模板。
 - **必看**：app router + auth + Stripe 订阅 + MDX 文档站，**当年定义了 Next.js App Router 的最佳实践**。
@@ -89,23 +96,24 @@ updated: 2026-11-23
 ### `facebook/react` · ~230k ⭐
 - 本体太重，**新人不要直接读**。先把下面三个仓搞懂再回来。
 
-### `BetaSu/big-react` · ~7k ⭐ ⭐ ⭐ 中文最佳
-- **链接**：<https://github.com/BetaSu/big-react>
+### `BetaSu/big-react` · ~3.9k ⭐ ✦ ⭐⭐⭐ 中文最佳
+- **链接**：<https://github.com/BetaSu/big-react>（注意：默认分支是 `master`）
 - **作者**：卡颂（《React 设计原理》作者）。
-- **是什么**：从 0 实现 React 的逐 commit 教学项目。
+- **是什么**：从 0 实现 React 的逐 commit 教学项目（真实 React 镜像架构）。
 - **学什么**：Fiber、Reconciler、Scheduler 怎么从无到有。
 - **配套书**：《React 技术揭秘》《React 设计原理》。
+- **和本章怎么配合**：第 09~10 篇主线走 didact（~300 行快速成稿）；big-react 是**二刷**仓库——写完自己的 mini-react 后照 10 篇「源码对照表」读它，架构差异即教材。
 
-### `acdlite/react-fiber-architecture` · ~10k ⭐
+### `acdlite/react-fiber-architecture` · ~13k ⭐ ✦
 - React Fiber 设计文档（核心成员 Andrew Clark 亲笔）。
 - 不长，但是 React 16+ 一切的基石。
 
-### `pomber/didact` · ~9k ⭐
+### `pomber/didact` · ~6.8k ⭐ ✦
 - **链接**：<https://github.com/pomber/didact>
 - 300 行手写 React，配套博客 [《Build your own React》](https://pomb.us/build-your-own-react/)。
 - **新人首读**：1 小时读完，立刻理解 vDOM / Reconciler / Hooks 怎么跑。
 
-### `preactjs/preact` · ~37k ⭐
+### `preactjs/preact` · ~39k ⭐ ✦
 - 3KB 的 React 兼容实现，源码可读性远高于 React 本体。
 - **学什么**：在保留 API 兼容的前提下如何极致瘦身。
 
@@ -159,19 +167,36 @@ updated: 2026-11-23
 
 ## 🎬 动画 / 视觉
 
-### `framer/motion` · ~26k ⭐
+### `motiondivision/motion` · ~36k ⭐ ✦
 - 现代 React 动画第一选择，API 直觉到怀疑人生。
+- 原名 Framer Motion，仓库已从 `framer/motion` 迁到这里（旧址只剩跳转）。
 
-### `pmndrs/react-spring` · ~28k ⭐
+### `pmndrs/react-spring` · ~29k ⭐ ✦
 - 物理弹簧动画，与 react-three-fiber 是绝配。
 
-### `studio-freight/lenis` · ~11k ⭐
+### `darkroomengineering/lenis` · ~17.5k ⭐ ✦
+- 原 `studio-freight/lenis`，组织已更名。
 - 顶级官网常用的 smooth-scroll 库。
 - 配合 GSAP ScrollTrigger 能做出 Awwwards 级体验。
 
-### `greensock/GSAP` · ~20k ⭐
-- 专业前端动画工业标准，2024 起完全免费。
+### `greensock/GSAP` · ~31k ⭐ ✦
+- 专业前端动画工业标准，2024 年被 Webflow 收购、2025 年起全部付费插件免费。
 - **配套库**：Flip / ScrollTrigger / SplitText。
+
+---
+
+## 🧪 测试 / 质量 / 性能生态（对应第 07、08 篇）
+
+### `microsoft/playwright` · 大厂背书 ⭐⭐⭐
+- E2E 事实标准，07 篇 §六 的工具本体；`codegen` 录制 + trace viewer 值得每个前端会。
+### `testing-library/testing-library`
+- 「按角色查询」哲学的出处；README 的 queries 表就是 07 篇那张优先级表的母本。
+### `mswjs/msw`
+- 网络层 mock，07 篇 §五 的母项目；examples 目录有 React Query 集成范式。
+### `TanStack/virtual`
+- 08 篇 §五 虚拟滚动本尊，和 Query/Router 同门；API 小而正。
+### `GoogleChrome/web-vitals`
+- 08 篇 §十四 指标库；想知道 LCP/INP 到底怎么测出来的，读它。
 
 ---
 
@@ -181,8 +206,9 @@ updated: 2026-11-23
 - **GitHub**：<https://github.com/john-smilga>
 - 70+ 个由浅入深的 React 实战仓库，每个都附 YouTube 课程。
 
-### `bradtraversy/react-projects`
-- Brad 出品的 React 教学项目集，适合英文听力练习。
+### `bradtraversy/react-crash-2021` · ~1.4k ⭐ ✦
+- Brad Traversy《React Crash Course》配套任务管理项目，适合英文听力练习。
+- （旧条目 `bradtraversy/react-projects` 不存在，已更正。）
 
 ### `florinpop17/app-ideas` · ~85k ⭐
 - **链接**：<https://github.com/florinpop17/app-ideas>
@@ -192,7 +218,7 @@ updated: 2026-11-23
 ### `gothinkster/react-redux-realworld-example-app`
 - RealWorld 项目的 React 实现（Medium 克隆），同需求不同框架对比利器。
 
-### `excalidraw/excalidraw` · ~95k ⭐ ⭐ ⭐ 前端宝典
+### `excalidraw/excalidraw` · ~136k ⭐ ✦ ⭐⭐⭐ 前端宝典
 - **链接**：<https://github.com/excalidraw/excalidraw>
 - **是什么**：手绘风协作白板。
 - **为什么必读**：canvas + 协作 + 大量 React 性能技巧、虚拟列表、Worker 集成。
@@ -243,6 +269,8 @@ zustand 是个**「200 行教科书」**，新人读源码的最佳第一站。
 ---
 
 ## 🛣 专题 2：做 excalidraw 简版的路线（4 周）
+
+> 这条路线就是总纲「章大项目·白板」**Phase 1 项目周**的自学指南（canvas 渲染循环 / 撤销重做 / 导出 / 协作），照它走即可。
 
 ### Week 1：白板雏形
 - canvas 基础：line / rect / freedraw 三种工具

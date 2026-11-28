@@ -6,16 +6,21 @@ chapter_title: React 从使用到源码
 order: 3
 week: 2
 duration: 7 天
+daily_hours: 2-3
 difficulty: ⭐⭐⭐
 prerequisites:
   - 第 01 篇
+goals:
+  - 吃透 useState/useEffect/useRef/useMemo/useCallback 的机制与陷阱（闭包陷阱、竞态、依赖数组），能背出并解释 Hook 三铁律。
+  - 掌握并发特性 useTransition/useDeferredValue 与 React 19 新增：use、useActionState、useOptimistic、useFormStatus、ref as prop。
+  - 周末交付：防抖搜索框 + Modal——并知道 useMemo/useCallback「何时不该用」。
 outputs:
-  - 数据看板
+  - 搜索框（防抖+transition）+ Modal
 tags: [react, hooks, useState, useEffect, useMemo, useRef, useReducer, useContext]
 prev: "[[01-React入门与JSX]]"
 next: "[[03-自定义Hook与Context]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-28
 ---
 
 # 第 02 篇 · Hooks 全集
@@ -283,7 +288,7 @@ const handle = useCallback(() => doThing(id), [id])
 
 ### 5.2 React Compiler（已稳定）
 
-React 19 配套的 **React Compiler**（Next 16 起已稳定）会**自动**给所有组件加 memo。装上后，你**几乎不用再写 useMemo/useCallback**。
+React 19 配套的 **React Compiler**（2025-10 发布 v1.0 正式版）会**自动**给所有组件加 memo。注意它默认不开启——装上、接好之后，你**几乎不用再写 useMemo/useCallback**。
 
 ```bash
 pnpm add babel-plugin-react-compiler
@@ -353,9 +358,12 @@ function Title() {
 
 ---
 
-## 8. React 19 新 Hook
+## 8. 并发特性与新 Hook（18/19）
 
-### 8.1 useId
+> 先正名：**useId / useTransition / useDeferredValue 是 React 18 引入的**，React 19 真正的新 hook
+> 是下面的 `use` 和表单三件套（8.5~8.7）。面试别把年份说串。
+
+### 8.1 useId（18）
 
 生成稳定唯一 id（SSR 不冲突）：
 
@@ -364,7 +372,7 @@ const id = useId()
 return <><label htmlFor={id}>姓名</label><input id={id} /></>
 ```
 
-### 8.2 useTransition
+### 8.2 useTransition（18）
 
 把更新标记为"非紧急"，让浏览器先处理紧急的（比如打字）：
 
@@ -378,7 +386,7 @@ const handleChange = (e) => {
 }
 ```
 
-### 8.3 useDeferredValue
+### 8.3 useDeferredValue（18）
 
 延迟一个值，让昂贵渲染滞后：
 
@@ -403,6 +411,58 @@ function User({ promise }: { promise: Promise<User> }) {
 ```
 
 `use` 还可以读 Context，且**能写在 if 里**（破例！）。
+
+### 8.5 useActionState（19 新增，表单主力）
+
+「受控输入 + 提交处理 + loading 态」三合一——action 第一参是上次状态，第二参是表单 FormData：
+
+```tsx
+import { useActionState } from 'react'
+
+async function register(prev: { msg: string } | null, formData: FormData) {
+  const email = formData.get('email')
+  // ...调 API；throw / 返回错误对象都行
+  return { msg: `已注册 ${email}` }
+}
+
+export function RegisterForm() {
+  const [state, formAction, isPending] = useActionState(register, null)
+  return (
+    <form action={formAction}>
+      <input name="email" />
+      <button disabled={isPending}>{isPending ? '提交中…' : '注册'}</button>
+      {state && <p>{state.msg}</p>}
+    </form>
+  )
+}
+```
+
+### 8.6 useOptimistic（19 新增）
+
+先上屏、后同步（点赞/发评论）：action 里 `addOptimistic(draft)` 立刻渲染乐观项，请求成功后框架自动丢弃乐观态、换回真实数据：
+
+```tsx
+const [messages, addOptimistic] = useOptimistic(
+  serverMessages,
+  (state, draft: string) => [...state, { text: draft, sending: true }],
+)
+```
+
+### 8.7 useFormStatus（19 新增）
+
+子组件直接读父 `<form>` 的提交状态，不用逐层传 props：
+
+```tsx
+import { useFormStatus } from 'react-dom'
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return <button disabled={pending}>{pending ? '提交中…' : '提交'}</button>
+}
+```
+
+> **ref as prop**（React 19）：`forwardRef` 基本退役——函数组件直接把 `ref` 当普通 prop 收：
+> `<MyInput ref={r} />`，组件内解构 `props.ref` 即可。
 
 ---
 
@@ -506,6 +566,8 @@ export function Modal({ open, onClose, children }: Props) {
 - [ ] useContext 跨层传过值
 - [ ] 试过 useTransition / useDeferredValue
 - [ ] 装了 React Compiler 体验自动 memo
+- [ ] 用 useActionState 写过表单（对比手写 useState 少了多少代码）
+- [ ] 用过 useFormStatus 的 pending 态
 
 ### 🐛 错误清单
 - "useState 不更新" → 直接改了对象/数组的属性，没产生新引用

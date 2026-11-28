@@ -6,16 +6,21 @@ chapter_title: React 从使用到源码
 order: 11
 week: 10
 duration: 7 天
+daily_hours: 3-4
 difficulty: ⭐⭐⭐⭐⭐
 prerequisites:
   - 第 09 篇
+goals:
+  - 给 mini-react 注入灵魂：useState/useEffect 实现（hooks 数组 + alternate）、key 版 diff（重排复用 DOM）、UPDATE/DELETION commit、Lane 优先级调度与并发概念。
+  - 通过「从 mini-react 到真实 React」对照表进入 facebook/react 源码（T10 的承接），能按模块指认自己写过的一切。
+  - 周末交付：完整 mini-react（~500 行）跑通 TodoApp 四条验收 + 博客《React Fiber 是什么》（T9，≥5000 字）。
 outputs:
   - 完整 mini-react
 tags: [react, fiber, hooks, useState, useEffect, diff, lane, concurrent, mini-react]
 prev: "[[09-手写mini-react-v1]]"
 next: "[[11-GitHub项目精选-React生态]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-28
 ---
 
 # 第 10 篇 · 手写 mini-react v2（Hooks + Diff + Lane）
@@ -23,6 +28,10 @@ updated: 2026-06-19
 > 上周把"骨架"立起来了：Element → Fiber → Commit。
 > 这周往里塞**灵魂**：useState、useEffect、diff、优先级调度。
 > 写完你不仅会用 React，还能讲源码。
+
+> 📎 **开工前对账**：本篇直接续用 09 篇的 `mini-react.ts`——`currentRoot`、`deletions` 已在 §七 声明好，
+> `updateDom` 已在 §八 定义，`Fiber` 类型已预留 `hooks`/`effects` 槽。本篇每节给出的是**替换或新增**的函数，
+> 改完全库应能整体编译（文末验收会跑）。
 
 ---
 
@@ -138,6 +147,9 @@ export function useEffect(create: () => any, deps?: any[]) {
 ```ts
 function commitRoot() {
   deletions.forEach(commitWork)
+  deletions = []              // ⚠️ 必须清空！DELETION 的 fiber 上留着 effectTag，
+                              // 队列不清空下次 commit 会二次 removeChild 直接崩
+                              //（实测：删完一项再加一项就炸，报错还不直观）
   commitWork(wipRoot!.child)
   // 跑 effects
   runEffects(wipRoot!)
@@ -210,21 +222,58 @@ function reconcileChildren(wipFiber: Fiber, elements: Element[]) {
 上面是按下标 diff，**列表顺序变就翻车**：把第 3 项移到第 1 项 → 全部 unmount + 重建。
 真实 React 用 **key**：先按 key 建 map，再按新顺序找——能复用就移动 (`Placement`)，不能复用才删。
 
-教学版思路（伪代码）：
+**最终版 reconcileChildren（key 版，替换上面按下标那版）**——下面这段是实测跑通过的
+（重排后 DOM 节点对象原样复用、位置移动、删项干净，见「项目验收」）：
+
 ```ts
-const oldMap = new Map<string, Fiber>()
-let cur = oldFiber
-while (cur) { oldMap.set(cur.props.key ?? cur.index, cur); cur = cur.sibling }
-elements.forEach((el, i) => {
-  const old = oldMap.get(el.props.key ?? i)
-  if (old && old.type === el.type) {
-    // 复用，可能移动
-  } else {
-    // 新建
+function reconcileChildren(wipFiber: Fiber, elements: Element[]) {
+  // 1. 旧子链 → key 索引表（没写 key 就退化成下标，即旧行为）
+  const oldByKey = new Map<string, { fiber: Fiber, index: number }>()
+  let old = wipFiber.alternate ? wipFiber.alternate.child : null
+  let i = 0
+  while (old) {
+    oldByKey.set(String(old.props.key ?? i), { fiber: old, index: i })
+    old = old.sibling
+    i++
   }
-})
-// 剩下没匹配到的 oldMap 全部 DELETION
+
+  // 2. 按新 elements 顺序逐个配对
+  let prevSibling: Fiber | null = null
+  elements.forEach((el, idx) => {
+    const k = String(el.props.key ?? idx)
+    const entry = oldByKey.get(k)
+    if (entry) oldByKey.delete(k)                 // 已被认领
+    const sameType = !!entry && entry.fiber.type === el.type
+
+    const newFiber: Fiber = sameType
+      ? {
+          type: el.type, props: el.props,
+          dom: entry!.fiber.dom,                  // 复用旧 DOM —— 不重建！
+          parent: wipFiber, alternate: entry!.fiber,
+          child: null, sibling: null,
+          // 位置变了 → 打 PLACEMENT（commit 时 appendChild 已挂载节点＝移动）
+          effectTag: entry!.index === idx ? 'UPDATE' : 'PLACEMENT',
+        }
+      : {
+          type: el.type, props: el.props, dom: null, parent: wipFiber,
+          alternate: null, child: null, sibling: null, effectTag: 'PLACEMENT',
+        }
+
+    if (idx === 0) wipFiber.child = newFiber
+    else if (prevSibling) prevSibling.sibling = newFiber
+    prevSibling = newFiber
+  })
+
+  // 3. 没被认领的旧节点 → 全删
+  oldByKey.forEach(({ fiber }) => {
+    fiber.effectTag = 'DELETION'
+    deletions.push(fiber)
+  })
+}
 ```
+
+「移动 = 对已挂载节点再 appendChild」是浏览器原生行为：appendChild 会把它从原位置摘下来放到末尾，
+不用先 removeChild。真实 React 的 `Placement` flag 同理。
 
 ### commit 增加 UPDATE / DELETION 分支
 
@@ -236,40 +285,54 @@ function commitWork(fiber: Fiber | null) {
   const parentDom = p!.dom!
 
   if (fiber.effectTag === 'PLACEMENT' && fiber.dom) {
-    parentDom.appendChild(fiber.dom)
+    parentDom.appendChild(fiber.dom)              // 已挂载的节点 = 移动
   } else if (fiber.effectTag === 'UPDATE' && fiber.dom) {
     updateDom(fiber.dom, fiber.alternate!.props, fiber.props)
   } else if (fiber.effectTag === 'DELETION') {
     commitDeletion(fiber, parentDom); return
+  } else if (fiber.effectTag === 'PLACEMENT' && !fiber.dom && fiber.alternate) {
+    // 带 key 的函数组件被移动：它自己没有 dom，把渲染出的宿主子树整体搬走
+    moveHostDom(fiber, parentDom)
   }
   commitWork(fiber.child)
   commitWork(fiber.sibling)
 }
 
-function commitDeletion(fiber: Fiber, parentDom: Node) {
-  if (fiber.dom) parentDom.removeChild(fiber.dom)
-  else commitDeletion(fiber.child!, parentDom)         // 函数组件没 dom，下钻
+function moveHostDom(fiber: Fiber | null, parentDom: Node) {
+  if (!fiber) return
+  if (fiber.dom) { parentDom.appendChild(fiber.dom); return }  // 宿主子树整体随动
+  moveHostDom(fiber.child, parentDom)
+  moveHostDom(fiber.sibling, parentDom)
 }
 
-function updateDom(dom: any, prev: Props, next: Props) {
-  // 1. 删旧事件 / 旧属性
-  Object.keys(prev).filter(k => k !== 'children').forEach(name => {
-    if (name.startsWith('on')) {
-      dom.removeEventListener(name.toLowerCase().slice(2), prev[name])
-    } else if (!(name in next)) {
-      dom[name] = ''
-    }
-  })
-  // 2. 加新事件 / 新属性
-  Object.keys(next).filter(k => k !== 'children').forEach(name => {
-    if (name.startsWith('on')) {
-      dom.addEventListener(name.toLowerCase().slice(2), next[name])
-    } else {
-      dom[name] = next[name]
-    }
-  })
+function commitDeletion(fiber: Fiber, parentDom: Node) {
+  if (fiber.dom) parentDom.removeChild(fiber.dom)
+  else if (fiber.child) commitDeletion(fiber.child, parentDom)   // 函数组件没 dom，下钻
 }
 ```
+
+> `updateDom` 第 09 篇 §八 已定义（`createDom` 当时就在调它），这里直接复用，别重复写。
+> 如果你的 09 篇版本没排除 `key`，回去补上——否则 `<li key="x">` 会把 `key="x"` 写到 DOM 上。
+
+### render 也要升级（v1「叠 DOM」的正解）
+
+09 篇的 `render` 每次把 `alternate` 置 null，重复调用必然叠树。改成：
+
+```ts
+function render(el: Element, container: HTMLElement) {
+  wipRoot = {
+    type: 'HOST_ROOT' as any,
+    props: { children: [el] },
+    dom: container,
+    parent: null, child: null, sibling: null,
+    alternate: currentRoot,      // ← v2 改动：指回当前树，diff 才有对照
+  }
+  nextUnitOfWork = wipRoot
+  deletions = []
+}
+```
+
+改完 09 篇那个「点 +1 叠 div」的计数器，重跑就直接是更新了——前后对比拍个截图。
 
 ---
 
@@ -311,7 +374,7 @@ function scheduleUpdate(lane: number) {
 }
 ```
 
-> 真实 React 在 `markRootUpdated` / `getNextLanes` 里做了非常细的位运算，配合 expirationTime 兜底"饥饿"。看 big-react 的 `react-reconciler/src/fiberLanes.ts` 是最佳路径。
+> 真实 React 在 `markRootUpdated` / `getNextLanes` 里做了非常细的位运算，配合 expirationTime 兜底"饥饿"。看 big-react 的 `packages/react-reconciler/src/fiberLanes.ts` 是最佳路径（已核实该文件存在；仓库默认分支是 `master`）。
 
 ---
 
@@ -349,7 +412,30 @@ export function startTransition(fn: () => void) {
 
 ---
 
-## 七、项目验收：跑一个小应用
+## 七、从 mini-react 到真实 React（章目标 7 的承接）
+
+你的 mini-react 就是真实架构的简化版。拿着下面这张对照表去读 `facebook/react`
+（current main 实测存在的路径），每一行都认识：
+
+| 你写的 | 真实 React | 读什么 |
+| --- | --- | --- |
+| `createElement` | `packages/react/src/jsx/ReactJSXElement.js` | `jsx()` 工厂、dev/prod 分支 |
+| `Fiber` 类型 | `packages/react-reconciler/src/ReactFiber.js` | `createFiber` / `createWorkInProgress`（双缓冲本尊） |
+| `performUnitOfWork` | `ReactFiberBeginWork.js` + `ReactFiberCompleteWork.js` | beginWork / completeWork 两相 |
+| `reconcileChildren` | `ReactChildFiber.js` | 带 key diff 的真实版（本篇伪代码的答案） |
+| `useState` / `useEffect` | `ReactFiberHooks.js` | `memoizedState` 链表、`dispatchSetState` |
+| lane + `scheduleUpdate` | `ReactFiberLane.js` + `ReactFiberWorkLoop.js` | 31 条 lane、expirationTime 防饥饿 |
+| `requestIdleCallback` | `packages/scheduler/src/forks/Scheduler.js` | MessageChannel 真调度器 |
+
+**T10 的做法**：挑 `ReactFiberBeginWork.js`（Flow 语法），只精读 `updateFunctionComponent`
+一个函数（~100 行）——它做的正是你 `renderWithHooks` + `reconcileChildren` 那段的真实版，
+逐行注释，对照自己的代码。不要求读完整文件。
+
+> ⚠️ 2024 年前文章里的 `.new.js` / `.old.js` 双 fork 文件已被官方合并，现名无后缀。
+
+---
+
+## 八、项目验收：跑一个小应用
 
 目标：用 mini-react 写下面应用并跑通。
 
@@ -394,9 +480,13 @@ MiniReact.render(<TodoApp />, document.getElementById('app')!)
 - 切换"空 / 列表"分支不报错（条件渲染）。
 - console 看到 effect 的 log（useEffect 工作）。
 
+> **key 的坑**：这个 demo 里 `key={i}` 能用，是因为行内没有本地状态。真实项目请用内容 id 当 key——
+> 下标 key 在「每行有输入框」时会让状态串行：删掉第 2 行，第 3 行的输入框会带着上一行的内容。
+> 想验证 key 的价值：把 `<li>` 换成带 `useState` 的函数组件再重排列表，对比 key=id 和 key=下标 两种写法。
+
 ---
 
-## 八、写一篇博客《React Fiber 是什么，为什么需要它》
+## 九、写一篇博客《React Fiber 是什么，为什么需要它》（T9：≥ 5000 字，配图）
 
 要点提示（**一定要带图**）：
 1. 旧 stack reconciler 的卡顿现象——递归不可中断。
@@ -431,7 +521,7 @@ MiniReact.render(<TodoApp />, document.getElementById('app')!)
 | 函数组件挂到 DOM 报错 | `commitWork` 找父节点没跳过没 dom 的 fiber | `while(!p.dom) p = p.parent` |
 
 ## 资源
-- big-react 课程：https://github.com/BetaSu/big-react （强烈推荐看完）
+- big-react 课程：https://github.com/BetaSu/big-react （主线是 didact；big-react 按第七节对照表二刷）
 - 卡颂《React 设计原理》：电子书或纸质
 - A Cartoon Intro to Fiber：https://www.youtube.com/watch?v=ZCuYPiUIONs
 - React 源码导读：https://react.iamkasong.com/
@@ -446,6 +536,6 @@ MiniReact.render(<TodoApp />, document.getElementById('app')!)
 2. 能用 Next.js 写 SSR/SSG/RSC + Server Actions 全栈应用。
 3. 能写测试（70%+ 覆盖）+ 跑 CI。
 4. 能用 Profiler 定位性能问题并优化。
-5. 能手写 ~500 行 mini-react 跑通真实小应用。
+5. 能手写 mini-react（v1 ~300 行 + v2 补齐 diff/hooks/调度，合计 ~500 行）跑通真实小应用，并通过第八节验收四条。
 
-下一章见——**第 05 章 Vue 生态**。
+下一章见——**第 05 章 后端开发（FastAPI + Node）**。

@@ -6,15 +6,19 @@ chapter_title: React 从使用到源码
 order: 2
 week: 1
 duration: 7 天
+daily_hours: 2-3
 difficulty: ⭐⭐
 prerequisites: []
+goals:
+  - 建立「UI = f(state)」心智模型；能手写 JSX（懂五条铁律与 jsx/classic 两种编译产物）、函数组件、Props/children、条件与列表渲染（key 的意义）。
+  - 周末交付：Todo（含过滤、原生拖拽排序）+ 计算器（连续计算状态机）——对应总纲第 01 篇产出与 T1 的前两件。
 outputs:
   - 计算器 + Todo
 tags: [react, jsx, vite, typescript, components, props]
 prev: "[[00-React总纲]]"
 next: "[[02-Hooks全集]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-28
 ---
  
 # 第 01 篇 · React 入门与 JSX
@@ -54,9 +58,9 @@ function Counter() {
 |---|---|
 | React 18 (2022) | 并发渲染、Suspense、Automatic Batching（历史：React 19 已取代） |
 | React 19 (2024) | `use()` Hook、Actions、Server Components 稳定、表单 hook |
-| React Compiler (2024-2026) | 自动 memo，告别 useMemo/useCallback 滥用（Next 16 起稳定） |
+| React Compiler (2024-2026) | 自动 memo，告别 useMemo/useCallback 滥用（2025-10 发布 v1.0 稳定版，需显式开启） |
 
-**Server Components (RSC)**：组件可以"在服务端渲染、不发送 JS 到客户端"。本周不用，第 5 章讲 Next.js 时再深入。
+**Server Components (RSC)**：组件可以"在服务端渲染、不发送 JS 到客户端"。本周不用，本章第 06 篇讲 Next.js 时再深入。
 
 **并发渲染**：React 可以"暂停"一个慢渲染去做更紧急的事，让界面不卡。靠 `useTransition` / `useDeferredValue` 触发。
 
@@ -122,11 +126,16 @@ createRoot(document.getElementById('root')!).render(
 const el = <h1 className="title">Hello, {name}</h1>
 ```
 
-这就是 JSX——它**不是 HTML**，是 JS 语法糖。Vite 会编译成：
+这就是 JSX——它**不是 HTML**，是 JS 语法糖。Vite（React 17+ 默认 automatic runtime）会编译成：
 
 ```js
-const el = React.createElement('h1', { className: 'title' }, 'Hello, ', name)
+// 现代产物（jsx-runtime，自动引入，不用 import React）
+import { jsx as _jsx } from 'react/jsx-runtime'
+const el = _jsx('h1', { className: 'title', children: ['Hello, ', name] })
 ```
+
+> 旧资料里的 `React.createElement(...)` 是 classic runtime 产物——第 09 篇手写 mini-react 时
+> 我们会**故意切回 classic**（`/** @jsx */` 指向自己的 createElement），那时再细说。
 
 ### 3.1 JSX 五条铁律
 
@@ -228,7 +237,9 @@ export function Card({ title, children }: CardProps) {
 
 要求：size 默认 48，缺省 src 时显示 name 首字母。
 
-==<summary>答案</summary>
+<details>
+<summary>答案</summary>
+
 ```tsx
 // src/components/Avatar.tsx
 interface Props { src?: string; size?: number; name: string }
@@ -243,6 +254,7 @@ export function Avatar({ src, size = 48, name }: Props) {
       </div>
 }
 ```
+</details>
 
 ---
 
@@ -386,12 +398,113 @@ export default function App() {
 
 加一个"全部完成 / 未完成 / 全部"过滤按钮。
 
+<details>
 <summary>提示</summary>
 
 ```tsx
 新增 `const [filter, setFilter] = useState<'all'|'done'|'todo'>('all')`，渲染前 `todos.filter(...)`。
 ```
+</details>
 
+### 🔧 动手 3：拖拽排序（原生 HTML5 DnD，T1 闭环）
+
+不用任何库——`draggable` + 三个事件 + 一个记住来源下标的 ref：
+
+<details><summary>参考实现</summary>
+
+```tsx
+import { useRef, useState } from 'react'
+
+function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const dragIdx = useRef<number | null>(null)
+
+  const onDrop = (to: number) => {
+    const from = dragIdx.current
+    dragIdx.current = null
+    if (from === null || from === to) return
+    setTodos(list => {
+      const next = [...list]
+      const [moved] = next.splice(from, 1)
+      next.splice(to, 0, moved)
+      return next
+    })
+  }
+
+  return (
+    <ul>
+      {todos.map((t, i) => (
+        <li key={t.id} draggable
+            onDragStart={() => (dragIdx.current = i)}
+            onDragOver={e => e.preventDefault()}
+            onDrop={() => onDrop(i)}>
+          {t.text}
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+</details>
+
+T1 三要素至此全有教学承担：过滤（动手 2）+ 拖拽排序（本节）+ 本地持久化（第 03 篇 §1 `useLocalStorage`，把 useState 换掉即可）。
+
+### 🔧 动手 4：计算器（本周第二产出）
+
+需求：显示屏 + 0-9 + 四则运算 + `C` 清零 + `=` 求值，支持连续计算（`2 + 3 ×` 要先算出 5）。
+状态就三个：`display`（屏上内容）、`prev`（第一个操作数）、`op`（待算符），外加一个「刚按完运算符，下一个数字要另起」的 `fresh` 标志——这是计算器状态机的灵魂。
+
+<details><summary>参考实现（先自己写再对答案）</summary>
+
+```tsx
+import { useState } from 'react'
+
+const KEYS = ['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '-', '0', '.', '=', '+', 'C']
+
+const compute = (a: number, b: number, op: string) =>
+  op === '+' ? a + b : op === '-' ? a - b : op === '×' ? a * b : a / b
+
+export default function Calculator() {
+  const [display, setDisplay] = useState('0')
+  const [prev, setPrev] = useState<number | null>(null)
+  const [op, setOp] = useState<string | null>(null)
+  const [fresh, setFresh] = useState(true)
+
+  const press = (k: string) => {
+    if (/[\d.]/.test(k)) {
+      setDisplay(s => (fresh || s === '0' || s === 'Error' ? k : s + k))
+      setFresh(false)
+    } else if (k === 'C') {
+      setDisplay('0'); setPrev(null); setOp(null); setFresh(true)
+    } else if (k === '=') {
+      if (prev === null || !op) return
+      const r = compute(prev, Number(display), op)
+      setDisplay(Number.isFinite(r) ? String(Math.round(r * 1e10) / 1e10) : 'Error')
+      setPrev(null); setOp(null); setFresh(true)
+    } else {                                   // 运算符
+      if (prev !== null && op && !fresh) {     // 连续计算：先把上一步算掉
+        const r = compute(prev, Number(display), op)
+        setPrev(r); setDisplay(String(r))
+      } else {
+        setPrev(Number(display))
+      }
+      setOp(k); setFresh(true)
+    }
+  }
+
+  return (
+    <div style={{ width: 220, margin: '40px auto' }}>
+      <input value={display} readOnly style={{ width: '100%', fontSize: 24, textAlign: 'right' }} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4, marginTop: 8 }}>
+        {KEYS.map(k => <button key={k} onClick={() => press(k)}>{k}</button>)}
+      </div>
+    </div>
+  )
+}
+```
+</details>
+
+小练习：上面的 `press` 允许按出两个小数点（`1.2.3`）——加一行拦截它。
 
 ## 周末检查
 
@@ -403,6 +516,8 @@ export default function App() {
 - [ ] 列表渲染懂 key
 - [ ] 装好了 React DevTools
 - [ ] Todo 实战跑通
+- [ ] Todo 能拖拽排序（动手 3）
+- [ ] 计算器跑通，连续计算不丢数（动手 4）
 
 ### 🐛 错误清单
 - "Each child should have unique key" → map 没加 key
@@ -413,5 +528,5 @@ export default function App() {
 ### 📚 资源
 - 官方教程（**必读**）：<https://react.dev/learn>
 - 中文版：<https://zh-hans.react.dev/>
-- 《React 设计原理》关苏 - 进阶
+- 《React 设计原理》卡颂 - 进阶
 - StackBlitz：<https://stackblitz.com/> 在线练手

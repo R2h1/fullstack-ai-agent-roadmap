@@ -6,16 +6,20 @@ chapter_title: React 从使用到源码
 order: 4
 week: 3
 duration: 7 天
+daily_hours: 2-3
 difficulty: ⭐⭐⭐⭐
 prerequisites:
   - 第 02 篇
+goals:
+  - 掌握自定义 Hook 设计原则（use* 命名、逻辑抽取判断公式），独立实现 T2 五件套：useDebounce / useLocalStorage / useFetch / useOnClickOutside / useMediaQuery。
+  - 理解 Context 的性能陷阱与解法（useMemo value / 拆分 Context / use-context-selector），交付 Theme + i18n + Auth 三件套并拼装成 mini App。
 outputs:
   - 主题/i18n/Auth Hook
 tags: [react, custom-hook, context, theme, i18n, auth, dark-mode]
 prev: "[[02-Hooks全集]]"
 next: "[[04-状态管理与数据获取]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-28
 ---
 
 # 第 03 篇 · 自定义 Hook 与 Context
@@ -190,10 +194,14 @@ export function useMediaQuery(query: string) {
 const isMobile = useMediaQuery('(max-width: 768px)')
 ```
 
+> ⚠️ 本篇是 Vite SPA，`window.matchMedia` 直接调没问题；到第 06 篇 Next.js（SSR）里这个初始值要改成
+> `useState(false)` + effect 里再读，否则服务端渲染会炸（`window is not defined`）。
+
 ### 🔧 动手 1：写 `useToggle`
 
 要求：返回 `[value, toggle, setTrue, setFalse]`。
 
+<details>
 <summary>答案</summary>
 
 ```tsx
@@ -206,10 +214,46 @@ export function useToggle(initial = false) {
   return [v, toggle, setTrue, setFalse] as const
 }
 ```
+</details>
 
 ---
 
-## 6. Context = 跨层传值（再讲一次）
+## 6. useOnClickOutside（T2 点名要的，下拉菜单/Modal 全靠它）
+
+```tsx
+// src/hooks/useOnClickOutside.ts
+import { useEffect, type RefObject } from 'react'
+
+export function useOnClickOutside(
+  ref: RefObject<HTMLElement | null>,   // React 19 类型：useRef<HTMLDivElement>(null) 的返回就是这个形状
+  handler: () => void,
+) {
+  useEffect(() => {
+    const listener = (e: MouseEvent | TouchEvent) => {
+      if (!ref.current || ref.current.contains(e.target as Node)) return
+      handler()
+    }
+    document.addEventListener('mousedown', listener)
+    document.addEventListener('touchstart', listener)
+    return () => {
+      document.removeEventListener('mousedown', listener)
+      document.removeEventListener('touchstart', listener)
+    }
+  }, [ref, handler])
+}
+```
+
+```tsx
+const menuRef = useRef<HTMLDivElement>(null)
+useOnClickOutside(menuRef, () => setOpen(false))
+return <div ref={menuRef}>…</div>
+```
+
+注意它和 02 篇动手 2 的 Modal 是互补的：Modal 处理「ESC 关闭」，这个处理「点外面关闭」。
+
+---
+
+## 7. Context = 跨层传值（再讲一次）
 
 ```tsx
 const Ctx = createContext<Value | null>(null)
@@ -225,7 +269,7 @@ function useCtx() {
 
 ---
 
-## 7. Context 性能陷阱
+## 8. Context 性能陷阱
 
 ⚠️ **Provider 的 value 引用变 → 所有消费者都重渲染**。
 
@@ -271,7 +315,7 @@ const theme = useContextSelector(Ctx, v => v.theme)   // 只订阅 theme
 
 ---
 
-## 8. Theme Context 实战（暗黑模式）
+## 9. Theme Context 实战（暗黑模式）
 
 ```tsx
 // src/context/ThemeContext.tsx
@@ -323,7 +367,7 @@ function ThemeToggle() {
 
 ---
 
-## 9. i18n Context 实战
+## 10. i18n Context 实战
 
 ```tsx
 // src/context/I18nContext.tsx
@@ -359,7 +403,7 @@ export const useI18n = () => {
 
 ---
 
-## 10. Auth Context 实战
+## 11. Auth Context 实战
 
 ```tsx
 // src/context/AuthContext.tsx
@@ -405,7 +449,7 @@ export const useAuth = () => {
 
 ---
 
-## 11. 综合实战：mini App
+## 12. 综合实战：mini App
 
 把三个 Context 套起来。
 
@@ -474,6 +518,7 @@ export default function App() {
 
 加一个 `<RequireAuth>{children}</RequireAuth>` 组件：未登录时显示 "请先登录"。
 
+<details>
 <summary>答案</summary>
 
 ```tsx
@@ -484,6 +529,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 ```
+</details>
 
 
 ---

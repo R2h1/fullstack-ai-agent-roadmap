@@ -4,17 +4,17 @@ type: chapter-outline
 chapter: "04"
 chapter_title: React 从使用到源码
 order: 1
-duration: 10 周
+duration: 10+2 周
 prerequisites:
   - "[[全栈学习路线/03-HTML-CSS-现代Web/00-HTML-CSS总纲]]"
 tags: [React, 前端, 源码级]
 prev: "[[全栈学习路线/03-HTML-CSS-现代Web/05-GitHub项目精选-CSS与设计]]"
 next: "[[01-React入门与JSX]]"
 created: 2026-06-19
-updated: 2026-11-26
+updated: 2026-11-28
 ---
 
-# 第 04 章 · React 从使用到源码（10 周）
+# 第 04 章 · React 从使用到源码（10+2 周）
 
 > 选 React 是因为：1) 工业界占比最大；2) Anthropic/Vercel 等头部公司主推；3) 学完 React 思想，Vue/Solid 等都好懂。
 
@@ -33,21 +33,22 @@ updated: 2026-11-26
 | # | 主题 | 难度 | 产出 |
 |---|------|------|------|
 | 第 01 篇 | JSX + 组件 + Props + 列表/条件渲染 | 入门 | 计算器 + Todo |
-| 第 02 篇 | Hooks 全集：useState/useEffect/useRef/useMemo/useCallback | 入门→进阶 | 数据看板 |
+| 第 02 篇 | Hooks 全集：useState/useEffect/useRef/useMemo/useCallback | 入门→进阶 | 搜索框（防抖+transition）+ Modal |
 | 第 03 篇 | 自定义 Hook + Context + useReducer | 进阶 | 主题/i18n/Auth Hook |
 | 第 04 篇 | 状态管理：Zustand + TanStack Query | 进阶 | 真实 API 应用 |
 | 第 05 篇 | 路由 + 表单：React Router / RHF + Zod | 进阶 | 后台管理系统 |
 | 第 06 篇 | Next.js App Router + RSC + Server Action | 进阶 | 全栈博客 |
 | 第 07 篇 | 测试：Vitest + Testing Library + Playwright | 进阶 | 测试套件 |
 | 第 08 篇 | 性能优化：React DevTools / Profiler / 虚拟列表 | 进阶 | 性能报告 |
-| 第 09 篇 | 手写 mini-react v1：JSX → Fiber → Render | 源码级 | mini-react |
-| 第 10 篇 | 手写 mini-react v2：Hooks + Diff + 调度器 | 源码级 | 完整 mini-react |
+| 第 09 篇 | 手写 mini-react v1：JSX → Fiber → Render | 源码级 | mini-react v1 |
+| 第 10 篇 | 手写 mini-react v2：Hooks + Diff + 调度器 | 源码级 | 完整 mini-react + 源码对照 |
+| 项目周（2 周） | 白板 Phase 1：canvas 渲染循环 + 交互 + 撤销重做 + 导出 + E2E（自学指南=11 篇专题 2） | 综合 | 章项目 Phase 1 交付 |
 
 ## 📖 详细内容
 
 ### 第 01 篇 - JSX 与组件基础
 - React 19 心智模型
-- JSX 编译产物（React.createElement）
+- JSX 编译产物（jsx-runtime；手写篇切回 classic createElement）
 - 函数组件 vs 类组件（类组件只读不写）
 - Props + Children + key
 - 条件 / 列表渲染最佳实践
@@ -102,59 +103,73 @@ updated: 2026-11-26
 
 ### 第 09~10 篇 - 手写 mini-react（核心！）
 
-跟着卡颂 [big-react](https://github.com/BetaSu/big-react) 一步步实现：
+**主线**：跟着 didact（pomb.us《Build your own React》，~300 行教学实现）从零手写——
 - 第 09 篇 v1：JSX 转换 → Element Tree → Fiber Tree → Commit DOM
-- 第 10 篇 v2：调度器（lane 模型）+ Diff 算法 + Hooks 实现 + 并发渲染
+- 第 10 篇 v2：调度器 + Diff 算法 + Hooks 实现 + 优先级调度（lane 概念）
+
+**二刷（承接目标 7）**：写完自己的版本后，打开卡颂 [big-react](https://github.com/BetaSu/big-react)
+对照——你的 `wipRoot` ↔ 它的 `FiberRoot`，你的 `performUnitOfWork` ↔ 它的 `beginWork/completeWork`。
+带着自己写的 ~500 行当地图再去读真实源码，才读得动。10 篇末尾有「源码对照表」承接带读。
 
 **必看**：[React 技术揭秘 - 卡颂](https://react.iamkasong.com/)
 
 ## 📝 考核任务
 
 - [ ] **T1**：实现一个 Todo 应用，含拖拽排序、过滤、本地持久化
-- [ ] **T2**：实现 5 个自定义 Hook（useDebounce / useLocalStorage / useFetch / useOnClickOutside / useMediaQuery）
+- [ ] **T2**：实现 5 个自定义 Hook（useDebounce / useLocalStorage / useFetch / useOnClickOutside / useMediaQuery——第 03 篇 §1~§6 各有一节，全部有正文承担）
 - [ ] **T3**：用 Zustand + TanStack Query 重写 T1
 - [ ] **T4**：用 RHF + Zod 做一个含 10 个字段的复杂表单
 - [ ] **T5**：用 Next.js App Router 做一个 SSR 博客（数据来自 markdown 文件）
 - [ ] **T6**：给任意项目加测试，覆盖率 ≥ 70%
 - [ ] **T7**：性能优化案例：将一个慢渲染场景从 60ms 优化到 < 16ms，写报告
-- [ ] **T8**：跟着 big-react 仓库手写 mini-react，能跑通官方 7 个 demo
+- [ ] **T8**：按第 09~10 篇手写 mini-react（v1+v2），跑通 10 篇「项目验收」的 TodoApp 四条通过标志 + 周末 Checklist 全勾
 - [ ] **T9**：写一篇博客《React Fiber 是什么，为什么需要它》(≥ 5000 字)
-- [ ] **T10**：阅读 React 真实源码 `packages/react-reconciler/src/ReactFiberBeginWork.new.js`，做行级注释
+- [ ] **T10**：阅读 React 真实源码 `packages/react-reconciler/src/ReactFiberBeginWork.js`，做行级注释（注意：2024 年官方已合并 new/old 双 fork，旧资料里的 `.new.js` 后缀不复存在）
 
-## 🚀 章节大项目：在线协作白板（Excalidraw 简化版）
+## 🚀 章节大项目：在线协作白板（Excalidraw 简化版，04+05 章联合项目）
+
+> **范围说明**：本章正文教的是 React 全家桶，**没有教** Canvas 库（Konva/fabric）、Yjs、
+> shadcn/ui、触摸事件、导出格式——这些在项目周自学（指南 = [[11-GitHub项目精选-React生态|11 篇专题 2]]）。
+> **协作部分（Phase 2）依赖第 05 章后端**（WebSocket / y-websocket server），学完 05 章再回来做。
+> 项目周（2 周）交付的是 Phase 1 单人白板。
 
 ### 需求
-做一个可以多人实时协作的白板：
-- 画矩形 / 圆 / 箭头 / 文字
-- 拖拽 / 缩放 / 旋转
-- 撤销 / 重做（Command 模式）
-- 多人光标 + 实时同步（用 [Yjs](https://github.com/yjs/yjs) CRDT）
-- 房间 + 分享链接
-- 导出 PNG / SVG / JSON
+- 画矩形 / 圆 / 箭头 / 文字（Phase 1）
+- 拖拽 / 缩放 / 旋转（Phase 1）
+- 撤销 / 重做（Command 模式）（Phase 1）
+- 导出 PNG / SVG / JSON（Phase 1）
+- 多人光标 + 实时同步（用 [Yjs](https://github.com/yjs/yjs) CRDT）（**Phase 2，05 章后**）
+- 房间 + 分享链接（**Phase 2，05 章后**）
 
-### 技术栈
-- React 19 + TypeScript
-- Vite + pnpm
-- Zustand（本地状态）
-- Yjs + y-websocket（CRDT 协作）
-- TanStack Query（服务端状态）
-- Tailwind + shadcn/ui
-- Konva.js / fabric.js（Canvas 库，二选一）
-- 后端用 Node.js + Hono（第 05 章《后端开发》会学）
-- 部署：前端 Vercel，后端 Railway/Fly.io
+### 技术栈（✅=本章正文已教，📚=项目周自学，⏳=第 05 章后）
+- React 19 + TypeScript ✅（01~08 篇）
+- Vite + pnpm ✅（01 篇）
+- Zustand（本地状态）✅（04 篇）
+- TanStack Query（服务端状态）✅（04 篇）
+- Tailwind ✅（03 章）+ shadcn/ui 📚（复制粘贴组件，半天上手）
+- Konva.js / fabric.js（Canvas 库，二选一）📚（11 篇专题 2 有渲染循环教学路径）
+- Yjs + y-websocket（CRDT 协作）⏳
+- 后端 Node.js + Hono ⏳（第 05 章《后端开发》）
+- 部署：前端 Vercel ✅（06 篇），后端 Railway/Fly.io ⏳
 
 ### 验收标准
-- [ ] 单人画板功能完整
-- [ ] 双人 / 三人实时协作不冲突
+
+**Phase 1（04 章项目周交付）**
+- [ ] 单人画板功能完整（矩形/圆/箭头/文字 + 拖拽/缩放/旋转）
+- [ ] 撤销/重做无 bug（Command 模式）
+- [ ] 导出 PNG / SVG 可用
+- [ ] 移动端触摸可用（pointer events 统一处理）
+- [ ] Lighthouse 性能 ≥ 85（08 篇工作流）
+- [ ] Playwright E2E 覆盖 3 个场景：画一笔 / 撤销 / 导出（07 篇工作流）
+- [ ] 前端部署 Vercel，README 含演示 GIF
+
+**Phase 2（学完 05 章后端后回来补）**
+- [ ] 双人 / 三人实时协作不冲突（Yjs + y-websocket）
 - [ ] 网络抖动恢复后能自动合并
-- [ ] 撤销/重做无 bug
-- [ ] 移动端可用（触摸事件）
-- [ ] Lighthouse 性能 ≥ 85
-- [ ] E2E 测试覆盖 5 个核心场景
-- [ ] 公网可访问，README 含演示 GIF
+- [ ] 房间 + 分享链接，后端部署 Railway/Fly.io
 
 ### 进阶挑战
-- 加 AI 智能图形识别（手绘转规范图形）
+- 加 AI 智能图形识别（手绘转规范图形，07 章后可做）
 - 接入 Liveblocks 替换自建后端
 - 导出为可编辑的 Excalidraw 格式
 

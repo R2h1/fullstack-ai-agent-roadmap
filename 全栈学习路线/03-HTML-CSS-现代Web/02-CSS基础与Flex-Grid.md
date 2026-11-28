@@ -6,6 +6,8 @@ chapter_title: HTML / CSS 现代 Web
 order: 3
 week: 2
 duration: 7 天
+daily_hours: 2
+difficulty: ⭐⭐⭐
 prerequisites:
   - 第 01 篇
 goals:
@@ -16,7 +18,7 @@ tags: [CSS, 选择器, 盒模型, Flexbox, Grid, 响应式]
 prev: "[[01-HTML5与可访问性]]"
 next: "[[03-CSS进阶与动画]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-28
 ---
 
 # 第 02 篇 · CSS 基础与 Flex/Grid
@@ -372,7 +374,9 @@ stretch (默认):       flex-start:        center:         flex-end:
 </nav>
 ```
 
-<summary>答案</summary>
+<details>
+<summary>点击查看答案</summary>
+
 ```css
 .nav {
   display: flex;
@@ -386,6 +390,7 @@ stretch (默认):       flex-start:        center:         flex-end:
   list-style: none;
 }
 ```
+</details>
 
 
 ---
@@ -615,7 +620,7 @@ stretch (默认):       flex-start:        center:         flex-end:
 
 ### 10.2 Frontend Mentor
 
-去 [frontendmentor.io](https://www.frontendmentor.io) 注册，做 2 个 newbie 项目（免费）：
+去 [frontendmentor.io](https://www.frontendmentor.io) 注册，先做 2 个 newbie 项目热身（免费；总纲 T2 要求全章累计 5 个，项目周前补齐）：
 - QR code component
 - Order summary card
 

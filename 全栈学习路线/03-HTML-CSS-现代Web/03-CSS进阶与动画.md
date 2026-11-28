@@ -6,17 +6,19 @@ chapter_title: HTML / CSS 现代 Web
 order: 4
 week: 3
 duration: 7 天
+daily_hours: 2
+difficulty: ⭐⭐⭐
 prerequisites:
   - 第 02 篇
 goals:
-  - 让网页"会动"。掌握主题切换、过渡、关键帧动画、滚动驱动动画。
+  - 让网页"会动"。掌握主题切换、过渡、关键帧动画、滚动驱动动画，并交付纯 CSS 组件四件套（T3）。
 outputs:
-  - 仿 Apple 产品页
+  - 纯 CSS 组件四件套（模态框/手风琴/开关/步骤条，T3）
 tags: [CSS变量, 暗黑模式, 动画, transform, transition, 容器查询]
 prev: "[[02-CSS基础与Flex-Grid]]"
 next: "[[04-Tailwind与渲染原理]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-28
 ---
 
 # 第 03 篇 · CSS 进阶与动画
@@ -141,8 +143,15 @@ body {
       html.dataset.theme = next;
       localStorage.setItem('theme', next);
     }
-    // 启动时读取
-    document.documentElement.dataset.theme = localStorage.getItem('theme') || 'light';
+    // 启动时：用户存过 → 用存的；没存过 → 跟随系统偏好（T4 的"系统偏好检测"）
+    document.documentElement.dataset.theme =
+      localStorage.getItem('theme')
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    // 可选进阶：没手动选过的人，系统切深色时页面跟着切
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme'))
+        document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+    });
   </script>
 </body>
 </html>
@@ -587,7 +596,9 @@ text-shadow:
 </style>
 ```
 
-### 13.3 滚动驱动动画（@scroll-timeline）
+### 13.3 滚动驱动动画（scroll-driven animations）
+
+> ⚠️ 旧提案的 `@scroll-timeline` at-rule **已废弃**——现行标准是下面这个 `animation-timeline` 属性写法。
 
 ```css
 @keyframes fadeIn {
@@ -601,19 +612,131 @@ text-shadow:
 }
 ```
 
-无需 JS、无需 IntersectionObserver，浏览器原生支持滚动动画。
+**支持度要心里有数**（caniuse 口径，2026-11）：Chrome / Edge（115+）完整支持；Firefox 新版本已跟进；**Safari 仍未落地**。做章项目（Apple/Stripe 页）时，面向 Safari 用户要么接受"静态也能看"（动画只是锦上添花，内容不依赖它），要么用 JS 兜底——最省事的兜底就是 IntersectionObserver 加个类：
 
----
+```javascript
+// 兜底：不支持 animation-timeline 时，进视口加 .in 类触发普通 transition
+const supported = CSS.supports('animation-timeline', 'view()');
+if (!supported) {
+  const io = new IntersectionObserver(es => es.forEach(e =>
+    e.isIntersecting && e.target.classList.add('in')), { threshold: 0.2 });
+  document.querySelectorAll('.section').forEach(el => io.observe(el));
+}
+```
+```css
+.section.in { opacity: 1; transform: none; transition: .6s ease; }
+```
+
+> 🎯 章项目 B/C 的**视差、滚动驱动缩放、GSAP/Lenis 完整工作流**见第 04 篇 §十六「章项目集成」——那里是主战场，本节先把 CSS 原生方案装进工具箱。
+
+### 13.4 两个漏补的现代特性：CSS 嵌套 与 subgrid
+
+**CSS 原生嵌套**（2023 起全浏览器可用，别再只会 Sass）：
+
+```css
+.card {
+  padding: 24px;
+  & h3 { margin: 0 0 8px; }              /* & = 父选择器 */
+  &:hover { box-shadow: 0 8px 24px #0002; }
+  .price { color: oklch(60% .2 145); }   /* 后代直接写 */
+}
+```
+
+**subgrid：让嵌套网格对齐父网格的列**。章项目里「卡片网格的标题/价格行跨卡对齐」就靠它：
+
+```css
+.grid  { display: grid; grid-template-columns: repeat(3, 1fr); }
+.card  { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
+/* 卡片内部的标题/正文/按钮三行，与父网格行列严格对齐——
+   不用 subgrid 就得硬编码行高，字体一换就错位 */
+```
+
+## 十四、T3 三件套：纯 CSS 手风琴 / 开关 / 步骤条
+
+总纲 T3 要求「仅 CSS」实现三个组件（模态框见 13.1），这里补齐——**核心思路全一样：把状态藏进 HTML（`<details>` / 表单控件 / :target），CSS 用 `:checked` / `:open` / `:has()` 响应状态**。
+
+### 14.1 手风琴（`<details>` 零 JS）
+
+```html
+<details class="acc" name="faq" open>          <!-- 同名 name = 互斥展开（2024 起全支持） -->
+  <summary>什么是语义化？</summary>
+  <p>标签选得准：h1 是标题不是"大号字"。</p>
+</details>
+<details class="acc" name="faq">
+  <summary>Flex 和 Grid 怎么选？</summary>
+  <p>一维 Flex，二维 Grid，混用很常见。</p>
+</details>
+```
+
+```css
+.acc { border-bottom: 1px solid #e5e5e5; }
+.acc summary { padding: 14px 0; cursor: pointer; font-weight: 600;
+               list-style: none; }              /* 去掉默认三角 */
+.acc summary::before { content: '＋'; margin-right: 8px; }
+.acc[open] summary::before { content: '－'; }
+.acc p { margin: 0 0 14px; color: #555; }
+```
+
+### 14.2 切换开关（`:checked` + 兄弟选择器）
+
+```html
+<label class="switch">
+  <input type="checkbox" id="dark">
+  <span class="track"></span> 深色模式
+</label>
+```
+
+```css
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; }     /* 藏原生框但保留可聚焦/可读 */
+.track { width: 44px; height: 24px; border-radius: 12px; background: #ccc;
+         position: relative; transition: .25s; }
+.track::after { content: ''; position: absolute; inset: 2px auto 2px 2px;
+                width: 20px; border-radius: 50%; background: #fff; transition: .25s; }
+.switch input:checked + .track { background: oklch(65% .2 255); }
+.switch input:checked + .track::after { transform: translateX(20px); }
+.switch input:focus-visible + .track { outline: 2px solid; outline-offset: 2px; }
+```
+
+### 14.3 步骤条（计数器 + 状态类）
+
+```html
+<ol class="steps">
+  <li class="done">注册</li><li class="cur">填资料</li><li>完成</li>
+</ol>
+```
+
+```css
+.steps { display: flex; padding: 0; counter-reset: s; list-style: none; }
+.steps li { flex: 1; text-align: center; position: relative; counter-increment: s; }
+.steps li::before {                        /* 圆圈 + 自动编号 */
+  content: counter(s);
+  display: grid; place-items: center;
+  width: 32px; height: 32px; margin: 0 auto 6px; border-radius: 50%;
+  background: #e5e5e5; color: #888; font-weight: 700;
+}
+.steps li::after {                         /* 连接线 */
+  content: ''; position: absolute; top: 16px; left: -50%; z-index: -1;
+  width: 100%; height: 2px; background: #e5e5e5;
+}
+.steps li:first-child::after { display: none; }
+.steps li.done::before { background: oklch(65% .2 145); content: '✓'; color: #fff; }
+.steps li.done::after  { background: oklch(65% .2 145); }
+.steps li.cur::before  { background: oklch(55% .2 255); color: #fff; }
+```
+
+> 💡 三个组件合起来就是「纯 CSS 交互」的全套心法：**状态在 HTML，样式靠伪类**。Tailwind 篇（04 篇 §四的 `peer-checked:` / `group-open:`）会把同一套逻辑翻译成工具类写法——两处对上号，T3 就闭环了。
 
 ## ✅ 周末 Checklist
 
 - [ ] 用 CSS 变量替换写死的颜色
-- [ ] 实现暗黑模式 + 平滑过渡
+- [ ] 实现暗黑模式 + 平滑过渡 + **系统偏好检测（matchMedia）**
 - [ ] 用 :has() 写过 1 次父选择器
 - [ ] 写过 @keyframes 动画
 - [ ] 知道 transform 比 left/top 性能好
-- [ ] 实现过纯 CSS 模态框/手风琴
+- [ ] **T3 四件全过：纯 CSS 模态框 / 手风琴 / 开关 / 步骤条（§13.1 + §十四）**
 - [ ] 知道毛玻璃怎么写
+- [ ] 用过 CSS 嵌套与 subgrid 各 1 次
 
 ## 🐛 本周常见错误
 
@@ -625,6 +748,7 @@ text-shadow:
 | 暗黑模式闪一下白屏 | JS 后才设置 | 头部内联脚本读 localStorage |
 | backdrop-filter 没效果 | 父元素背景不透明 | 设半透明背景或祖先无 overflow |
 | 动画结束后回弹 | 默认 animation-fill-mode: none | 加 `forwards` |
+| animation-timeline 没反应 | Safari 不支持 / 忘了 animation-range | 用 §13.3 的 IO 兜底 |
 
 ## 📚 资源
 
@@ -633,5 +757,6 @@ text-shadow:
 - clip-path 工具：https://bennettfeely.com/clippy
 - CSS-Tricks：https://css-tricks.com
 - 渐变生成：https://cssgradient.io
+- 滚动驱动动画规范与示例：https://developer.chrome.com/docs/css-ui/scroll-driven-animations
 
-下周用工具加速：Tailwind！
+下周用工具加速：Tailwind！章项目的还原工作流见第 04 篇 §十六。

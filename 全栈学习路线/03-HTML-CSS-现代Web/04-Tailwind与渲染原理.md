@@ -6,17 +6,19 @@ chapter_title: HTML / CSS 现代 Web
 order: 5
 week: 4
 duration: 7 天
+daily_hours: 2-3
+difficulty: ⭐⭐⭐
 prerequisites:
   - 第 03 篇
 goals:
-  - 用 Tailwind 一天写完一周的页面 + 看懂浏览器是怎么把 HTML 变成像素的。
+  - 用 Tailwind 一天写完一周的页面 + 看懂浏览器是怎么把 HTML 变成像素的 + 掌握像素级还原工作流（§十六）。
 outputs:
-  - 仿 Linear / Stripe 落地页
+  - 章项目 A（Linear 精做）骨架 + tokens 完成
 tags: [Tailwind, shadcn, 浏览器渲染, 性能优化, Lighthouse]
 prev: "[[03-CSS进阶与动画]]"
 next: "[[05-GitHub项目精选-CSS与设计]]"
 created: 2026-06-19
-updated: 2026-11-23
+updated: 2026-11-28
 ---
 
 # 第 04 篇 · Tailwind 与渲染原理
@@ -505,7 +507,7 @@ Chrome DevTools → Lighthouse → 跑分。
 <head>
 <meta charset="UTF-8">
 <title>Tailwind Card</title>
-<script src="https://cdn.tailwindcss.com"></script>   <!-- 临时玩用 CDN -->
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>   <!-- v4 浏览器版，临时玩用；正经项目用 §2.1 的 Vite 工程 -->
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
@@ -551,10 +553,134 @@ Chrome DevTools → Lighthouse → 跑分。
 跑完目标：
 ```
 Performance:    95+
-Accessibility:  100
+Accessibility:  95+     （100 是天花板，95 是可达成的工程目标）
 Best Practices: 100
 SEO:            100
 ```
+
+---
+
+## 十六、章项目集成：像素级还原工作流 🎨
+
+> 📌 总纲的章项目（还原 Linear / Stripe / Apple）需要的**全部新技能**在这一节：量取工作流、骨架先行法、GSAP/Lenis 滚动动效、截图对比验收、体积检查、部署。流程方法论的完整版另见 [[05-GitHub项目精选-CSS与设计]]「实战：像素级还原 Landing Page」。**本章节奏 = 4 周主线 + 1~2 周章项目**（总纲已按此调整）。
+
+### 16.1 量取：别用眼睛对，用 DevTools 对
+
+还原的第一步不是写代码，是**把设计稿变成数字**：
+
+```
+1. 截图定基准：目标站整页截图（Chrome DevTools 命令菜单 → "Capture full size screenshot"）
+2. 量间距/字号：右键 → 检查 → Computed 面板，直接读每个元素的 margin/padding/font-size/line-height
+   （比 Figma 标尺快——线上站点没有设计源文件）
+3. 取色板：Elements → 选中元素 → Computed 的 color 色块点开取色器复制
+4. 记字体：Computed → font-family；认不出来就查 WhatFont 浏览器插件
+5. 全部记进一张 tokens 表（间距阶 / 字号阶 / 色板 / 圆角 / 阴影）——
+   这张表直接变成 Tailwind v4 的 @theme 变量（§七学过）
+```
+
+> 💡 **2px 容差怎么校**：别肉眼比。左右分屏（一半原站截图一半你的页面，同宽同缩放）最糙但够用；精确法见 16.4 截图对比。
+
+### 16.2 骨架先行：先框后皮
+
+```
+第 1 步  语义骨架：header / main > section×N / footer，只有文字，无样式（01 篇的功夫）
+第 2 步  布局骨架：每个 section 用占位灰块排出 Flex/Grid 结构，先对"位置"不对"像素"
+第 3 步  上 tokens：@theme 灌入 16.1 的表，全局字体/颜色/间距一次到位
+第 4 步  填细节：真实文案、图片、图标（Lucide 免费，Linear 风图标就是它）
+第 5 步  动效：最后才加（动画改了布局尺寸会让前面的对位全部作废）
+```
+
+每步都提交一次 git——第 5 步搞砸了能回到第 4 步，而不是从头再来。
+
+### 16.3 滚动动效：CSS 原生 + GSAP/Lenis 最小教学
+
+章项目 B/C 指定 GSAP / ScrollTrigger / Lenis。三件套各给一个能跑的 demo：
+
+```bash
+npm create vite@latest stripe-clone -- --template vanilla
+cd stripe-clone && npm i gsap lenis
+```
+
+```javascript
+// src/main.js —— 三件套协作的最小骨架（Stripe 式：内容滚动 + 背景渐变视差）
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);          // 插件必须注册，且全局只注册一次
+
+// ① Lenis：接管原生滚动，做出"奶油感"（Apple 官网同款手感）
+const lenis = new Lenis({ lerp: 0.1 });      // lerp 越小越"滑"
+lenis.on('scroll', ScrollTrigger.update);    // 关键接线：Lenis 滚动时同步驱动 ScrollTrigger
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ② ScrollTrigger：把任意 tween 绑到滚动进度上
+gsap.from('.hero-card', {                      // 进场：元素进视口从下方浮入
+  y: 80, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'power2.out',
+  scrollTrigger: { trigger: '.hero', start: 'top 70%' },   // 视口 70% 处开始
+});
+
+gsap.to('.bg-gradient', {                      // 双层视差：背景比内容慢 = 深度感
+  yPercent: 30, ease: 'none',
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+});                                            // scrub:true = 动画进度跟着滚动条走
+
+// ③ 滚动驱动的文字渐显（Apple 产品页核心手法）
+gsap.utils.toArray('.section p').forEach((el) => {
+  gsap.from(el, { opacity: 0.15,
+    scrollTrigger: { trigger: el, start: 'top 80%', end: 'top 40%', scrub: true } });
+});
+```
+
+> 💡 **选择顺序**：简单进场动画用 03 篇 §13.3 的 CSS scroll-driven（零依赖，Safari 用户降级为静态）；**需要视差/scrub/时间线编排/跨浏览器一致**才上 GSAP——章项目 B/C 属于后者。Lenis 单独用只给"顺滑感"，和 ScrollTrigger 的接线（`lenis.on('scroll', ScrollTrigger.update)`）是新手最常漏的一行。
+> ⚠️ GSAP 2024 起免费含全部官方插件（Webflow 收购后全开源）；Lenis 是 MIT。两者 CDN 也能玩（`unpkg.com/gsap` + `unpkg.com/lenis`），但章项目用 npm + Vite，顺手练 02 章 08 篇的工程化。
+
+### 16.4 截图对比验收：轻量法优先
+
+总纲验收已改为两档，按需选一档即可：
+
+**档位 1（推荐，零安装）——DevTools 叠图法**：
+1. 原站整页截图存为 `ref.png`
+2. 你的页面加一层比对：`<img src="ref.png" style="position:fixed;inset:0;opacity:.5;pointer-events:none">`
+3. 半透明叠着看：错位的地方一眼可见，调完删掉这行
+
+**档位 2（进阶）——BackstopJS**：
+```bash
+npm i -D backstopjs
+npx backstop init            # 生成 backstop.json，把 referenceUrl 填原站、
+                             # testUrl 填本地 http://localhost:5173，viewport 1440×900
+npx backstop reference       # 截基准图（原站）
+npx backstop test            # 截你的页面并 diff，report/ 里看红绿
+# 默认阈值 0.1% 像素差太苛刻——backstop.json 里调 misMatchThreshold: 0.1→10（即 90% 相似）
+```
+
+### 16.5 体积与部署：验收最后两关
+
+```bash
+# JS 总大小（验收要求 <100KB gzip）：
+npx vite build && npx vite preview
+# dist/ 里看产物；精确 gzip 数：
+ls -l dist/assets/*.js          # 原始大小
+gzip -kf dist/assets/index-*.js && ls -l dist/assets/*.gz   # gzip 后（Windows 用 Git Bash 或看 Vite 构建输出）
+# 参考：gsap+ScrollTrigger 按需引入 ≈ 30-40KB gzip，lenis ≈ 8KB，你的代码 <10KB —— 达标有余
+
+# 部署（三行）：
+npm i -g vercel
+vercel --prod                   # 首次登录授权，产物直接给公网 URL
+```
+
+> 💡 Vercel 对 Vite 零配置（自动识别 build 命令）。部署后把公网 URL 贴进 README——这就是你简历上的第一个"能点开的作品"。
+
+### 16.6 项目分工与工时（4+2 周口径）
+
+| 项目 | 难度 | 建议工时 | 新技能点 |
+|---|---|---|---|
+| **A：Linear 落地页（精做，必做）** | ⭐⭐ | 8-10h | 16.1-16.2 全流程 + 16.4 叠图验收 |
+| B：Stripe 渐变视差（选做） | ⭐⭐⭐ | 6-8h | 16.3 GSAP scrub + 双层视差 |
+| C：Apple AirPods 滚动叙事（选做，可推迟到 04 章后） | ⭐⭐⭐⭐ | 12h+ | 16.3 全家桶 + 视频同步 |
+
+精做 A 一个，比三个都糊一遍**有用得多**——「像素级」的手感是在一个页面上反复对 2px 磨出来的。
 
 ---
 
@@ -568,6 +694,7 @@ SEO:            100
 - [ ] 知道哪些属性触发 layout/paint/composite
 - [ ] 会读 Lighthouse 报告
 - [ ] Web Vitals 三大指标背得出
+- [ ] **按 §十六 完成章项目 A（Linear 精做）的骨架+tokens+叠图验收**
 
 ## 🐛 本周常见错误
 
@@ -600,7 +727,10 @@ SEO:            100
 - 写出语义化、可访问、SEO 友好的 HTML 页面
 - 不查文档用 Flex/Grid 做任意布局
 - 实现暗黑模式、动画、毛玻璃等现代视觉效果
-- 用 Tailwind 1 小时搭出精致界面
+- 用 Tailwind v4 一天搭出精致界面
 - 把页面 Lighthouse 跑到 95+
+- **按 §十六 的工作流还原真实站点**（量取 → 骨架 → tokens → 动效 → 叠图验收 → 部署）
+
+**章项目进行中？** 别停——§16.6 的工时表就是你的排期。做完 Linear 精做版再进下一章。
 
 **下一章预告**：第 04 章 React/Next.js —— 让网页变成真正的"应用"。

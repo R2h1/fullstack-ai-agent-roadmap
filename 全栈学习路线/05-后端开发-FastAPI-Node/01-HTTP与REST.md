@@ -1,7 +1,7 @@
 ---
 title: HTTP 与 REST
 type: weekly-tutorial
-chapter: "05"
+chapter: '05'
 chapter_title: 后端 FastAPI + Node
 order: 2
 week: 1
@@ -16,8 +16,8 @@ goals:
   - 用 curl/HTTPie 调试任意 REST API
 outputs:
   - 第一个 API
-prev: "[[00-后端总纲]]"
-next: "[[02-FastAPI入门]]"
+prev: '[[00-后端总纲]]'
+next: '[[02-FastAPI入门]]'
 created: 2026-06-19
 updated: 2026-06-19
 ---
@@ -48,6 +48,7 @@ Content-Length: 58
 ```
 
 四部分：
+
 1. **请求行**：`method  路径  协议版本`
 2. **Headers**：每行 `Key: Value`，一直到空行
 3. **空行**（必须）
@@ -67,17 +68,17 @@ Location: /api/articles/42
 
 ## 2. 9 大方法与幂等性
 
-| 方法 | 用途 | 安全 | 幂等 | 有 Body |
-|---|---|---|---|---|
-| GET | 读取资源 | 是 | 是 | 否 |
-| HEAD | 只取响应头 | 是 | 是 | 否 |
-| OPTIONS | 询问支持的方法（CORS 预检） | 是 | 是 | 否 |
-| POST | 创建资源 / 触发动作 | 否 | **否** | 是 |
-| PUT | 整体替换资源 | 否 | 是 | 是 |
-| PATCH | 局部更新 | 否 | 否（约定俗成不保证） | 是 |
-| DELETE | 删除资源 | 否 | 是 | 否 |
-| TRACE | 调试回显 | 是 | 是 | 否 |
-| CONNECT | 建立隧道（HTTPS 代理） | 否 | 否 | 否 |
+| 方法    | 用途                        | 安全 | 幂等                 | 有 Body |
+| ------- | --------------------------- | ---- | -------------------- | ------- |
+| GET     | 读取资源                    | 是   | 是                   | 否      |
+| HEAD    | 只取响应头                  | 是   | 是                   | 否      |
+| OPTIONS | 询问支持的方法（CORS 预检） | 是   | 是                   | 否      |
+| POST    | 创建资源 / 触发动作         | 否   | **否**               | 是      |
+| PUT     | 整体替换资源                | 否   | 是                   | 是      |
+| PATCH   | 局部更新                    | 否   | 否（约定俗成不保证） | 是      |
+| DELETE  | 删除资源                    | 否   | 是                   | 否      |
+| TRACE   | 调试回显                    | 是   | 是                   | 否      |
+| CONNECT | 建立隧道（HTTPS 代理）      | 否   | 否                   | 否      |
 
 **幂等（idempotent）**：同样请求发 1 次或 N 次，服务器最终状态相同。GET 当然幂等；DELETE 也是幂等的（删第二次只是 404）；PUT 把资源整体替换为某个值，自然幂等；POST 每次创建一个新资源，所以**不幂等**。
 
@@ -86,6 +87,7 @@ Location: /api/articles/42
 ## 3. 状态码地图
 
 记住"百位数语义"：
+
 - **1xx** 信息（很少见）
 - **2xx** 成功
 - **3xx** 重定向
@@ -94,23 +96,23 @@ Location: /api/articles/42
 
 必背 16 个：
 
-| 码 | 含义 | 何时用 |
-|---|---|---|
-| 200 OK | 通用成功 | GET 成功 |
-| 201 Created | 已创建 | POST 创建资源后，配合 `Location` |
-| 204 No Content | 成功但无返回 | DELETE 成功 |
-| 301 / 302 | 永久 / 临时重定向 | 旧 URL 搬家 |
-| 304 Not Modified | 未变更（缓存有效） | 带 If-None-Match 时 |
-| 400 Bad Request | 请求格式错 | JSON 解析失败 |
-| 401 Unauthorized | 未认证 | 没带或带错 Token |
-| 403 Forbidden | 已认证但无权限 | 普通用户访问管理员接口 |
-| 404 Not Found | 资源不存在 | id 找不到 |
-| 409 Conflict | 冲突 | 注册重名邮箱 |
-| 422 Unprocessable | 校验失败 | Pydantic / Zod 校验未过 |
-| 429 Too Many Requests | 限流 | 刷接口被挡 |
-| 500 Internal Server Error | 服务器自身 bug | 未捕获异常 |
-| 502 Bad Gateway | 网关上游错 | Nginx 后端挂了 |
-| 503 Service Unavailable | 服务不可用 | 维护中、过载 |
+| 码                        | 含义               | 何时用                           |
+| ------------------------- | ------------------ | -------------------------------- |
+| 200 OK                    | 通用成功           | GET 成功                         |
+| 201 Created               | 已创建             | POST 创建资源后，配合 `Location` |
+| 204 No Content            | 成功但无返回       | DELETE 成功                      |
+| 301 / 302                 | 永久 / 临时重定向  | 旧 URL 搬家                      |
+| 304 Not Modified          | 未变更（缓存有效） | 带 If-None-Match 时              |
+| 400 Bad Request           | 请求格式错         | JSON 解析失败                    |
+| 401 Unauthorized          | 未认证             | 没带或带错 Token                 |
+| 403 Forbidden             | 已认证但无权限     | 普通用户访问管理员接口           |
+| 404 Not Found             | 资源不存在         | id 找不到                        |
+| 409 Conflict              | 冲突               | 注册重名邮箱                     |
+| 422 Unprocessable         | 校验失败           | Pydantic / Zod 校验未过          |
+| 429 Too Many Requests     | 限流               | 刷接口被挡                       |
+| 500 Internal Server Error | 服务器自身 bug     | 未捕获异常                       |
+| 502 Bad Gateway           | 网关上游错         | Nginx 后端挂了                   |
+| 503 Service Unavailable   | 服务不可用         | 维护中、过载                     |
 
 **401 vs 403 永远搞混**：401 = "你是谁？"，403 = "我知道你是谁，但你不行。"
 
@@ -136,6 +138,7 @@ Location: /api/articles/42
 ## 5. HTTPS 与 TLS（30 秒版）
 
 明文 HTTP 谁都能偷看。HTTPS = HTTP + TLS。TLS 握手简化：
+
 1. 客户端打招呼：我支持哪些加密套件 + 一个随机数
 2. 服务端：选定套件 + 证书（含公钥）+ 一个随机数
 3. 客户端验证证书（CA 签的吗？域名对吗？没过期吗？），生成"预主密钥"，用公钥加密发回
@@ -175,6 +178,7 @@ Roy Fielding 2000 年博士论文提出的 6 条架构约束：
 ## 8. OpenAPI 3.1（API 的"图纸"）
 
 OpenAPI 是描述 REST API 的 YAML/JSON 规范，写完可以：
+
 - 自动生成文档（Swagger UI / Redoc）
 - 自动生成客户端 SDK（任意语言）
 - Mock 服务、契约测试
@@ -267,12 +271,14 @@ curl -I -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/users/octoca
 ### 任务 B：设计博客 REST API
 
 资源：User / Article / Comment / Tag。要求：
+
 - 用 OpenAPI 3.1 描述至少 8 个端点
 - 包含分页、排序、过滤
 - 给出 4 个错误响应（401/403/404/422）
 - 用 [editor.swagger.io](https://editor.swagger.io) 在线校验通过
 
 提示端点：
+
 ```
 POST   /auth/register
 POST   /auth/login

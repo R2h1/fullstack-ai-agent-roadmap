@@ -105,7 +105,7 @@ updated: 2026-11-23
 | **00** | [学习方法论](全栈学习路线/00-学习方法论/) | 2-3 周 | 学习仪表盘（HTML 进度页）+ 学习契约 + 8 项考核 | 9 |
 | **01** | [Python 从零到源码](全栈学习路线/01-Python-从零到源码/) | 10 周 | `my-spider-cli` 异步爬虫 + PyPI 发布 | 13 |
 | **02** | [JavaScript 从零到源码](全栈学习路线/02-JavaScript-从零到源码/) | 10 周 | `mini-lodash` + 在线代码沙盒 | 12 |
-| **03** | [HTML/CSS 现代 Web](全栈学习路线/03-HTML-CSS-现代Web/) | 4 周 | 像素级还原 3 个真实站点（Linear / Stripe / Apple） | 6 |
+| **03** | [HTML/CSS 现代 Web](全栈学习路线/03-HTML-CSS-现代Web/) | 4+2 周 | 像素级还原 Linear（精做）+ Stripe / Apple（选做） | 6 |
 | **04** | [React 从使用到源码](全栈学习路线/04-前端框架-React/) | 10 周 | 在线协作白板 + 手写 mini-react（Fiber + Hooks） | 12 |
 | **05** | [后端 FastAPI + Node](全栈学习路线/05-后端开发-FastAPI-Node/) | 8 周 | RealWorld Conduit 后端 + 实时聊天 | 10 |
 | **06** | [数据库 + 工程化](全栈学习路线/06-数据库与工程化/) | 6 周 | `mini-twitter` 高并发短文社区 | 8 |

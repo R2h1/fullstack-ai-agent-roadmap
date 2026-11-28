@@ -6,6 +6,8 @@ chapter_title: HTML / CSS 现代 Web
 order: 2
 week: 1
 duration: 7 天
+daily_hours: 2
+difficulty: ⭐⭐
 prerequisites: []
 goals:
   - 能从零写出**结构清晰、对搜索引擎和盲人用户都友好**的网页。
@@ -15,7 +17,7 @@ tags: [HTML5, 语义化, 表单, 可访问性, SEO]
 prev: "[[00-HTML-CSS总纲]]"
 next: "[[02-CSS基础与Flex-Grid]]"
 created: 2026-06-19
-updated: 2026-11-22
+updated: 2026-11-28
 ---
 
 # 第 01 篇 · HTML5 与可访问性
@@ -331,7 +333,7 @@ updated: 2026-11-22
 | 属性 | 作用 |
 |------|------|
 | `alt` | 图加载失败时显示的文字 + 屏幕阅读器朗读 |
-| `loading="lazy"` | 滚到附近才加载，**首屏快 50%** |
+| `loading="lazy"` | 滚到附近才加载，长页面首屏明显变快（省的是屏外图片的全部流量） |
 | `srcset` | 自动选合适尺寸 |
 | `width/height` | 防止"加载时跳动"（CLS） |
 
@@ -423,6 +425,9 @@ Sitemap: https://example.com/sitemap.xml
 <meta property="og:description" content="全栈工程师">
 <meta property="og:image" content="https://example.com/cover.png">
 <meta property="og:url" content="https://example.com">
+<!-- Twitter/X 专用卡（可选增强；多数平台已直接读 OG，加这两行更稳） -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@zhangsan">
 ```
 
 ### 8.4 JSON-LD（结构化数据）
@@ -548,8 +553,9 @@ Sitemap: https://example.com/sitemap.xml
 
 - MDN HTML 参考：https://developer.mozilla.org/zh-CN/docs/Web/HTML
 - W3C 校验：https://validator.w3.org/
-- 可访问性自查工具：axe DevTools（Chrome 扩展）
+- 可访问性自查工具：axe DevTools（Chrome 扩展）；T1 用的 WAVE：https://wave.webaim.org/
 - Schema.org：https://schema.org/
 - HTML 模板生成：emmet 速记法（VS Code 自带）
+- 浏览器 API（IntersectionObserver / Web Storage 等）的教学在第 02 章第 06 篇《DOM 与事件》，本章 demo 直接引用那边的知识
 
 下周开始上"妆"——CSS 见！

@@ -9,7 +9,7 @@ tags: [github, html, css, tailwind, shadcn, design-system, 项目精选]
 prev: "[[04-Tailwind与渲染原理]]"
 next: "[[全栈学习路线/04-前端框架-React/00-React总纲]]"
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-11-28
 ---
 
 # 📦 GitHub 项目精选：CSS 与现代设计
@@ -32,7 +32,7 @@ updated: 2026-06-19
 - **链接**：<https://www.frontendmentor.io>
 - **是什么**：每周提供真实 Figma 设计稿，让你独立还原成代码。
 - **为什么必学**：CSS 学不进去 90% 是因为没有「目标参照物」。这里把目标给你了。
-- **建议刷法**：从 Newbie 级别开始，每天 1 个，做满 20 个再看 Junior 难度。
+- **建议刷法**：从 Newbie 级别开始，每天 1 个——完成总纲 T2 的 5 个是底线，有余力刷到 20 个再碰 Junior 难度。
 
 ### `bradtraversy/50projects50days` · ~37k ⭐
 - **链接**：<https://github.com/bradtraversy/50projects50days>
@@ -197,7 +197,7 @@ updated: 2026-06-19
 3. **Vercel 风格**：`vercel/examples`、`steven-tey/precedent`
 4. **Apple 风格**：`shadcn` 的个人作品集 `shadcn/shadcn.com`
 
-**还原方法论**：
+**还原方法论**（完整版含工具操作与验收流程，见第 04 篇 §十六「章项目集成」）：
 - 第 1 天：截图 + 用 Figma 量出所有间距、字号
 - 第 2 天：搭骨架（HTML 语义 + Tailwind 容器）
 - 第 3 天：填内容 + 字体（注意字间距 letter-spacing）
@@ -209,6 +209,8 @@ updated: 2026-06-19
 ---
 
 ## 📑 一周学习路径建议
+
+> 📌 这一周对应总纲「4+2 周」里的**章项目周**（第 5~6 周）——是主线学完后的练习周，不是额外加课。Day 5 的还原任务即章项目 A，工作流照第 04 篇 §十六执行。
 
 | 天 | 任务 |
 |---|---|
